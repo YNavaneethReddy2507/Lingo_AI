@@ -96,8 +96,10 @@ class AIKnowledgeBot:
                 "module_e": ["computer vision", "module e"],
                 "module_f": ["knowledge-based", "expert systems", "module f"],
                 "module_g": ["search", "planning", "robotics", "module g"],
-                "module_h": ["generative ai", "genai", "module h"],
-                "module_a": ["fundamentals", "history", "module a"],
+                "module_h": ["generative ai", "genai", "gans", "gan", "module h"],
+                "module_a": ["fundamentals", "history", "scratch", "module a"],
+                "module_i": ["mathematics", "linear algebra", "calculus", "probability", "module i"],
+                "module_j": ["agents", "agentic", "mlops", "multimodal", "module j"],
             }
             for mid, kws in module_keywords.items():
                 if any(kw in norm_text for kw in kws):

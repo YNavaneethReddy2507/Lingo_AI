@@ -131,3 +131,41 @@ def test_repeat_clarify(bot):
     resp_repeat = bot.process_message("Repeat that please.")
     assert resp_repeat.intent == Intent.REPEAT_CLARIFY
     assert "K-Means" in resp_repeat.text
+
+
+def test_gan_queries(bot):
+    # What is a GAN?
+    resp_gan = bot.process_message("What is a GAN?")
+    assert resp_gan.matched_topic is not None
+    assert resp_gan.matched_topic.id == "gan_fundamentals"
+    assert "Generator" in resp_gan.text and "Discriminator" in resp_gan.text
+
+    # DCGAN
+    resp_dcgan = bot.process_message("Explain DCGAN.")
+    assert resp_dcgan.matched_topic is not None
+    assert resp_dcgan.matched_topic.id == "gan_dcgan"
+
+    # WGAN
+    resp_wgan = bot.process_message("Explain Wasserstein GAN.")
+    assert resp_wgan.matched_topic is not None
+    assert resp_wgan.matched_topic.id == "gan_wgan"
+
+    # Mode Collapse
+    resp_mc = bot.process_message("What is mode collapse?")
+    assert resp_mc.matched_topic is not None
+    assert resp_mc.matched_topic.id == "gan_training_instability"
+
+    # VAE
+    resp_vae = bot.process_message("Explain Variational Autoencoders.")
+    assert resp_vae.matched_topic is not None
+    assert resp_vae.matched_topic.id == "genai_vae"
+
+    # Diffusion models
+    resp_diff = bot.process_message("Tell me about diffusion models.")
+    assert resp_diff.matched_topic is not None
+    assert resp_diff.matched_topic.id == "genai_diffusion_models"
+
+    # AI Agents
+    resp_agent = bot.process_message("What is the ReAct framework in AI agents?")
+    assert resp_agent.matched_topic is not None
+    assert resp_agent.matched_topic.id == "agents_react_tool_calling"

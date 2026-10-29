@@ -104,5 +104,57 @@ QUIZ_QUESTIONS = [
         ],
         "answer_index": 1,
         "explanation": "RAG injects relevant real-time or proprietary knowledge passages directly into the prompt context, grounding language models in verified facts and eliminating confabulations."
+    },
+    {
+        "id": "q9",
+        "module": "Module H — Generative AI & GANs",
+        "question": "What is 'Mode Collapse' in Generative Adversarial Networks (GANs)?",
+        "options": [
+            "When the generator crashes due to a CUDA out-of-memory error.",
+            "When the generator produces only a limited subset or single variety of outputs that deceive the discriminator, ignoring other data modes.",
+            "When the discriminator achieves 100% accuracy on every training epoch.",
+            "When latent vectors z are initialized with uniform rather than Gaussian noise."
+        ],
+        "answer_index": 1,
+        "explanation": "Mode collapse occurs when the generator finds one or a few modes that consistently fool the discriminator and concentrates all probability mass there, producing identical outputs regardless of the input noise vector."
+    },
+    {
+        "id": "q10",
+        "module": "Module H — Generative AI & GANs",
+        "question": "Why does Wasserstein GAN (WGAN) overcome the vanishing gradient problem present in standard GANs?",
+        "options": [
+            "WGAN uses larger batch sizes than standard GANs.",
+            "WGAN minimizes the continuous Earth Mover's (Wasserstein-1) Distance, providing smooth linear gradients everywhere even when real and fake distributions do not overlap.",
+            "WGAN replaces neural networks with decision trees.",
+            "WGAN removes the Generator entirely."
+        ],
+        "answer_index": 1,
+        "explanation": "Standard GANs minimize Jensen-Shannon divergence, which is constant (discontinuous) when distributions have disjoint support. Earth Mover's Distance is continuous and differentiable everywhere, providing clean non-vanishing gradients."
+    },
+    {
+        "id": "q11",
+        "module": "Module H — Generative AI & GANs",
+        "question": "In Denoising Diffusion Probabilistic Models (DDPM), what is the neural network (U-Net) trained to predict during the reverse process?",
+        "options": [
+            "The final high-resolution RGB image directly in one step.",
+            "The Gaussian noise that was added to the image at timestep t.",
+            "The discriminator's confidence probability score.",
+            "The bounding box coordinates of objects in the scene."
+        ],
+        "answer_index": 1,
+        "explanation": "Diffusion models train a U-Net to predict the exact noise epsilon added at timestep t; by subtracting this predicted noise iteratively over many steps, the model converts pure Gaussian noise back into a clean image."
+    },
+    {
+        "id": "q12",
+        "module": "Module J — AI Agents & Engineering",
+        "question": "In the ReAct (Reasoning + Acting) agent framework, what occurs during the 'Action' step?",
+        "options": [
+            "The model halts execution and requests human intervention.",
+            "The model selects and invokes an external tool or API with structured parameters based on its internal reasoning.",
+            "The model updates its neural network weights via backpropagation.",
+            "The model translates text into another natural language."
+        ],
+        "answer_index": 1,
+        "explanation": "In ReAct, after reasoning (Thought), the agent executes an Action by calling tools (calculators, SQL databases, search engines) and ingests the tool's output (Observation) to make progress toward the user goal."
     }
 ]

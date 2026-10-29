@@ -197,6 +197,57 @@
         "Explain Responsible AI.",
         "What are the limitations of Deep Learning?"
       ]
+    },
+    {
+      "id": "ai_scratch_computational",
+      "name": "Scratch AI & Computational Thinking Foundations",
+      "category": "Module A — AI Fundamentals",
+      "category_id": "module_a",
+      "aliases": [
+        "scratch ai",
+        "computational thinking",
+        "visual programming ai",
+        "machine learning for kids",
+        "teachable machine",
+        "block based ai"
+      ],
+      "keywords": [
+        "scratch",
+        "computational thinking",
+        "decomposition",
+        "pattern recognition",
+        "abstraction",
+        "algorithm design",
+        "block-based",
+        "teachable machine"
+      ],
+      "definition": "Computational thinking is the problem-solving methodology comprising decomposition, pattern recognition, abstraction, and algorithm design that forms the intellectual bedrock for building AI, often introduced through visual block-based environments like Scratch.",
+      "explanation": "Before writing complex Python tensors or mathematical proofs, foundational AI concepts can be understood through Computational Thinking: (1) Decomposition: breaking complex tasks into manageable sub-problems; (2) Pattern Recognition: observing trends and regularities in data; (3) Abstraction: filtering out irrelevant details to focus on core principles; (4) Algorithm Design: creating step-by-step rules to solve problems. Scratch AI extensions (e.g. MIT Scratch with Machine Learning for Kids, Google Teachable Machine) allow learners to train image, audio, or pose classification models using webcams and assemble block-based rule engines without syntax barriers.",
+      "example": "A student using Scratch and Google Teachable Machine to train a visual classifier that recognizes hand gestures (Thumbs Up / Thumbs Down) to steer a virtual animated game sprite.",
+      "formula": "",
+      "algorithm_steps": [
+        "Decompose task: separate user interaction, sensory perception, and actuation logic",
+        "Collect training examples via webcam or microphone across distinct gesture/voice classes",
+        "Train lightweight k-NN or MobileNet model visually in browser",
+        "Export trained model into Scratch visual blocks: 'When gesture is [Thumbs Up] do [Jump]'",
+        "Test interactive game loop and refine misclassified samples"
+      ],
+      "advantages": [
+        "Democratizes AI education without requiring mathematics or programming syntax prerequisites",
+        "Reinforces core concepts of data collection, labeling, training, and inference visually"
+      ],
+      "limitations": [
+        "Limited to basic perceptual classification models; cannot build custom deep architectures"
+      ],
+      "applications": [
+        "K-12 STEM education, introductory AI literacy workshops, rapid visual prototyping"
+      ],
+      "related_topics": ["ai_definition", "ai_agents_environments", "ml_supervised"],
+      "suggested_followups": [
+        "What are the four pillars of computational thinking?",
+        "How does Teachable Machine work?",
+        "What is Supervised Learning?"
+      ]
     }
   ]
 }

@@ -1,0 +1,212 @@
+{
+  "module_id": "module_i",
+  "module_name": "Module I — Mathematics & Programming Foundations for AI",
+  "description": "Mathematical pillars and computational foundations: Linear Algebra, Multivariate Calculus, Probability, Statistics, and Python scientific tensor computing.",
+  "topics": [
+    {
+      "id": "math_linear_algebra",
+      "name": "Linear Algebra for Artificial Intelligence",
+      "category": "Module I — Mathematics & Programming Foundations for AI",
+      "category_id": "module_i",
+      "aliases": [
+        "linear algebra",
+        "linear algebra for ai",
+        "vectors and matrices",
+        "matrix multiplication",
+        "eigenvalues",
+        "eigenvectors",
+        "svd in ai"
+      ],
+      "keywords": [
+        "linear algebra",
+        "vectors",
+        "matrices",
+        "dot product",
+        "matrix multiplication",
+        "eigenvalues",
+        "eigenvectors",
+        "rank",
+        "svd",
+        "tensors"
+      ],
+      "definition": "Linear algebra is the branch of mathematics concerning vector spaces, linear mappings, and matrix transformations that provides the fundamental computational language for all neural networks and machine learning.",
+      "explanation": "Every data sample in machine learning is represented as a high-dimensional vector in R^d, and operations in neural networks are fundamentally sequences of linear matrix multiplications interleaved with non-linear activations. Core concepts include: (1) Dot Products: geometric measure of alignment and projection; (2) Matrix Multiplication: linear transformations rotating, scaling, or shearing coordinate spaces; (3) Matrix Rank and Inversion: determining solvability of linear systems; (4) Eigenvalues and Eigenvectors (Av = lambda*v): axes where transformations act as pure scalar scaling without direction change, vital for PCA; (5) Singular Value Decomposition (SVD): factorizing any matrix X = U Sigma V^T, central to dimensionality reduction and recommender systems.",
+      "example": "Passing a batch of 64 word embeddings of dimension 768 through a projection matrix of shape (768, 2048) computed as a single GPU matrix multiplication.",
+      "formula": "A v = \\lambda v, \\quad X = U \\Sigma V^T, \\quad \\vec{u} \\cdot \\vec{v} = \\sum_{i=1}^n u_i v_i = \\|u\\| \\|v\\| \\cos(\\theta)",
+      "algorithm_steps": [
+        "Represent dataset instances as rows in feature matrix X of shape (N, D)",
+        "Compute inner products or affine transformations: Y = X * W + b",
+        "Perform spectral decomposition or SVD to extract dominant variance axes",
+        "Normalize matrix representations using Frobenius or L2 norms for stability"
+      ],
+      "advantages": [
+        "Enables massive parallelization across tens of thousands of GPU tensor cores",
+        "Provides rigorous geometric intuition for high-dimensional representations"
+      ],
+      "limitations": [
+        "Pure linear algebra cannot capture non-linear relationships without non-linear activations"
+      ],
+      "applications": [
+        "Attention mechanisms in Transformers, word embeddings, image filters, PCA"
+      ],
+      "related_topics": ["ml_pca", "dl_neurons_layers", "math_calculus_optimization"],
+      "suggested_followups": [
+        "What are Eigenvalues and Eigenvectors in AI?",
+        "What is Singular Value Decomposition (SVD)?",
+        "Why are GPUs optimized for matrix multiplication?"
+      ]
+    },
+    {
+      "id": "math_calculus_optimization",
+      "name": "Multivariate Calculus & Mathematical Optimization",
+      "category": "Module I — Mathematics & Programming Foundations for AI",
+      "category_id": "module_i",
+      "aliases": [
+        "calculus for ai",
+        "multivariate calculus",
+        "gradients and hessians",
+        "jacobian matrix",
+        "optimization in ai"
+      ],
+      "keywords": [
+        "calculus",
+        "derivatives",
+        "partial derivatives",
+        "gradient",
+        "jacobian",
+        "hessian",
+        "convex optimization",
+        "chain rule"
+      ],
+      "definition": "Multivariate calculus provides the mathematical tools (partial derivatives, gradients, Jacobians, and Hessians) to quantify how model loss changes with respect to parameters, guiding optimization algorithms.",
+      "explanation": "Machine learning training is mathematically framed as optimizing an objective function min_theta L(theta): (1) Gradient: vector of all partial derivatives [dL/dw1, ..., dL/dwn] pointing in the direction of steepest loss ascent; (2) Chain Rule: rule of calculus for computing derivatives of composite functions, which powers neural backpropagation; (3) Jacobian Matrix: matrix of all first-order partial derivatives of a vector-valued function; (4) Hessian Matrix: square matrix of second-order partial derivatives describing the local curvature (convexity) of the loss surface. First-order optimizers use gradients (SGD, Adam), while second-order methods use Hessians (Newton-Raphson, L-BFGS, XGBoost).",
+      "example": "Using the chain rule in backpropagation to compute how changing weight w in layer 1 alters cross-entropy loss L through 50 intermediate hidden layers.",
+      "formula": "\\nabla f = \\left[ \\frac{\\partial f}{\\partial x_1}, \\dots, \\frac{\\partial f}{\\partial x_n} \\right]^T, \\quad H_{ij} = \\frac{\\partial^2 f}{\\partial x_i \\partial x_j}, \\quad \\frac{\\partial z}{\\partial x} = \\frac{\\partial z}{\\partial y} \\cdot \\frac{\\partial y}{\\partial x}",
+      "algorithm_steps": [
+        "Define scalar loss function L(theta) measuring prediction discrepancy",
+        "Construct directed computational graph of mathematical operations",
+        "Compute local analytic derivatives along each graph edge",
+        "Propagate error backwards using the chain rule to accumulate gradient vector nabla L",
+        "Update parameters in opposite direction: theta = theta - eta * nabla L"
+      ],
+      "advantages": [
+        "Enables automatic differentiation (autograd) to train models with hundreds of billions of weights"
+      ],
+      "limitations": [
+        "Non-convex loss surfaces contain local minima, saddle points, and plateaus that hinder optimization"
+      ],
+      "applications": [
+        "Automatic differentiation in PyTorch/TensorFlow, gradient descent, second-order boosting"
+      ],
+      "related_topics": ["dl_backprop", "dl_gradient_descent", "math_linear_algebra"],
+      "suggested_followups": [
+        "What is the Jacobian Matrix vs Hessian Matrix?",
+        "How does the Chain Rule power backpropagation?",
+        "What is a Convex vs Non-Convex optimization problem?"
+      ]
+    },
+    {
+      "id": "math_probability_statistics",
+      "name": "Probability & Statistics for Machine Learning",
+      "category": "Module I — Mathematics & Programming Foundations for AI",
+      "category_id": "module_i",
+      "aliases": [
+        "probability for ai",
+        "statistics for machine learning",
+        "bayes theorem in ai",
+        "maximum likelihood estimation",
+        "mle and map"
+      ],
+      "keywords": [
+        "probability",
+        "statistics",
+        "bayes rule",
+        "prior",
+        "posterior",
+        "likelihood",
+        "mle",
+        "map",
+        "gaussian distribution",
+        "entropy"
+      ],
+      "definition": "Probability and statistics formalize reasoning under uncertainty, quantifying randomness, noise, and probabilistic hypotheses in data modeling and parameter estimation.",
+      "explanation": "Real-world data is inherently noisy and stochastic. Key probabilistic concepts: (1) Random Variables & Probability Distributions: Gaussian (Normal), Bernoulli, Binomial, Poisson; (2) Bayes' Theorem: updating prior beliefs based on observed empirical evidence P(theta|D) = P(D|theta)P(theta) / P(D); (3) Maximum Likelihood Estimation (MLE): finding parameter theta that maximizes the probability of observing training data D; (4) Maximum A Posteriori (MAP): incorporates prior distributions, connecting mathematically to L2/L1 regularization; (5) Information Theory: Shannon Entropy (measure of uncertainty) and Cross-Entropy loss (distance between true and predicted distributions).",
+      "example": "Fitting a Gaussian Naive Bayes classifier where feature probabilities are modeled using normal probability density functions N(mu, sigma^2).",
+      "formula": "P(A \\mid B) = \\frac{P(B \\mid A)P(A)}{P(B)}, \\quad \\hat{\\theta}_{\\text{MLE}} = \\arg\\max_\\theta \\sum_{i=1}^n \\log p(x_i \\mid \\theta)",
+      "algorithm_steps": [
+        "Formulate probabilistic generative or discriminative hypothesis class",
+        "Specify likelihood function P(Data | theta)",
+        "Take log of likelihood to convert products into numerically stable sums",
+        "Differentiate log-likelihood with respect to theta and set to zero (MLE)",
+        "Evaluate model uncertainty using confidence intervals or Bayesian posteriors"
+      ],
+      "advantages": [
+        "Allows AI systems to express calibrated confidence scores rather than blind deterministic guesses",
+        "Provides sound theoretical justification for cross-entropy and mean-squared error losses"
+      ],
+      "limitations": [
+        "Prior probability assumptions in Bayesian inference can introduce subjective bias if misspecified"
+      ],
+      "applications": [
+        "Classification loss functions, Naive Bayes, Hidden Markov Models, VAEs, Kalman filtering"
+      ],
+      "related_topics": ["ml_naive_bayes", "genai_vae", "nlp_hmm"],
+      "suggested_followups": [
+        "What is Maximum Likelihood Estimation (MLE)?",
+        "What is the difference between MLE and MAP estimation?",
+        "How is Cross-Entropy derived from Information Theory?"
+      ]
+    },
+    {
+      "id": "python_ai_foundations",
+      "name": "Python & Scientific Computing for AI (NumPy, PyTorch & Tensors)",
+      "category": "Module I — Mathematics & Programming Foundations for AI",
+      "category_id": "module_i",
+      "aliases": [
+        "python for ai",
+        "numpy for ai",
+        "pytorch foundations",
+        "tensor computing",
+        "vectorization in python"
+      ],
+      "keywords": [
+        "python",
+        "numpy",
+        "pytorch",
+        "tensors",
+        "broadcasting",
+        "vectorization",
+        "gpu acceleration",
+        "cuda",
+        "scipy"
+      ],
+      "definition": "Python is the lingua franca of Artificial Intelligence, providing high-performance vectorized numeric libraries (NumPy, SciPy) and GPU-accelerated automatic differentiation frameworks (PyTorch, TensorFlow).",
+      "explanation": "Standard Python loops are slow for big data due to dynamic typing and GIL overhead. Vectorization replaces explicit loops with compiled C/Fortran SIMD operations and CUDA kernels on GPUs: (1) NumPy: n-dimensional array (`ndarray`) supporting element-wise operations and array Broadcasting (automatically expanding smaller arrays across compatible dimensions); (2) PyTorch Tensors: identical to NumPy arrays but with two superpowers: CUDA GPU execution and Automatic Differentiation (`requires_grad=True`); (3) Memory Striding: understanding contiguous memory layouts (row-major C vs column-major Fortran) prevents costly memory copies during training.",
+      "example": "Multiplying two 10,000x10,000 matrices: Python nested for-loops take over 10 minutes; vectorized NumPy takes 1.2 seconds; GPU-accelerated PyTorch takes 0.008 seconds (8 milliseconds).",
+      "formula": "",
+      "algorithm_steps": [
+        "Load data into contiguous memory tensors: x = torch.tensor(data, device='cuda', dtype=torch.float32)",
+        "Apply vectorized transformations and linear projections using matrix operators (@ or matmul)",
+        "Leverage NumPy/PyTorch Broadcasting to apply bias offsets across batch dimensions without copying",
+        "Compute loss and call loss.backward() to execute autograd reverse-mode differentiation",
+        "Update tensor weights in-place using optimizer.step()"
+      ],
+      "advantages": [
+        "Delivers C/CUDA execution speeds while retaining Python's expressive syntax and interactive REPL",
+        "Seamless transition from CPU prototyping to distributed multi-GPU training clusters"
+      ],
+      "limitations": [
+        "Python GIL restricts multithreaded CPU concurrency unless offloaded to native C extensions"
+      ],
+      "applications": [
+        "Foundational software runtime for all modern deep learning, LLM training, and data science"
+      ],
+      "related_topics": ["math_linear_algebra", "dl_ann", "gan_training_workflow_pytorch"],
+      "suggested_followups": [
+        "What is Vectorization in NumPy?",
+        "How does Broadcasting work in NumPy and PyTorch?",
+        "What is the difference between a NumPy array and a PyTorch Tensor?"
+      ]
+    }
+  ]
+}

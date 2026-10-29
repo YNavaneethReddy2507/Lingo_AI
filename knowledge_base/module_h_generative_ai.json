@@ -1,54 +1,1249 @@
 {
   "module_id": "module_h",
-  "module_name": "Module H — Generative AI",
-  "description": "Generative models, Large Language Models, prompt engineering, RAG, dense embeddings, hallucination mitigation, and responsible AI alignment.",
+  "module_name": "Module H — Generative AI, GANs & Foundation Models",
+  "description": "Comprehensive generative modeling curriculum: Generative Adversarial Networks (GANs), DCGAN, WGAN, Pix2Pix, StyleGAN, VAEs, Diffusion Models, LLMs, RAG, and Multimodal AI.",
   "topics": [
     {
       "id": "genai_fundamentals",
-      "name": "Generative AI Fundamentals",
-      "category": "Module H — Generative AI",
+      "name": "Generative AI Fundamentals & Generative vs Discriminative Models",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
       "category_id": "module_h",
-      "aliases": ["generative ai", "genai", "what is generative ai", "generative vs discriminative", "generative models"],
-      "keywords": ["generative ai", "genai", "generative vs discriminative", "diffusion", "gans", "vaes", "synthetic data", "creative ai"],
-      "definition": "Generative AI refers to deep learning models capable of synthesizing novel, realistic content (text, images, audio, code, video, and 3D assets) that mimics patterns learned from training data.",
-      "explanation": "Generative models model the joint probability distribution P(X, Y) or data distribution P(X), allowing them to sample and generate entirely new synthetic instances. In contrast, Discriminative models learn conditional probability P(Y|X) to classify or separate data points. Major generative paradigms include: (1) Generative Adversarial Networks (GANs: generator vs discriminator zero-sum game); (2) Variational Autoencoders (VAEs: latent probabilistic encoding and reconstruction); (3) Diffusion Models (iterative noise addition and learned reverse denoising, powers Midjourney, Stable Diffusion, DALL-E); (4) Autoregressive Transformers (next-token text/code generation).",
-      "example": "A diffusion model generating a photorealistic digital painting of an astronaut riding a horse on Mars given a natural language prompt.",
-      "formula": "\\text{GAN Minimax: } \\min_G \\max_D \\mathbb{E}_{x}[\\log D(x)] + \\mathbb{E}_{z}[\\log(1 - D(G(z)))]",
+      "aliases": [
+        "generative ai",
+        "genai",
+        "what is generative ai",
+        "generative vs discriminative",
+        "generative models",
+        "generative versus discriminative models"
+      ],
+      "keywords": [
+        "generative ai",
+        "genai",
+        "generative vs discriminative",
+        "joint probability",
+        "conditional probability",
+        "sampling",
+        "synthetic data"
+      ],
+      "definition": "Generative AI models synthesize novel, realistic data instances by learning the underlying data distribution P(X) or joint distribution P(X, Y), whereas discriminative models learn the conditional boundary P(Y|X) to classify existing inputs.",
+      "explanation": "In machine learning: (1) Discriminative models (e.g. Logistic Regression, SVMs, CNN classifiers) model the decision boundary between classes, answering: 'Given input X, what is the label Y?'; (2) Generative models (e.g. GANs, VAEs, Diffusion, Autoregressive Transformers) model how the data was generated, answering: 'What is the probability of seeing instance X?' and allow sampling new synthetic data instances X_new ~ P(X). The primary generative families are Generative Adversarial Networks (game-theoretic minimax), Variational Autoencoders (probabilistic latent approximation), Diffusion Models (stochastic iterative denoising), and Autoregressive Models (sequential causal factorizations).",
+      "example": "A discriminative model classifies whether a photo depicts a human face (0 or 1), whereas a generative model (like StyleGAN) generates a photorealistic, synthetic photograph of a human being who has never existed.",
+      "formula": "\\text{Discriminative: } P(Y \\mid X), \\quad \\text{Generative: } P(X) = \\sum_y P(X, Y) \\text{ or } P(X, Y) = P(X \\mid Y)P(Y)",
       "algorithm_steps": [
-        "Curate massive multi-modal training dataset (billions of images or tokens)",
-        "Train model to predict missing noise, next tokens, or latent probability distributions",
-        "At inference: sample from latent random distribution z or seed with prompt prompt_0",
-        "Iteratively decode or denoise latent vectors into final high-resolution output media"
+        "Collect training dataset of authentic instances X sampled from true distribution p_data(X)",
+        "Select generative modeling paradigm (adversarial, variational, diffusion, or autoregressive)",
+        "Parameterize generator model G_theta using deep neural networks",
+        "Optimize parameters theta to minimize divergence between model distribution p_model(X) and p_data(X)",
+        "Sample synthetic instances X_new by passing random noise vectors z through G_theta"
       ],
       "advantages": [
-        "Generates novel, high-fidelity synthetic creative assets, text, and computer code on demand",
-        "Accelerates human ideation, drafting, software development, and graphic design"
+        "Synthesizes high-fidelity novel images, text, audio, molecular structures, and source code",
+        "Generates synthetic training data to balance rare edge cases in medical or driving datasets"
       ],
       "limitations": [
-        "Prone to fabricating incorrect claims (hallucinations) with persuasive fluency",
-        "Severe training carbon footprint and copyright infringement concerns"
+        "Prone to mode collapse, hallucinations, and artifacts when modeling complex distributions",
+        "Evaluation is challenging due to the lack of a single objective ground-truth label"
       ],
       "applications": [
-        "Synthetic image generation (Midjourney, Stable Diffusion)",
-        "Automated software engineering copilots (GitHub Copilot, Cursor)",
-        "Personalized educational tutoring and creative writing assistance"
+        "Synthetic image synthesis, digital art, and video creation",
+        "Code generation copilots and natural language dialog agents",
+        "De novo drug design and molecular protein structure generation"
       ],
-      "related_topics": ["genai_llms", "genai_rag", "genai_prompt_engineering", "dl_transformers_attention"],
+      "related_topics": [
+        "gan_fundamentals",
+        "genai_vae",
+        "genai_diffusion_models",
+        "genai_llms"
+      ],
       "suggested_followups": [
-        "Difference between Generative and Discriminative models?",
-        "How do Diffusion Models work?",
-        "What are Large Language Models (LLMs)?"
+        "Explain Generative Adversarial Networks (GANs).",
+        "Difference between GANs and Diffusion Models?",
+        "What is Mode Collapse in generative models?"
+      ]
+    },
+    {
+      "id": "gan_fundamentals",
+      "name": "Generative Adversarial Networks (GANs) Fundamentals",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "gan",
+        "gans",
+        "generative adversarial networks",
+        "what is a gan",
+        "explain gan",
+        "ian goodfellow gan",
+        "adversarial nets"
+      ],
+      "keywords": [
+        "gan",
+        "generative adversarial network",
+        "ian goodfellow",
+        "generator",
+        "discriminator",
+        "zero-sum game",
+        "minimax",
+        "synthetic data",
+        "adversarial"
+      ],
+      "definition": "A Generative Adversarial Network (GAN) is an unsupervised generative framework introduced by Ian Goodfellow et al. (2014) where two neural networks—a Generator and a Discriminator—compete in a two-player zero-sum game.",
+      "explanation": "GANs frame generative learning as a game-theoretic contest: (1) The Generator G takes a random noise vector z from prior distribution p_z(z) and maps it to the data space G(z), attempting to generate synthetic samples indistinguishable from real data; (2) The Discriminator D takes a sample x (either real from p_data or fake from G(z)) and outputs a scalar probability D(x) in [0, 1] that x came from real training data rather than G. As training progresses, D gets better at spotting counterfeits, and G gets better at manufacturing undetectable fakes, pushing G toward the true data distribution p_data.",
+      "example": "A currency counterfeiter (Generator) trying to produce fake banknotes, while the police (Discriminator) try to detect forged bills. Competition forces both to improve until the counterfeits are indistinguishable from genuine money.",
+      "formula": "\\min_G \\max_D V(D, G) = \\mathbb{E}_{x \\sim p_{\\text{data}}(x)}[\\log D(x)] + \\mathbb{E}_{z \\sim p_z(z)}[\\log (1 - D(G(z)))]",
+      "algorithm_steps": [
+        "Sample a mini-batch of m noise vectors z from prior distribution p_z (e.g. standard Gaussian)",
+        "Sample a mini-batch of m authentic data samples x from training set p_data",
+        "Update Discriminator by ascending stochastic gradient: grad_theta_d [1/m sum (log D(x) + log(1 - D(G(z))))]",
+        "Sample a fresh mini-batch of m noise vectors z",
+        "Update Generator by descending gradient: grad_theta_g [1/m sum log(1 - D(G(z)))] or non-saturating loss -log(D(G(z)))",
+        "Repeat alternating minimax updates until reaching Nash equilibrium where D(x) = 0.5"
+      ],
+      "advantages": [
+        "Generates sharp, high-resolution samples without blurry averaging artifacts common in standard VAEs",
+        "Does not require explicit tractable density formulation (implicit density model)"
+      ],
+      "limitations": [
+        "Notoriously difficult to train due to non-convex minimax dynamics and saddle points",
+        "Prone to mode collapse and vanishing gradients when discriminator outperforms generator"
+      ],
+      "applications": [
+        "Photorealistic human face synthesis and avatar creation",
+        "Super-resolution imaging (SRGAN) and art style generation",
+        "Data augmentation for rare medical conditions"
+      ],
+      "related_topics": [
+        "gan_architectures",
+        "gan_adversarial_training",
+        "gan_loss_functions",
+        "gan_dcgan",
+        "gan_wgan"
+      ],
+      "suggested_followups": [
+        "What are the Generator and Discriminator architectures?",
+        "What is Mode Collapse in GANs?",
+        "Explain Wasserstein GAN (WGAN)."
+      ]
+    },
+    {
+      "id": "gan_architectures",
+      "name": "Generator and Discriminator Architectures",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "generator and discriminator",
+        "generator architecture",
+        "discriminator architecture",
+        "gan components",
+        "generator vs discriminator"
+      ],
+      "keywords": [
+        "generator",
+        "discriminator",
+        "latent vector",
+        "noise vector",
+        "transposed convolution",
+        "upsampling",
+        "deconvolution",
+        "strided convolution"
+      ],
+      "definition": "The Generator is a neural network that maps low-dimensional latent noise vectors z to high-dimensional data samples, while the Discriminator is a classification network that evaluates whether a sample is authentic or generated.",
+      "explanation": "In image-generating GANs: (1) Generator G: Takes a 1D latent Gaussian vector z ~ N(0, I) (e.g., 100 to 512 dimensions), projects and reshapes it through dense layers, and progressively upsamples spatial dimensions using Transposed Convolutions (ConvTranspose2d) or Bilinear Upsampling + Standard Convolutions, paired with Batch Normalization and ReLU/LeakyReLU activations, culminating in a Tanh output layer mapping pixels to [-1, 1]; (2) Discriminator D: Mirrors a standard CNN classifier taking an image of shape (C x H x W), downsampling through strided 2D convolutions (Conv2d with stride 2), LeakyReLU activations, and culminating in a single linear/sigmoid unit outputting scalar probability D(x) in [0, 1].",
+      "example": "Generating a 64x64 RGB face: Generator expands latent vector z in R^100 -> (512x4x4) -> (256x8x8) -> (128x16x16) -> (64x32x32) -> (3x64x64). Discriminator reverses this: (3x64x64) -> (64x32x32) -> (128x16x16) -> (256x8x8) -> (512x4x4) -> scalar real/fake probability.",
+      "formula": "G: \\mathcal{Z} \\subset \\mathbb{R}^d \\rightarrow \\mathcal{X} \\subset \\mathbb{R}^{C \\times H \\times W}, \\quad D: \\mathcal{X} \\rightarrow [0, 1]",
+      "algorithm_steps": [
+        "Define Generator: Sequential layers of Linear -> Reshape -> ConvTranspose2d -> BatchNorm -> ReLU -> Tanh",
+        "Define Discriminator: Sequential layers of Conv2d (stride 2) -> BatchNorm -> LeakyReLU(0.2) -> Flatten -> Linear -> Sigmoid",
+        "Pass noise z ~ N(0, 1) through Generator to create fake tensor G(z)",
+        "Pass real training image x through Discriminator to get D(x)",
+        "Pass G(z).detach() through Discriminator to evaluate fake image without updating G"
+      ],
+      "advantages": [
+        "Modular: Generator and Discriminator can use any differentiable architecture (MLP, CNN, Transformer)"
+      ],
+      "limitations": [
+        "Architecture mismatch: if D has vastly more capacity than G, D easily overpowers G, stalling learning"
+      ],
+      "applications": [
+        "Image synthesis, text-to-image backbones, audio waveform generation"
+      ],
+      "related_topics": [
+        "gan_fundamentals",
+        "gan_dcgan",
+        "dl_cnn"
+      ],
+      "suggested_followups": [
+        "What are Transposed Convolutions in the Generator?",
+        "Why is LeakyReLU preferred in the Discriminator?",
+        "Explain DCGAN architecture."
+      ]
+    },
+    {
+      "id": "gan_adversarial_training",
+      "name": "Adversarial Training & Alternating Optimization",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "adversarial training",
+        "gan training loop",
+        "alternating optimization",
+        "two-player game training",
+        "gan training"
+      ],
+      "keywords": [
+        "adversarial training",
+        "alternating optimization",
+        "minimax game",
+        "two-player game",
+        "k steps discriminator",
+        "non-saturating loss",
+        "equilibrium"
+      ],
+      "definition": "Adversarial training is the iterative optimization procedure where the Discriminator and Generator parameters are updated in alternating steps to solve a non-cooperative game until reaching equilibrium.",
+      "explanation": "Because G and D have opposing objectives, standard simultaneous joint gradient descent often leads to divergent cyclic oscillations rather than convergence. Adversarial training alternates updates: In Phase 1, the Discriminator weights are trained on a mixture of real samples (label = 1) and fake samples produced by G (label = 0), keeping G's parameters fixed (frozen/detached). In Phase 2, the Discriminator weights are frozen, and the Generator weights are updated by passing generated samples through D with a target label of 1. Often k discriminator steps (e.g. k=1 or k=5) are performed per generator step.",
+      "example": "In training DCGAN on CIFAR-10, one batch updates D with real images and generated fake images, followed immediately by updating G to fool the updated D.",
+      "formula": "\\theta_D \\leftarrow \\theta_D + \\alpha_D \\nabla_{\\theta_D} \\mathcal{L}_D, \\quad \\theta_G \\leftarrow \\theta_G - \\alpha_G \\nabla_{\\theta_G} \\mathcal{L}_G",
+      "algorithm_steps": [
+        "For each epoch and mini-batch:",
+        "1. Train Discriminator: Compute loss on real images L_real = BCE(D(x), 1); Compute loss on fake images L_fake = BCE(D(G(z).detach()), 0); Total L_D = (L_real + L_fake) / 2; Backpropagate and step optimizer_D",
+        "2. Train Generator: Forward fake images through Discriminator D(G(z)); Compute L_G = BCE(D(G(z)), 1); Backpropagate and step optimizer_G",
+        "Log D(x) and D(G(z)) scores to monitor equilibrium (ideal values approach 0.5)"
+      ],
+      "advantages": [
+        "Enables unsupervised density learning without explicitly computing complex normalization constants"
+      ],
+      "limitations": [
+        "Delicate balance required: if one network learns too fast, gradients to the other vanish or explode"
+      ],
+      "applications": [
+        "All GAN variants, domain adaptation, and adversarial robustness testing"
+      ],
+      "related_topics": [
+        "gan_fundamentals",
+        "gan_loss_functions",
+        "gan_training_workflow_pytorch"
+      ],
+      "suggested_followups": [
+        "Why do we detach fake images when updating the Discriminator?",
+        "What is Non-Saturating GAN loss?",
+        "Explain PyTorch implementation of GANs."
+      ]
+    },
+    {
+      "id": "gan_loss_functions",
+      "name": "GAN Loss Functions & Training Objectives",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "gan loss functions",
+        "gan loss",
+        "minimax loss",
+        "non-saturating loss",
+        "bce loss gan",
+        "gan objectives"
+      ],
+      "keywords": [
+        "loss function",
+        "minimax loss",
+        "non-saturating loss",
+        "binary cross entropy",
+        "jensen shannon divergence",
+        "kl divergence",
+        "vanishing gradient"
+      ],
+      "definition": "GAN loss functions mathematically formalize the competing objectives of the Generator and Discriminator, governing gradient signals for learning the true data distribution.",
+      "explanation": "Key GAN loss formulations: (1) Minimax Loss (Goodfellow 2014): L_G = E[log(1 - D(G(z)))]. Early in training when D easily distinguishes fakes (D(G(z)) ~ 0), the gradient of log(1 - D(G(z))) is nearly flat, causing severe Vanishing Gradients for G; (2) Non-Saturating Heuristic Loss: Goodfellow proposed training G to maximize log D(G(z)) instead (equivalent to minimizing -log D(G(z))). This yields strong, non-vanishing gradient signals early in training; (3) Binary Cross-Entropy (BCE) Formulation: L_D = -[y*log D(x) + (1-y)*log(1 - D(G(z)))]; (4) Least Squares Loss (LSGAN): replaces BCE with L2 mean-squared penalty to prevent saturated gradients; (5) Wasserstein Loss (WGAN): eliminates logs entirely using linear critic scores.",
+      "example": "Using non-saturating loss: when D(G(z)) = 0.01 (poor fakes), -log(0.01) = 4.605 (large gradient pulling G forward), whereas log(1 - 0.01) = log(0.99) = -0.01 (near zero gradient).",
+      "formula": "\\mathcal{L}_G^{\\text{Non-Saturating}} = -\\mathbb{E}_{z \\sim p_z}[\\log D(G(z))], \\quad \\mathcal{L}_D^{\\text{BCE}} = -\\mathbb{E}_x[\\log D(x)] - \\mathbb{E}_z[\\log(1 - D(G(z)))]",
+      "algorithm_steps": [
+        "Discriminator real loss: criterion(D(real_images), real_labels_all_ones)",
+        "Discriminator fake loss: criterion(D(fake_images.detach()), fake_labels_all_zeros)",
+        "Sum D loss = L_real + L_fake and backpropagate to update D weights",
+        "Generator loss: criterion(D(fake_images), real_labels_all_ones) [Non-saturating objective]",
+        "Backpropagate G loss to update Generator weights"
+      ],
+      "advantages": [
+        "Non-saturating loss eliminates early training plateaus and speeds up generator learning"
+      ],
+      "limitations": [
+        "Minimax loss is theoretically tied to Jensen-Shannon (JS) divergence, which is discontinuous when support of real and fake distributions do not overlap"
+      ],
+      "applications": [
+        "Training objective across vanilla GANs, DCGAN, and cGAN"
+      ],
+      "related_topics": [
+        "gan_minimax_optimization",
+        "gan_training_instability",
+        "gan_wgan"
+      ],
+      "suggested_followups": [
+        "Why does standard minimax loss cause vanishing gradients for the Generator?",
+        "What is Jensen-Shannon divergence in GANs?",
+        "Explain Wasserstein GAN loss."
+      ]
+    },
+    {
+      "id": "gan_minimax_optimization",
+      "name": "Minimax Optimization & Game Theory in GANs",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "minimax optimization",
+        "minimax in gans",
+        "game theory gans",
+        "nash equilibrium gans",
+        "saddle point optimization"
+      ],
+      "keywords": [
+        "minimax",
+        "game theory",
+        "nash equilibrium",
+        "saddle point",
+        "zero-sum game",
+        "von neumann",
+        "jensen shannon"
+      ],
+      "definition": "Minimax optimization in GANs is the mathematical formulation of training as a two-player zero-sum game where G minimizes the objective while D maximizes it, seeking a Nash Equilibrium saddle point.",
+      "explanation": "In game theory, a Nash Equilibrium is a state where neither player can unilaterally improve their payoff by changing their strategy. For GANs, Goodfellow proved that for an optimal discriminator D*(x) = p_data(x) / (p_data(x) + p_g(x)), the minimax objective simplifies to V(D*, G) = -log(4) + 2 * JSD(p_data || p_g), where JSD is the Jensen-Shannon Divergence. The global minimum is uniquely achieved when p_g = p_data, where JSD equals zero and D*(x) = 0.5 everywhere. However, gradient descent in continuous non-convex parameter spaces is designed to find local minima, not saddle points, frequently resulting in limit cycles and rotational trajectories around the equilibrium.",
+      "example": "The classic game matching pennies: if player 1 changes strategies, player 2 counters, resulting in circular oscillation without convergence unless regularization is introduced.",
+      "formula": "V(D^*, G) = -\\log(4) + 2 \\cdot D_{\\text{JS}}(p_{\\text{data}} \\parallel p_g), \\quad D^*(x) = \\frac{p_{\\text{data}}(x)}{p_{\\text{data}}(x) + p_g(x)}",
+      "algorithm_steps": [
+        "Analyze value function V(D, G) over joint parameter space (theta_d, theta_g)",
+        "Recognize that D seeks argmax over theta_d while G seeks argmin over theta_g",
+        "Compute Jacobian of the vector field [nabla_theta_d V, -nabla_theta_g V]",
+        "Apply regularization (gradient penalty, spectral normalization) to damp rotational eigenvalues",
+        "Reach convergence at Nash equilibrium where D(x) = 0.5"
+      ],
+      "advantages": [
+        "Rigorous theoretical proof connecting game theory to statistical divergence minimization"
+      ],
+      "limitations": [
+        "Simultaneous gradient updates often oscillate in limit cycles rather than converging to the saddle point"
+      ],
+      "applications": [
+        "Theoretical foundations of adversarial AI, multi-agent reinforcement learning"
+      ],
+      "related_topics": [
+        "gan_loss_functions",
+        "gan_training_instability",
+        "gan_wgan"
+      ],
+      "suggested_followups": [
+        "What is Nash Equilibrium in GANs?",
+        "Why does simultaneous gradient descent oscillate in minimax games?",
+        "What is Jensen-Shannon Divergence?"
+      ]
+    },
+    {
+      "id": "gan_training_instability",
+      "name": "GAN Training Instability, Mode Collapse & Vanishing Gradients",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "mode collapse",
+        "gan training instability",
+        "vanishing gradients in gans",
+        "mode dropping",
+        "gan challenges",
+        "why gans fail"
+      ],
+      "keywords": [
+        "mode collapse",
+        "training instability",
+        "vanishing gradient",
+        "mode dropping",
+        "oscillations",
+        "spectral normalization",
+        "minibatch discrimination"
+      ],
+      "definition": "Training instability in GANs encompasses common optimization failures including Mode Collapse (where the generator produces only a limited subset of data varieties), Vanishing Gradients, and unconstrained oscillation.",
+      "explanation": "The three major pathologies in GAN training are: (1) Mode Collapse (Mode Dropping): The generator discovers a single or small handful of outputs that reliably deceive the discriminator (e.g. generating only one specific yellow labrador face regardless of input noise z, ignoring all other dog breeds). G maps multiple z vectors to the same output; (2) Vanishing Gradients: If the discriminator learns too fast, D(G(z)) drops to 0, and the gradient nabla_theta_G log(1 - D(G(z))) flattens to 0, completely halting generator learning; (3) Non-convergence / Oscillations: Parameters oscillate wildly across epochs without settling. Remedies include: Non-saturating loss, Minibatch Discrimination, Historical Averaging, Feature Matching, Spectral Normalization, and Wasserstein distance (WGAN).",
+      "example": "Training a GAN on handwritten digits 0-9: Instead of generating all 10 digits, the generator collapses into producing only the digit '8' because it found that '8' tricked the current discriminator.",
+      "formula": "\\text{Mode Collapse: } G(z_1) \\approx G(z_2) \\quad \\forall z_1, z_2 \\in \\mathcal{Z}, \\quad \\nabla_{\\theta_G} \\mathbb{E}[\\log(1 - D(G(z)))] \\rightarrow 0",
+      "algorithm_steps": [
+        "Identify symptom: Generator outputs lack variety (Mode Collapse) or loss diverges/stagnates (Vanishing Gradient)",
+        "Diagnostic check: Evaluate diversity metrics across mini-batches (e.g. standard deviation across generated feature maps)",
+        "Apply Spectral Normalization to Discriminator weights to bound Lipschitz constant",
+        "Add Minibatch Discrimination layer allowing D to inspect sample diversity across the batch",
+        "Switch loss objective to WGAN-GP (Wasserstein loss with gradient penalty)"
+      ],
+      "advantages": [
+        "Understanding failure modes is essential for engineering production-grade generative models"
+      ],
+      "limitations": [
+        "Standard vanilla GANs almost always suffer from one of these failure modes without modern stabilization techniques"
+      ],
+      "applications": [
+        "Stabilizing deep generative models, debugging generative vision pipelines"
+      ],
+      "related_topics": [
+        "gan_loss_functions",
+        "gan_wgan",
+        "gan_wgan_gp",
+        "gan_dcgan"
+      ],
+      "suggested_followups": [
+        "What is Mode Collapse and how do you fix it?",
+        "How does Spectral Normalization stabilize GANs?",
+        "Why does WGAN solve mode collapse?"
+      ]
+    },
+    {
+      "id": "gan_dcgan",
+      "name": "DCGAN (Deep Convolutional GAN)",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "dcgan",
+        "deep convolutional gan",
+        "dcgan architecture",
+        "radford dcgan",
+        "convolutional gan"
+      ],
+      "keywords": [
+        "dcgan",
+        "deep convolutional",
+        "radford",
+        "strided convolution",
+        "transposed convolution",
+        "batch normalization",
+        "leaky relu",
+        "tanh"
+      ],
+      "definition": "DCGAN (Radford, Metz & Chintala, 2015) is a landmark convolutional GAN architecture that established systematic architectural guidelines for stable, high-resolution adversarial image generation.",
+      "explanation": "Before DCGAN, scaling GANs with convolutional networks caused pervasive training divergence. Radford et al. proposed five core architectural principles: (1) Replace spatial pooling layers with Strided Convolutions in the Discriminator and Fractional-Strided / Transposed Convolutions in the Generator; (2) Use Batch Normalization in both Generator and Discriminator (except generator output layer and discriminator input layer); (3) Eliminate fully connected hidden layers for deeper convolutional representations; (4) Use ReLU activation in Generator for all layers except the output (which uses Tanh); (5) Use LeakyReLU (slope 0.2) in Discriminator across all layers. DCGAN demonstrated clear vector arithmetic in latent space (e.g. smiling woman - neutral woman + neutral man = smiling man).",
+      "example": "Generating 64x64 celebrity faces (CelebA dataset) with crisp facial features and smooth latent vector interpolation without mode collapse.",
+      "formula": "\\text{LeakyReLU}(x) = \\begin{cases} x & \\text{if } x > 0 \\\\ 0.2x & \\text{otherwise} \\end{cases}, \\quad G(z) \\in [-1, 1]^{3 \\times 64 \\times 64}",
+      "algorithm_steps": [
+        "Generator: Project latent vector z in R^100 -> ConvTranspose2d(512, 4x4) -> BatchNorm -> ReLU",
+        "Upsample: ConvTranspose2d(256, 8x8) -> BatchNorm -> ReLU -> ConvTranspose2d(128, 16x16) -> BatchNorm -> ReLU",
+        "Final Upsample: ConvTranspose2d(64, 32x32) -> BatchNorm -> ReLU -> ConvTranspose2d(3, 64x64) -> Tanh",
+        "Discriminator: Conv2d(64, stride 2) -> LeakyReLU(0.2) -> Conv2d(128, stride 2) -> BatchNorm -> LeakyReLU(0.2)",
+        "Final Discriminator: Conv2d(256, stride 2) -> BatchNorm -> Conv2d(512, stride 2) -> Conv2d(1, 4x4, stride 1) -> Sigmoid",
+        "Train using Adam optimizer with learning rate 0.0002 and beta_1 = 0.5"
+      ],
+      "advantages": [
+        "First universally reproducible convolutional GAN architecture that trains stably",
+        "Demonstrated that GAN latent spaces learn smooth, semantically linear vector representations"
+      ],
+      "limitations": [
+        "Struggles to scale beyond 64x64 or 128x128 resolution without progressive growing or Wasserstein loss"
+      ],
+      "applications": [
+        "Standard educational baseline for generative vision and artistic synthesis"
+      ],
+      "related_topics": [
+        "gan_architectures",
+        "gan_wgan",
+        "cv_cnn",
+        "gan_cgan"
+      ],
+      "suggested_followups": [
+        "What are the 5 architectural guidelines of DCGAN?",
+        "Why is Adam beta1 set to 0.5 in DCGAN?",
+        "Show me latent space vector arithmetic in DCGAN."
+      ]
+    },
+    {
+      "id": "gan_cgan",
+      "name": "Conditional GAN (cGAN)",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "cgan",
+        "conditional gan",
+        "conditional generative adversarial network",
+        "mirza cgan",
+        "class conditional gan"
+      ],
+      "keywords": [
+        "cgan",
+        "conditional gan",
+        "conditioning variable",
+        "class label",
+        "multimodal",
+        "one-hot vector",
+        "directed generation"
+      ],
+      "definition": "Conditional GAN (Mirza & Osindero, 2014) is an extension of GANs where both the Generator and Discriminator are conditioned on auxiliary information y (such as class labels, text descriptions, or domain tags).",
+      "explanation": "In an unconditional GAN, there is no way to control what category of data G produces—it generates digits 0-9 randomly. In cGAN, an auxiliary conditioning label y (e.g. one-hot class vector or text embedding) is fed into both networks: (1) The Generator receives concatenated [z, y], forcing it to generate a sample of specific class y; (2) The Discriminator receives concatenated [x, y], tasked with determining not only whether image x looks real, but whether image x genuinely matches label y. This enables targeted, user-directed synthetic media generation.",
+      "example": "Generating a specific handwritten digit: Passing label y='7' and noise z forces cGAN to synthesize specifically the digit 7 rather than a random number.",
+      "formula": "\\min_G \\max_D V(D, G) = \\mathbb{E}_{x, y}[\\log D(x, y)] + \\mathbb{E}_{z, y}[\\log (1 - D(G(z, y), y))]",
+      "algorithm_steps": [
+        "Convert class label y into embedding vector or one-hot representation",
+        "Generator: Concatenate noise vector z and label embedding y -> pass through G to generate G(z, y)",
+        "Discriminator Real: Concatenate real image x with label spatial map y -> compute D(x, y)",
+        "Discriminator Fake: Concatenate generated image G(z, y) with label spatial map y -> compute D(G(z, y), y)",
+        "Compute binary cross-entropy loss and update D and G iteratively"
+      ],
+      "advantages": [
+        "Provides precise user control over the semantic attributes and class of generated outputs",
+        "Improves training stability and visual quality by partitioning complex multi-class data spaces"
+      ],
+      "limitations": [
+        "Requires labeled training datasets (semi-supervised or supervised setup)"
+      ],
+      "applications": [
+        "Targeted image synthesis by class label (generating specific dog breeds or car models)",
+        "Text-to-image foundation conditioning and image attribute manipulation"
+      ],
+      "related_topics": [
+        "gan_fundamentals",
+        "gan_pix2pix",
+        "gan_dcgan"
+      ],
+      "suggested_followups": [
+        "How is the conditioning label fed into the Discriminator?",
+        "Difference between unconditional GAN and cGAN?",
+        "Explain Pix2Pix (image-to-image cGAN)."
+      ]
+    },
+    {
+      "id": "gan_pix2pix",
+      "name": "Pix2Pix (Paired Image-to-Image Translation)",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "pix2pix",
+        "image to image translation",
+        "image-to-image translation",
+        "patchgan",
+        "paired image translation",
+        "isola pix2pix"
+      ],
+      "keywords": [
+        "pix2pix",
+        "image-to-image",
+        "patchgan",
+        "u-net",
+        "l1 loss",
+        "paired data",
+        "edges to photo",
+        "aerial to map"
+      ],
+      "definition": "Pix2Pix (Isola et al., 2017) is a conditional GAN framework for paired image-to-image translation that learns a mapping from input images in domain X to corresponding target images in domain Y.",
+      "explanation": "Pix2Pix pairs an adversarial loss with an L1 pixel reconstruction loss: (1) Generator: A U-Net architecture (encoder-decoder with skip connections) that takes input image x and outputs translated image G(x). The skip connections shuttle low-level edge details directly across layers; (2) Discriminator: A PatchGAN classifier that penalizes structure at the scale of local N x N image patches (e.g. 70x70) rather than evaluating the entire image globally, enforcing sharp high-frequency textures while the L1 loss ensures low-frequency structural fidelity (color/layout alignment).",
+      "example": "Transforming black-and-white architectural sketches into photorealistic building facades, or turning black-and-white edge drawings of shoes into color photographs.",
+      "formula": "\\mathcal{L}_{\\text{Pix2Pix}} = \\mathcal{L}_{\\text{cGAN}}(G, D) + \\lambda \\mathbb{E}_{x, y}[\\|y - G(x)\\|_1], \\quad \\lambda = 100",
+      "algorithm_steps": [
+        "Prepare paired training dataset of registered images {x_i, y_i} (e.g. edge outline x and real photo y)",
+        "Generator (U-Net) maps input sketch x to synthesized image G(x)",
+        "Discriminator (PatchGAN) evaluates pair (x, y) as real, and pair (x, G(x)) as fake",
+        "Compute combined loss: Adversarial Loss + 100 * L1 Reconstruction Loss",
+        "Update PatchGAN discriminator and U-Net generator via Adam"
+      ],
+      "advantages": [
+        "L1 loss prevents mode collapse while adversarial loss eliminates blurry averaging artifacts",
+        "PatchGAN operates with fewer parameters and runs fast on high-resolution image patches"
+      ],
+      "limitations": [
+        "Strictly requires perfectly aligned, registered paired training datasets, which are costly or impossible to obtain in many domains"
+      ],
+      "applications": [
+        "Satellite aerial photos to Google Maps cartography",
+        "Day to night photo translation, edge sketches to photorealistic fashion items"
+      ],
+      "related_topics": [
+        "gan_cgan",
+        "gan_cyclegan",
+        "cv_image_segmentation"
+      ],
+      "suggested_followups": [
+        "What is PatchGAN in Pix2Pix?",
+        "Why is L1 pixel loss combined with adversarial loss?",
+        "What is CycleGAN and how does it eliminate paired data?"
+      ]
+    },
+    {
+      "id": "gan_cyclegan",
+      "name": "CycleGAN (Unpaired Image-to-Image Translation)",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "cyclegan",
+        "cycle gan",
+        "cycle consistency",
+        "unpaired image translation",
+        "zhu cyclegan"
+      ],
+      "keywords": [
+        "cyclegan",
+        "cycle consistency loss",
+        "unpaired translation",
+        "horses to zebras",
+        "monet to photo",
+        "dual gan",
+        "bidirectional"
+      ],
+      "definition": "CycleGAN (Zhu et al., 2017) is an image-to-image translation framework that learns to map between two visual domains (X and Y) without requiring aligned paired training examples, using Cycle Consistency Loss.",
+      "explanation": "In many domains, paired images do not exist (e.g., you cannot photograph the exact same horse as a zebra in the identical pose). CycleGAN solves this using two generators (G: X -> Y and F: Y -> X) and two discriminators (D_Y and D_X). To prevent the generators from hallucinating arbitrary images in the target domain, it enforces Cycle Consistency: translating from domain X to Y and then back from Y to X must reconstruct the original image: F(G(x)) ~ x (Forward Cycle Consistency), and G(F(y)) ~ y (Backward Cycle Consistency). An optional Identity Loss preserves color tone fidelity.",
+      "example": "Translating videos of horses into zebras (and zebras into horses) without ever having paired photos of the same animal.",
+      "formula": "\\mathcal{L}_{\\text{cyc}}(G, F) = \\mathbb{E}_{x}[\\|F(G(x)) - x\\|_1] + \\mathbb{E}_{y}[\\|G(F(y)) - y\\|_1]",
+      "algorithm_steps": [
+        "Collect two unaligned image sets: Domain X (e.g. photos) and Domain Y (e.g. Monet paintings)",
+        "Pass image x through G to get fake_y = G(x); pass fake_y through F to get reconstructed_x = F(G(x))",
+        "Pass image y through F to get fake_x = F(y); pass fake_x through G to get reconstructed_y = G(F(y))",
+        "Compute Adversarial Losses: D_Y against fake_y, and D_X against fake_x",
+        "Compute Cycle Consistency Loss: ||F(G(x)) - x||_1 + ||G(F(y)) - y||_1",
+        "Update all four networks simultaneously using Adam"
+      ],
+      "advantages": [
+        "Completely eliminates the requirement for paired training datasets",
+        "Enables cross-domain artistic style transfer across arbitrary collections"
+      ],
+      "limitations": [
+        "Cannot handle geometric shape transformations (e.g. dog to cat) where spatial anatomy changes drastically; limited to textural and color shifts"
+      ],
+      "applications": [
+        "Season transfer (Summer to Winter), photo to painting style transfer (Monet, Van Gogh)",
+        "Medical MRI to CT cross-modality synthesis"
+      ],
+      "related_topics": [
+        "gan_pix2pix",
+        "gan_cgan",
+        "gan_fundamentals"
+      ],
+      "suggested_followups": [
+        "How does Cycle Consistency Loss work?",
+        "Difference between Pix2Pix and CycleGAN?",
+        "What are the limitations of CycleGAN?"
+      ]
+    },
+    {
+      "id": "gan_stylegan",
+      "name": "StyleGAN (Progressive Growing & Style Modulation)",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "stylegan",
+        "stylegan2",
+        "stylegan3",
+        "karras stylegan",
+        "adain stylegan",
+        "progressive gan",
+        "this person does not exist"
+      ],
+      "keywords": [
+        "stylegan",
+        "adain",
+        "adaptive instance normalization",
+        "mapping network",
+        "w latent space",
+        "style modulation",
+        "progressive growing",
+        "disentanglement"
+      ],
+      "definition": "StyleGAN (Karras et al., NVIDIA, 2019-2021) is a generative adversarial architecture that controls image synthesis via multi-scale style modulation using an intermediate latent space W and Adaptive Instance Normalization (AdaIN).",
+      "explanation": "StyleGAN rethinks generator design: Instead of feeding latent noise z directly into the first convolutional layer, z in Z is mapped via an 8-layer MLP Mapping Network into an intermediate latent space w in W. The vector w then modulates the feature maps at each convolutional synthesis layer via Adaptive Instance Normalization (AdaIN) or weight demodulation. This architectural breakthrough separates high-level attributes (coarse styles: pose, face shape), middle attributes (hair style, eyes), and fine attributes (skin micro-texture, stubble, color tones). Noise is injected per-layer to generate stochastic details (freckles, hair strands).",
+      "example": "The viral website 'ThisPersonDoesNotExist.com' synthesizing indistinguishable 1024x1024 photorealistic human portrait photographs in real time.",
+      "formula": "\\text{AdaIN}(x_i, y) = y_{s, i} \\left( \\frac{x_i - \\mu(x_i)}{\\sigma(x_i)} \\right) + y_{b, i}",
+      "algorithm_steps": [
+        "Sample Gaussian noise vector z in Z (512-dim)",
+        "Pass z through 8-layer MLP Mapping Network to produce disentangled vector w in W",
+        "Feed learned constant 4x4x512 tensor into synthesis network",
+        "At each spatial resolution (4x4 up to 1024x1024): apply AdaIN using affine transforms of w",
+        "Inject uncorrelated Gaussian noise per layer to generate fine stochastic micro-textures",
+        "Output 1024x1024 RGB image through final ToRGB layer"
+      ],
+      "advantages": [
+        "Produces unprecedented photorealism up to 1024x1024 resolution with zero visible artifacts",
+        "Disentangled latent space W enables attribute editing (altering age, gender, lighting independently)"
+      ],
+      "limitations": [
+        "Enormous computational training cost requiring high-end multi-GPU clusters for weeks",
+        "Inversion challenge: projecting a real photo into latent space W requires complex optimization"
+      ],
+      "applications": [
+        "Digital human avatars, video game character generation, synthetic medical training images",
+        "Virtual fashion modeling and cinematic visual effects"
+      ],
+      "related_topics": [
+        "gan_fundamentals",
+        "gan_wgan_gp",
+        "genai_diffusion_models"
+      ],
+      "suggested_followups": [
+        "What is the Mapping Network in StyleGAN?",
+        "How does Adaptive Instance Normalization (AdaIN) work?",
+        "Difference between StyleGAN and StyleGAN2?"
+      ]
+    },
+    {
+      "id": "gan_wgan",
+      "name": "Wasserstein GAN (WGAN) & Earth Mover's Distance",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "wgan",
+        "wasserstein gan",
+        "earth mover distance gan",
+        "arjovsky wgan",
+        "critic wgan",
+        "wasserstein-1 metric"
+      ],
+      "keywords": [
+        "wgan",
+        "wasserstein",
+        "earth mover distance",
+        "critic",
+        "lipschitz continuity",
+        "kantorovich rubinstein",
+        "weight clipping"
+      ],
+      "definition": "Wasserstein GAN (Arjovsky et al., 2017) is an improved GAN formulation that minimizes the Earth Mover's (Wasserstein-1) Distance between real and generated distributions, replacing the unstable Jensen-Shannon divergence.",
+      "explanation": "Standard GANs minimize Jensen-Shannon (JS) divergence. When the support of p_data and p_g do not overlap in high dimensions, JS divergence is a discontinuous constant (log 2), causing zero gradients. WGAN replaces JS divergence with the continuous and differentiable Wasserstein-1 Distance (Earth Mover's Distance: the minimum cost of transporting mass from one distribution to another). Using the Kantorovich-Rubinstein duality, WGAN replaces the binary Discriminator with a real-valued Critic f_w that satisfies 1-Lipschitz continuity: ||f||_L <= 1. In original WGAN, Lipschitz continuity is enforced via weight clipping to [-c, c].",
+      "example": "Comparing two parallel lines separated by distance d in 2D space: JS divergence is constant for any d > 0 (zero gradient), whereas Wasserstein distance is exactly d, providing a linear, smooth gradient everywhere that guides G toward real data.",
+      "formula": "W(p_{\\text{data}}, p_g) = \\sup_{\\|f\\|_L \\le 1} \\mathbb{E}_{x \\sim p_{\\text{data}}}[f(x)] - \\mathbb{E}_{z \\sim p_z}[f(G(z))]",
+      "algorithm_steps": [
+        "Initialize Critic f_w and Generator G_theta parameters",
+        "For each batch, train Critic for n_critic steps (e.g. 5 steps per 1 G step):",
+        "  Sample real batch x and noise batch z",
+        "  Compute Critic loss: L_critic = -(mean(f_w(x)) - mean(f_w(G(z))))",
+        "  Update weights w via RMSprop and clip weights: w = clip(w, -0.01, 0.01)",
+        "Train Generator: Compute L_G = -mean(f_w(G(z))) and update G parameters"
+      ],
+      "advantages": [
+        "Critic loss correlates directly with sample visual quality, providing an interpretable training metric",
+        "Provides smooth, meaningful gradients everywhere, virtually eliminating mode collapse"
+      ],
+      "limitations": [
+        "Weight clipping in original WGAN can lead to capacity underutilization or exploding/vanishing gradients (solved by WGAN-GP)"
+      ],
+      "applications": [
+        "Stable training across diverse generative tasks without hyperparameter sensitivity"
+      ],
+      "related_topics": [
+        "gan_wgan_gp",
+        "gan_loss_functions",
+        "gan_training_instability"
+      ],
+      "suggested_followups": [
+        "What is Earth Mover's Distance?",
+        "Why is the Discriminator called a Critic in WGAN?",
+        "What is the limitation of weight clipping in WGAN?"
+      ]
+    },
+    {
+      "id": "gan_wgan_gp",
+      "name": "WGAN-GP (Wasserstein GAN with Gradient Penalty)",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "wgan-gp",
+        "wgan gp",
+        "gradient penalty",
+        "gulrajani wgan-gp",
+        "improved wgan"
+      ],
+      "keywords": [
+        "wgan-gp",
+        "gradient penalty",
+        "1-lipschitz",
+        "lipschitz constraint",
+        "interpolated samples",
+        "norm penalty",
+        "gulrajani"
+      ],
+      "definition": "WGAN-GP (Gulrajani et al., 2017) is an enhancement to Wasserstein GAN that enforces the 1-Lipschitz continuity constraint by penalizing the norm of the Critic's gradient with respect to interpolated samples, replacing weight clipping.",
+      "explanation": "Weight clipping in vanilla WGAN artificially limits network capacity, causing weights to saturate at extremal values [-c, c]. WGAN-GP proves that a differentiable function is 1-Lipschitz if and only if its gradients have norm at most 1 almost everywhere. WGAN-GP enforces this by generating interpolated samples x_hat = epsilon * x_real + (1 - epsilon) * x_fake (where epsilon ~ Uniform(0, 1)), computing the gradient of the Critic's output with respect to x_hat, and penalizing deviations of ||nabla_x_hat f(x_hat)||_2 from 1. WGAN-GP trains stably across architectures (from MLPs to 100-layer ResNets) without batch normalization.",
+      "example": "Interpolating between a real car photo and a generated car image, calculating the critic's gradient along the straight line connecting them, and penalizing gradients whose L2 norm deviates from 1.0.",
+      "formula": "\\mathcal{L} = \\underbrace{\\mathbb{E}[f(G(z))] - \\mathbb{E}[f(x)]}_{\\text{Original Critic Loss}} + \\lambda \\underbrace{\\mathbb{E}_{\\hat{x}}\\left[ \\left( \\|\\nabla_{\\hat{x}} f(\\hat{x})\\|_2 - 1 \\right)^2 \\right]}_{\\text{Gradient Penalty } (\\lambda = 10)}",
+      "algorithm_steps": [
+        "Sample real x and generate fake G(z)",
+        "Sample random uniform interpolation scalar epsilon ~ U(0, 1)",
+        "Compute interpolated tensor: x_hat = epsilon * x + (1 - epsilon) * G(z)",
+        "Pass x_hat through Critic and compute gradients: grad = autograd.grad(outputs=f(x_hat), inputs=x_hat)",
+        "Compute Gradient Penalty: GP = lambda * mean((grad.norm(2, dim=1) - 1) ** 2)",
+        "Total Critic Loss = -(mean(f(x)) - mean(f(G(z)))) + GP",
+        "Update Critic weights using Adam(lr=0.0001, beta1=0.0, beta2=0.9)"
+      ],
+      "advantages": [
+        "Gold standard for stable adversarial training with virtually zero mode collapse",
+        "Enables training very deep networks (ResNets) without requiring batch normalization"
+      ],
+      "limitations": [
+        "Requires computing second-order derivatives (grad of grad) for the penalty, increasing compute time per step by ~30%"
+      ],
+      "applications": [
+        "High-fidelity image generation, StyleGAN2 backbone stabilization, time-series synthesis"
+      ],
+      "related_topics": [
+        "gan_wgan",
+        "gan_loss_functions",
+        "gan_stylegan"
+      ],
+      "suggested_followups": [
+        "Why are samples interpolated between real and fake in WGAN-GP?",
+        "Why is batch normalization avoided in WGAN-GP?",
+        "Compare WGAN-GP and Spectral Normalization."
+      ]
+    },
+    {
+      "id": "gan_training_workflow_pytorch",
+      "name": "Practical GAN Implementation & PyTorch Training Workflow",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "gan pytorch",
+        "gan implementation",
+        "pytorch gan code",
+        "gan training workflow",
+        "how to train a gan",
+        "gan practical guide"
+      ],
+      "keywords": [
+        "pytorch",
+        "implementation",
+        "training loop",
+        "torch.optim.adam",
+        "bcewithlogitsloss",
+        "detach",
+        "fixed noise",
+        "training workflow"
+      ],
+      "definition": "The practical GAN training workflow is an engineering methodology in deep learning frameworks (such as PyTorch) for organizing data loaders, generator/discriminator training loops, loss computation, and sample monitoring.",
+      "explanation": "A production PyTorch GAN workflow incorporates essential engineering practices: (1) Weight Initialization: initialize Conv and BatchNorm layers with normal distribution N(0, 0.02); (2) Optimizer Configuration: Adam with tuned hyperparameters (learning rate 0.0002, beta1=0.5, beta2=0.999); (3) Decoupled Losses: using BCEWithLogitsLoss for numerical stability; (4) Gradient Detachment: always call `fake.detach()` when training D to prevent gradient backpropagation into G; (5) Fixed Noise Tracking: maintain a constant `fixed_noise = torch.randn(64, latent_dim, device=device)` to generate consistent checkpoint snapshots across epochs to visually inspect progression; (6) Soft/Noisy Labels: using real labels = 0.9 (label smoothing) instead of 1.0 to prevent D from becoming overly confident.",
+      "example": "A PyTorch training loop where every 10 epochs the generator synthesizes images from `fixed_noise`, producing a time-lapse grid showing noise gradually turning into sharp 64x64 faces.",
+      "formula": "\\text{Step D: } \\mathcal{L}_D = \\text{BCE}(D(x), 0.9) + \\text{BCE}(D(G(z).\\text{detach}()), 0.0), \\quad \\text{Step G: } \\mathcal{L}_G = \\text{BCE}(D(G(z)), 1.0)",
+      "algorithm_steps": [
+        "Instantiate netG and netD; apply weights_init(netG) and weights_init(netD)",
+        "Define optim_D = Adam(netD.parameters(), lr=0.0002, betas=(0.5, 0.999)) and optim_G = Adam(netG.parameters(), lr=0.0002, betas=(0.5, 0.999))",
+        "For each batch (real_images, _):",
+        "  netD.zero_grad(); out_real = netD(real_images); loss_D_real = criterion(out_real, ones_label * 0.9)",
+        "  noise = torch.randn(b_size, nz, 1, 1); fake = netG(noise); out_fake = netD(fake.detach()); loss_D_fake = criterion(out_fake, zeros_label)",
+        "  loss_D = loss_D_real + loss_D_fake; loss_D.backward(); optim_D.step()",
+        "  netG.zero_grad(); out_fake_for_G = netD(fake); loss_G = criterion(out_fake_for_G, ones_label); loss_G.backward(); optim_G.step()",
+        "Generate and log fixed_noise validation samples to monitor visual convergence"
+      ],
+      "advantages": [
+        "Provides reproducible, battle-tested code patterns for training stable generative models in PyTorch"
+      ],
+      "limitations": [
+        "GPU memory management is critical: retaining computation graphs accidentally causes CUDA out-of-memory errors"
+      ],
+      "applications": [
+        "Custom synthetic data generation, academic research prototyping, art generation pipelines"
+      ],
+      "related_topics": [
+        "gan_adversarial_training",
+        "gan_dcgan",
+        "gan_evaluation_metrics"
+      ],
+      "suggested_followups": [
+        "Why is label smoothing (0.9 instead of 1.0) useful in GANs?",
+        "What is fixed noise validation in GANs?",
+        "How do you evaluate GAN sample quality?"
+      ]
+    },
+    {
+      "id": "gan_dataset_prep_augmentation",
+      "name": "Dataset Preparation & Data Augmentation for GANs",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "gan data augmentation",
+        "gan dataset prep",
+        "diffaugment",
+        "differentiable augmentation",
+        "data preparation for gans"
+      ],
+      "keywords": [
+        "data augmentation",
+        "diffaugment",
+        "dataset preparation",
+        "discriminator overfitting",
+        "leaking augmentations",
+        "crop",
+        "flip",
+        "color jitter"
+      ],
+      "definition": "Dataset preparation and augmentation for GANs prepares balanced visual training data while using specialized differentiable augmentations (such as DiffAugment) to prevent discriminator overfitting without leaking transformations into generated images.",
+      "explanation": "Standard data augmentation (e.g. random cropping, rotating real images before feeding to D) causes a fatal flaw in GANs called 'Augmentation Leaking': the Generator learns to generate images that are permanently cropped, blurred, or rotated because it tries to mimic the augmented training distribution. Differentiable Augmentation (DiffAugment, Zhao et al. 2020) solves this by applying the exact same differentiable transformations (color jitter, translation, Cutout) to BOTH real images and generated fake images immediately before the Discriminator computes its forward pass. Gradients propagate through the augmentations back to G, stabilizing training even on tiny datasets (100-1,000 images).",
+      "example": "Applying DiffAugment (color + translation + cutout) to train a high-quality StyleGAN2 on only 100 historical oil paintings without discriminator memorization.",
+      "formula": "D(T(x)) \\text{ vs } D(T(G(z))), \\quad \\text{where } T \\text{ is a differentiable transformation}",
+      "algorithm_steps": [
+        "Resize raw images with high-quality Lanczos or bicubic filter and normalize to [-1, 1]",
+        "Define differentiable augmentation policy T: Random Translation + Color Jitter + Cutout",
+        "Pass real batch x through augmentation: x_aug = T(x)",
+        "Pass fake batch G(z) through identical augmentation: fake_aug = T(G(z))",
+        "Compute discriminator loss using x_aug and fake_aug, ensuring gradients flow through T back to G"
+      ],
+      "advantages": [
+        "Enables training high-fidelity GANs with as few as a few hundred images without overfitting",
+        "Guarantees that augmentations do not 'leak' into the generated visual samples"
+      ],
+      "limitations": [
+        "Transformations must be strictly differentiable to permit backpropagation to the generator"
+      ],
+      "applications": [
+        "Few-shot generative modeling, training GANs on medical datasets with limited patient cohorts"
+      ],
+      "related_topics": [
+        "cv_preprocessing",
+        "gan_training_workflow_pytorch",
+        "gan_stylegan"
+      ],
+      "suggested_followups": [
+        "What is Augmentation Leaking in GANs?",
+        "How does DiffAugment work?",
+        "Can GANs be trained on small datasets?"
+      ]
+    },
+    {
+      "id": "gan_evaluation_metrics",
+      "name": "GAN Evaluation: Inception Score (IS) & Fréchet Inception Distance (FID)",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "gan evaluation",
+        "inception score",
+        "fid",
+        "frechet inception distance",
+        "evaluating gans",
+        "precision and recall for gans"
+      ],
+      "keywords": [
+        "inception score",
+        "fid",
+        "frechet inception distance",
+        "inception v3",
+        "evaluation",
+        "diversity",
+        "fidelity",
+        "precision recall"
+      ],
+      "definition": "GAN evaluation metrics quantitatively assess the visual fidelity (sharpness/quality) and diversity (variety) of generated samples, primarily using Inception Score (IS) and Fréchet Inception Distance (FID).",
+      "explanation": "Because generative models have no single ground-truth target, evaluation relies on specialized statistical metrics: (1) Inception Score (IS, Salimans 2016): Measures conditional class certainty p(y|x) (high fidelity) and marginal class entropy p(y) (high diversity) using an Inception-v3 classifier. Limitation: can be fooled by memorization and does not compare fakes to real images; (2) Fréchet Inception Distance (FID, Heusel 2017): The gold standard. Extracts feature activations from Inception-v3's pool3 layer for 50,000 real images and 50,000 generated images, fits multivariate Gaussian distributions N(mu_r, Sigma_r) and N(mu_g, Sigma_g), and calculates the Wasserstein-2 distance between them. Lower FID means closer distribution match (0 is perfect); (3) Precision and Recall for GANs: Separates image quality (precision) from mode coverage (recall).",
+      "example": "A state-of-the-art StyleGAN model achieving an FID score of 2.42 on FFHQ faces, indicating near-indistinguishable feature distribution alignment with authentic human photos.",
+      "formula": "\\text{FID} = \\|\\mu_r - \\mu_g\\|_2^2 + \\text{Tr}\\left( \\Sigma_r + \\Sigma_g - 2\\left(\\Sigma_r \\Sigma_g\\right)^{1/2} \\right)",
+      "algorithm_steps": [
+        "Pass 50,000 real training images through pre-trained Inception-v3 network to extract 2048-dim pool3 activations",
+        "Compute empirical mean vector mu_r and covariance matrix Sigma_r for real features",
+        "Generate 50,000 fake images with G(z) and extract Inception-v3 activations",
+        "Compute empirical mean vector mu_g and covariance matrix Sigma_g for generated features",
+        "Calculate Euclidean distance between means plus trace of matrix square root product",
+        "Output scalar FID score (lower is superior)"
+      ],
+      "advantages": [
+        "FID correlates strongly with human perceptual judgment of visual realism and diversity",
+        "Detects mode collapse, blurriness, and color distortion objectively"
+      ],
+      "limitations": [
+        "Requires large sample sizes (typically 50,000 images) for statistically stable evaluation",
+        "Sensitive to image compression formats (JPEG vs PNG) and resizing implementations"
+      ],
+      "applications": [
+        "Standard benchmark reporting in all top computer vision and generative AI conferences"
+      ],
+      "related_topics": [
+        "gan_fundamentals",
+        "gan_training_instability",
+        "cv_image_classification"
+      ],
+      "suggested_followups": [
+        "Show me the formula for Fréchet Inception Distance (FID).",
+        "What is the difference between Inception Score and FID?",
+        "What is Precision and Recall for generative models?"
+      ]
+    },
+    {
+      "id": "gan_applications_ethics",
+      "name": "GAN Applications, Deepfakes, Synthetic Data Risks & Ethics",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "gan ethics",
+        "deepfakes",
+        "synthetic data risks",
+        "biometric spoofing",
+        "gan applications and limitations",
+        "deepfake detection"
+      ],
+      "keywords": [
+        "deepfakes",
+        "ethics",
+        "synthetic data",
+        "biometric spoofing",
+        "misinformation",
+        "watermarking",
+        "deepfake detection",
+        "c2pa"
+      ],
+      "definition": "GAN applications span creative and scientific domains, but present critical societal hazards including malicious Deepfakes, biometric spoofing, copyright infringement, and automated disinformation.",
+      "explanation": "While GANs power positive applications (medical data augmentation, photo restoration, virtual try-on, game asset creation), they create unprecedented socio-technical threats: (1) Deepfakes: non-consensual sexual imagery, political disinformation, and CEO voice/video cloning for corporate wire fraud; (2) Biometric Spoofing: synthesizing faces and fingerprints to fool facial recognition security locks; (3) Synthetic Data Poisoning: training future AI models on recursive synthetic data causes model collapse; (4) Countermeasures: Deepfake detection algorithms (analyzing biological eye-blinking patterns, blood-flow photoplethysmography rPPG, and frequency domain artifact fingerprints), cryptographic content provenance (C2PA metadata), and imperceptible synthetic watermarking.",
+      "example": "An attacker generating a high-definition deepfake video of an executive announcing a fraudulent bankruptcy to manipulate public stock prices before market close.",
+      "formula": "",
+      "algorithm_steps": [
+        "Audit generative pipelines for malicious dual-use risks prior to deployment",
+        "Embed cryptographic provenance credentials (e.g. C2PA digital signatures) at generation time",
+        "Inject imperceptible forensic watermarks into generator output weights",
+        "Deploy forensic frequency-domain artifact classifiers to verify media authenticity",
+        "Comply with emerging legal mandates (e.g. EU AI Act transparency rules for synthetic media)"
+      ],
+      "advantages": [
+        "Enables realistic data synthesis for privacy-preserving clinical machine learning"
+      ],
+      "limitations": [
+        "Detection algorithms enter an adversarial arms race: new generators quickly learn to bypass existing detectors"
+      ],
+      "applications": [
+        "Media authenticity verification, digital forensic investigations, legislative AI policy compliance"
+      ],
+      "related_topics": [
+        "ai_ethics_limitations",
+        "genai_responsible_ai",
+        "gan_fundamentals"
+      ],
+      "suggested_followups": [
+        "How are deepfakes detected technically?",
+        "What is C2PA content provenance?",
+        "What is synthetic data poisoning?"
+      ]
+    },
+    {
+      "id": "genai_vae",
+      "name": "Variational Autoencoders (VAEs) & Reparameterization Trick",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "vae",
+        "variational autoencoders",
+        "variational autoencoder",
+        "reparameterization trick",
+        "elbo",
+        "kingma vae"
+      ],
+      "keywords": [
+        "vae",
+        "variational autoencoder",
+        "encoder",
+        "decoder",
+        "latent space",
+        "kl divergence",
+        "elbo",
+        "reparameterization trick",
+        "gaussian prior"
+      ],
+      "definition": "A Variational Autoencoder (VAE, Kingma & Welling, 2013) is a directed probabilistic generative model that encodes inputs into parameters of a continuous latent probability distribution and reconstructs them using a decoder, trained by maximizing the Evidence Lower Bound (ELBO).",
+      "explanation": "Unlike traditional autoencoders that map inputs to discrete, unconstrained latent coordinates (causing disjoint gaps in latent space), a VAE maps inputs to the parameters of a probability distribution—mean vector mu(x) and log-variance vector log sigma^2(x). The training loss balances two terms: (1) Reconstruction Loss: measuring fidelity between input x and reconstructed output x_hat; (2) KL-Divergence Loss: penalizing deviation of the latent distribution from a standard Gaussian prior N(0, I), ensuring a smooth, continuous, and interpolatable latent space. To allow backpropagation through stochastic sampling z ~ N(mu, sigma^2), VAEs employ the Reparameterization Trick: z = mu + sigma * epsilon, where epsilon ~ N(0, I) is external stochastic noise.",
+      "example": "Generating smooth transitions between handwritten digits by sampling and interpolating coordinates along a continuous 2D Gaussian latent surface.",
+      "formula": "\\mathcal{L}_{\\text{ELBO}}(\\theta, \\phi; x) = \\mathbb{E}_{q_\\phi(z|x)}[\\log p_\\theta(x|z)] - D_{\\text{KL}}(q_\\phi(z|x) \\parallel p(z)), \\quad z = \\mu + \\sigma \\odot \\epsilon",
+      "algorithm_steps": [
+        "Encoder network q_phi(z|x) processes input x to predict mean vector mu and log-variance log(sigma^2)",
+        "Sample standard Gaussian noise epsilon ~ N(0, I)",
+        "Apply Reparameterization Trick: z = mu + exp(0.5 * log_var) * epsilon",
+        "Decoder network p_theta(x|z) reconstructs output x_hat from latent vector z",
+        "Compute Total Loss = Reconstruction Loss (MSE or BCE) + KL Divergence Loss: -0.5 * sum(1 + log_var - mu^2 - exp(log_var))",
+        "Backpropagate gradients and update encoder and decoder parameters simultaneously"
+      ],
+      "advantages": [
+        "Principled probabilistic formulation with smooth, continuous, and interpretable latent spaces",
+        "Fast, stable training with a single well-behaved loss function (no adversarial instability)"
+      ],
+      "limitations": [
+        "Reconstructed images are often blurry compared to GANs because L2 reconstruction loss penalizes average pixel differences"
+      ],
+      "applications": [
+        "Molecular conformation generation, anomaly detection in time series, audio synthesis"
+      ],
+      "related_topics": [
+        "genai_fundamentals",
+        "gan_fundamentals",
+        "genai_diffusion_models"
+      ],
+      "suggested_followups": [
+        "What is the Reparameterization Trick?",
+        "What is the Evidence Lower Bound (ELBO)?",
+        "Why do VAEs produce blurrier images than GANs?"
+      ]
+    },
+    {
+      "id": "genai_diffusion_models",
+      "name": "Diffusion Models & Score-Based Generative Systems",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "diffusion models",
+        "ddpm",
+        "score-based models",
+        "stable diffusion",
+        "denoising diffusion",
+        "latent diffusion"
+      ],
+      "keywords": [
+        "diffusion",
+        "ddpm",
+        "forward process",
+        "reverse process",
+        "denoising",
+        "u-net",
+        "score matching",
+        "stable diffusion",
+        "markov chain"
+      ],
+      "definition": "Diffusion Models (Sohl-Dickstein 2015, Ho et al. DDPM 2020) are generative models that learn to generate data by progressively adding Gaussian noise to an image in a forward process, then training a neural network (typically a U-Net) to reverse the process step by step.",
+      "explanation": "Diffusion comprises two processes: (1) Forward Process (Noising): A fixed Markov chain q(x_t | x_{t-1}) that gradually corrupts data x_0 into pure isotropic Gaussian noise x_T over T discrete timesteps (e.g. T=1000) using a predefined variance schedule beta_t; (2) Reverse Process (Denoising): A learnable neural network epsilon_theta(x_t, t) trained to predict the exact noise added at timestep t. At inference, generation begins with pure random noise x_T ~ N(0, I), and the model iteratively denoises it over hundreds of steps to produce a pristine image x_0. Latent Diffusion Models (LDM / Stable Diffusion) perform this diffusion process inside the low-dimensional latent space of a pre-trained VAE, reducing compute requirements by 10x.",
+      "example": "Stable Diffusion taking random TV static noise and a text prompt 'A cybernetic owl reading a book', progressively carving away predicted noise over 50 steps until a high-resolution photorealistic artwork emerges.",
+      "formula": "q(x_t \\mid x_0) = \\mathcal{N}\\left(x_t; \\sqrt{\\bar{\\alpha}_t}x_0, (1 - \\bar{\\alpha}_t)\\mathbf{I}\\right), \\quad \\mathcal{L}_{\\text{simple}} = \\mathbb{E}_{t, x_0, \\epsilon}\\left[ \\|\\epsilon - \\epsilon_\\theta(x_t, t)\\|^2 \\right]",
+      "algorithm_steps": [
+        "Sample clean image x_0 from dataset and random timestep t ~ Uniform(1, T)",
+        "Sample random Gaussian noise vector epsilon ~ N(0, I)",
+        "Compute noisy image x_t directly using closed-form formula: x_t = sqrt(alpha_bar_t) * x_0 + sqrt(1 - alpha_bar_t) * epsilon",
+        "Pass x_t and timestep embedding t through U-Net to predict noise epsilon_theta(x_t, t)",
+        "Compute MSE loss ||epsilon - epsilon_theta(x_t, t)||^2 and update U-Net parameters",
+        "Inference: Start with x_T ~ N(0, I); iteratively subtract predicted noise for t = T down to 1"
+      ],
+      "advantages": [
+        "Exceptional sample quality and diversity, surpassing GANs on benchmark image synthesis without mode collapse",
+        "Stable training objective (pure mean squared error regression on predicted noise)"
+      ],
+      "limitations": [
+        "Slow iterative inference: sampling requires dozens to hundreds of sequential neural network forward passes (mitigated by faster samplers like DPMSolver)"
+      ],
+      "applications": [
+        "Text-to-image synthesis (Midjourney, DALL-E 3, Stable Diffusion), video generation, molecular modeling"
+      ],
+      "related_topics": [
+        "gan_fundamentals",
+        "genai_vae",
+        "genai_multimodal_image"
+      ],
+      "suggested_followups": [
+        "How does the Forward and Reverse diffusion process work?",
+        "What is Latent Diffusion (Stable Diffusion)?",
+        "Compare GANs and Diffusion Models."
+      ]
+    },
+    {
+      "id": "genai_autoregressive",
+      "name": "Autoregressive Generative Models",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "autoregressive models",
+        "autoregressive generative",
+        "pixelcnn",
+        "pixelrnn",
+        "causal language modeling"
+      ],
+      "keywords": [
+        "autoregressive",
+        "causal",
+        "chain rule of probability",
+        "pixelcnn",
+        "next token prediction",
+        "masked attention"
+      ],
+      "definition": "Autoregressive generative models factorize the joint probability distribution of high-dimensional data into a product of conditional probabilities using the probability chain rule, generating samples sequentially one element at a time.",
+      "explanation": "By factoring P(X) = prod P(x_i | x_1, ..., x_{i-1}), autoregressive models condition each new output element on all previously generated elements. In vision, models like PixelRNN and PixelCNN generate images pixel-by-pixel, row-by-row using masked convolutions. In natural language and audio, decoder-only Transformers (like GPT, WaveNet) predict the next token given preceding context using causal masked self-attention. Because they provide exact tractable likelihoods, autoregressive models never suffer from mode collapse, but sample generation is strictly sequential O(N), which can be slow.",
+      "example": "GPT predicting the next word token sequentially: 'The' -> 'weather' -> 'is' -> 'sunny', where each token becomes input context for the next.",
+      "formula": "P(X) = \\prod_{i=1}^n P(x_i \\mid x_1, x_2, \\dots, x_{i-1}), \\quad \\mathcal{L} = -\\sum_{i=1}^n \\log P(x_i \\mid x_{<i})",
+      "algorithm_steps": [
+        "Order input sequence dimensions chronologically (or raster-scan for 2D images)",
+        "Apply causal masking to neural layers so element i cannot attend to future elements j > i",
+        "Compute cross-entropy loss between predicted conditional probabilities and actual tokens",
+        "At inference: seed with initial prompt, sample next token x_i ~ P(x_i | x_{<i}), append to context, and repeat"
+      ],
+      "advantages": [
+        "Computes exact, tractable log-likelihoods without approximations or adversarial instability",
+        "Forms the foundational architecture of frontier Large Language Models (LLMs)"
+      ],
+      "limitations": [
+        "Sequential generation is inherently non-parallelizable at inference time, leading to higher latency"
+      ],
+      "applications": [
+        "Large Language Models (GPT, LLaMA), raw audio generation (WaveNet), music synthesis"
+      ],
+      "related_topics": [
+        "genai_llms",
+        "dl_transformers_attention",
+        "genai_fundamentals"
+      ],
+      "suggested_followups": [
+        "What is Causal Masking in autoregressive models?",
+        "Difference between Autoregressive models and GANs?",
+        "Explain Large Language Models."
+      ]
+    },
+    {
+      "id": "genai_multimodal_image",
+      "name": "Multimodal Generative AI (CLIP, DALL-E & Latent Diffusion)",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "multimodal generative ai",
+        "clip",
+        "dall-e",
+        "text-to-image",
+        "contrastive language image pretraining"
+      ],
+      "keywords": [
+        "multimodal",
+        "clip",
+        "dall-e",
+        "stable diffusion",
+        "text-to-image",
+        "cross-attention",
+        "contrastive learning",
+        "latent diffusion"
+      ],
+      "definition": "Multimodal Generative AI models bridge multiple sensory modalities (primarily text and vision) to understand, align, and generate media across domains (such as text-to-image generation).",
+      "explanation": "The multimodal generative revolution is underpinned by two breakthroughs: (1) CLIP (Radford et al., OpenAI 2021): Contrastive Language-Image Pretraining trains an image encoder (ViT) and text encoder (Transformer) on 400 million (image, text) pairs using a symmetric cross-entropy contrastive loss, pulling matching image-text pairs together in a shared 512-dim embedding space while pushing non-matching pairs apart; (2) Text-to-Image Generation (DALL-E 2/3, Stable Diffusion): Uses CLIP text embeddings to guide a diffusion U-Net via Cross-Attention layers, allowing words to steer the spatial denoising trajectory toward visual depictions of the written prompt.",
+      "example": "A user enters 'A neon hologram of a cat meditating in cyberpunk Tokyo'; the text encoder embeds the prompt, and cross-attention directs the latent diffusion model to synthesize that exact image.",
+      "formula": "\\mathcal{L}_{\\text{CLIP}} = \\frac{1}{2} \\left( \\mathcal{L}_{\\text{text}\\rightarrow\\text{image}} + \\mathcal{L}_{\\text{image}\\rightarrow\\text{text}} \\right), \\quad \\text{Sim}(I_i, T_j) = \\frac{I_i \\cdot T_j}{\\|I_i\\| \\|T_j\\|} \\cdot e^\\tau",
+      "algorithm_steps": [
+        "Embed user text prompt into contextual vector sequence using CLIP or T5 text encoder",
+        "Initialize latent noise map z_T in VAE latent space",
+        "For each diffusion reverse step: calculate Cross-Attention between spatial visual features and text token embeddings",
+        "Apply Classifier-Free Guidance (CFG) to amplify prompt adherence: pred = unconditioned + guidance_scale * (conditioned - unconditioned)",
+        "Decode final denoised latent representation z_0 back to pixel space using VAE decoder"
+      ],
+      "advantages": [
+        "Unifies human natural language descriptions directly with visual creative synthesis",
+        "Zero-shot generalization across unprecedented artistic and conceptual combinations"
+      ],
+      "limitations": [
+        "Spelling text in generated images and counting multiple objects accurately remain challenging"
+      ],
+      "applications": [
+        "Text-to-image generation (Midjourney, Stable Diffusion), visual search, accessible visual scene description"
+      ],
+      "related_topics": [
+        "genai_diffusion_models",
+        "genai_prompt_engineering",
+        "dl_transformers_attention"
+      ],
+      "suggested_followups": [
+        "How does CLIP align text and images?",
+        "What is Classifier-Free Guidance (CFG)?",
+        "How do Cross-Attention layers work in Stable Diffusion?"
       ]
     },
     {
       "id": "genai_llms",
-      "name": "Large Language Models (LLMs)",
-      "category": "Module H — Generative AI",
+      "name": "Large Language Models (LLMs) & Foundation Architectures",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
       "category_id": "module_h",
-      "aliases": ["llms", "large language models", "llm", "foundation models", "chatgpt", "gpt", "autoregressive models"],
-      "keywords": ["llm", "large language models", "gpt", "pretraining", "fine-tuning", "rlhf", "emergent abilities", "scaling laws"],
+      "aliases": [
+        "llms",
+        "large language models",
+        "llm",
+        "foundation models",
+        "chatgpt",
+        "gpt",
+        "autoregressive models in nlp"
+      ],
+      "keywords": [
+        "llm",
+        "large language models",
+        "gpt",
+        "pretraining",
+        "fine-tuning",
+        "rlhf",
+        "emergent abilities",
+        "scaling laws"
+      ],
       "definition": "Large Language Models are massive deep neural network language models containing tens to hundreds of billions of parameters, pre-trained on vast internet-scale text corpora to understand and generate natural language.",
-      "explanation": "Modern LLMs are predominantly decoder-only autoregressive transformers. Training follows a three-stage pipeline: (1) Self-Supervised Pretraining: model learns next-token prediction P(w_t | w_{<t}) on trillions of tokens, internalizing grammar, world knowledge, and reasoning patterns; (2) Supervised Fine-Tuning (SFT): training on curated instruction-response pairs to learn helpful dialog behavior; (3) Alignment (RLHF / DPO): Reinforcement Learning from Human Feedback or Direct Preference Optimization to ensure outputs are helpful, harmless, and honest. LLMs exhibit 'emergent abilities' such as in-context few-shot learning and chain-of-thought reasoning as model scale exceeds critical thresholds.",
+      "explanation": "Modern LLMs are predominantly decoder-only autoregressive transformers. Training follows a three-stage pipeline: (1) Self-Supervised Pretraining: model learns next-token prediction on trillions of tokens, internalizing grammar, world knowledge, and reasoning patterns; (2) Supervised Fine-Tuning (SFT): training on curated instruction-response pairs to learn helpful dialog behavior; (3) Alignment (RLHF / DPO): Reinforcement Learning from Human Feedback or Direct Preference Optimization to ensure outputs are helpful, harmless, and honest. LLMs exhibit 'emergent abilities' such as in-context few-shot learning and chain-of-thought reasoning as model scale exceeds critical thresholds.",
       "example": "Models like GPT-4, Claude 3.5, Gemini 1.5, and LLaMA 3 generating software applications, solving Olympiad math problems, and answering complex scientific questions.",
       "formula": "\\mathcal{L}_{\\text{LM}}(\\theta) = -\\sum_{t=1}^T \\log P(w_t \\mid w_1, \\dots, w_{t-1}; \\theta)",
       "algorithm_steps": [
@@ -70,7 +1265,12 @@
       "applications": [
         "Conversational AI assistants, code generation, summarization, document analysis, automated agents"
       ],
-      "related_topics": ["dl_transformers_attention", "genai_prompt_engineering", "genai_rag", "genai_hallucinations"],
+      "related_topics": [
+        "dl_transformers_attention",
+        "genai_prompt_engineering",
+        "genai_rag",
+        "genai_hallucinations"
+      ],
       "suggested_followups": [
         "What are the three stages of training an LLM?",
         "What is RLHF (Reinforcement Learning from Human Feedback)?",
@@ -79,11 +1279,27 @@
     },
     {
       "id": "genai_prompt_engineering",
-      "name": "Prompt Engineering",
-      "category": "Module H — Generative AI",
+      "name": "Prompt Engineering & In-Context Learning",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
       "category_id": "module_h",
-      "aliases": ["prompt engineering", "prompting", "in-context learning", "chain of thought", "cot", "few-shot prompting"],
-      "keywords": ["prompt engineering", "zero-shot", "few-shot", "chain of thought", "cot", "system prompt", "in-context learning", "delimiters"],
+      "aliases": [
+        "prompt engineering",
+        "prompting",
+        "in-context learning",
+        "chain of thought",
+        "cot",
+        "few-shot prompting"
+      ],
+      "keywords": [
+        "prompt engineering",
+        "zero-shot",
+        "few-shot",
+        "chain of thought",
+        "cot",
+        "system prompt",
+        "in-context learning",
+        "delimiters"
+      ],
       "definition": "Prompt engineering is the empirical discipline of structuring, optimizing, and crafting input text prompts to guide generative AI models toward producing accurate, consistent, and desired responses.",
       "explanation": "Because LLMs are conditioned on prior context, prompt phrasing significantly alters output quality. Key techniques include: (1) Zero-Shot Prompting: giving direct instructions without examples; (2) Few-Shot / In-Context Learning: providing 2-5 input-output demonstration pairs in the prompt; (3) Chain-of-Thought (CoT): instructing the model to 'think step by step', breaking multi-stage reasoning down; (4) Role Prompting / System Prompts: specifying persona, constraints, and target audience; (5) Directional / Structured Output Prompts: specifying JSON schemas or Markdown formats and using XML/triple backtick delimiters to prevent prompt injection.",
       "example": "Using Few-Shot Chain-of-Thought prompting to solve a math word problem by demonstrating: 'Q: Roger has 5 tennis balls... A: Let\\'s think step by step: He buys 2 cans of 3 balls (2*3=6). 5 + 6 = 11. Answer is 11.'",
@@ -106,7 +1322,11 @@
       "applications": [
         "System instructions for AI agents, customer support formatting, automated code generation"
       ],
-      "related_topics": ["genai_llms", "genai_rag", "genai_hallucinations"],
+      "related_topics": [
+        "genai_llms",
+        "genai_rag",
+        "genai_hallucinations"
+      ],
       "suggested_followups": [
         "What is Chain-of-Thought (CoT) prompting?",
         "Difference between Zero-Shot and Few-Shot prompting?",
@@ -115,11 +1335,24 @@
     },
     {
       "id": "genai_rag",
-      "name": "Retrieval-Augmented Generation (RAG)",
-      "category": "Module H — Generative AI",
+      "name": "Retrieval-Augmented Generation (RAG) Architecture",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
       "category_id": "module_h",
-      "aliases": ["rag", "retrieval-augmented generation", "retrieval augmented generation", "vector search rag"],
-      "keywords": ["rag", "retrieval augmented generation", "vector database", "dense retrieval", "chunking", "reranking", "grounding"],
+      "aliases": [
+        "rag",
+        "retrieval-augmented generation",
+        "retrieval augmented generation",
+        "vector search rag"
+      ],
+      "keywords": [
+        "rag",
+        "retrieval augmented generation",
+        "vector database",
+        "dense retrieval",
+        "chunking",
+        "reranking",
+        "grounding"
+      ],
       "definition": "Retrieval-Augmented Generation (RAG) is an AI architecture that enhances language models by retrieving relevant authoritative documents from an external knowledge base and feeding them into the model prompt as grounding context.",
       "explanation": "RAG bridges the gap between static LLM parametric memory and dynamic external facts. The RAG pipeline consists of: (1) Indexing: documents are chunked into 200-500 word passages and converted into dense embedding vectors stored in a Vector Database (Pinecone, Milvus, Chroma, Qdrant); (2) Retrieval: when a user asks a question, the query is embedded, and cosine similarity retrieves the top-k most semantically relevant chunks; (3) Generation: the retrieved chunks are injected into the prompt along with the user query, instructing the LLM to generate an answer grounded exclusively in the retrieved facts.",
       "example": "An enterprise internal HR chatbot: An employee asks 'What is our 2026 paternity leave policy?'; the system retrieves Section 4.2 of the company handbook and generates an accurate, cited answer without hallucinating.",
@@ -145,7 +1378,12 @@
       "applications": [
         "Enterprise document search, legal research assistants, medical reference tools"
       ],
-      "related_topics": ["genai_embeddings", "genai_llms", "nlp_cosine_similarity", "genai_hallucinations"],
+      "related_topics": [
+        "genai_embeddings",
+        "genai_llms",
+        "nlp_cosine_similarity",
+        "genai_hallucinations"
+      ],
       "suggested_followups": [
         "What are the steps of a RAG pipeline?",
         "How does RAG reduce hallucinations?",
@@ -154,11 +1392,25 @@
     },
     {
       "id": "genai_embeddings",
-      "name": "Dense Embeddings and Vector Search",
-      "category": "Module H — Generative AI",
+      "name": "Dense Embeddings & Vector Search (HNSW)",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
       "category_id": "module_h",
-      "aliases": ["embeddings", "dense embeddings", "vector embeddings", "vector search", "vector database"],
-      "keywords": ["embeddings", "vector search", "dense vectors", "approximate nearest neighbors", "ann", "hnsw", "cosine similarity"],
+      "aliases": [
+        "embeddings",
+        "dense embeddings",
+        "vector embeddings",
+        "vector search",
+        "vector database"
+      ],
+      "keywords": [
+        "embeddings",
+        "vector search",
+        "dense vectors",
+        "approximate nearest neighbors",
+        "ann",
+        "hnsw",
+        "cosine similarity"
+      ],
       "definition": "Dense embeddings are fixed-length, low-dimensional continuous vector representations generated by neural models that capture high-level semantic meaning, enabling mathematical similarity comparisons across text, code, or images.",
       "explanation": "Unlike sparse lexical encodings (TF-IDF, Bag-of-Words) where words must match exactly, dense embeddings map semantically similar sentences to proximal coordinates in vector space (e.g. 768 or 1536 dimensions). For instance, 'How do I reset my password?' and 'Forgot login credentials' have zero word overlap, but high cosine similarity in embedding space. Vector databases use Approximate Nearest Neighbor (ANN) index algorithms like Hierarchical Navigable Small World (HNSW) graphs to search millions of vectors in single-digit milliseconds.",
       "example": "Generating 1536-dimensional embeddings for 1,000,000 legal contracts and finding all clauses semantically equivalent to 'indemnification upon breach of contract' in 4 milliseconds.",
@@ -181,7 +1433,11 @@
       "applications": [
         "Semantic search engines, RAG knowledge retrieval, recommendation engines, facial verification"
       ],
-      "related_topics": ["genai_rag", "nlp_cosine_similarity", "nlp_word2vec_glove"],
+      "related_topics": [
+        "genai_rag",
+        "nlp_cosine_similarity",
+        "nlp_word2vec_glove"
+      ],
       "suggested_followups": [
         "What is HNSW (Hierarchical Navigable Small World)?",
         "Why combine BM25 and Dense Embeddings (Hybrid Search)?",
@@ -189,12 +1445,81 @@
       ]
     },
     {
-      "id": "genai_hallucinations",
-      "name": "Hallucinations and Factual Reliability",
-      "category": "Module H — Generative AI",
+      "id": "genai_finetuning_inference",
+      "name": "Generative Fine-Tuning & Inference Optimization (LoRA, QLoRA & KV-Cache)",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
       "category_id": "module_h",
-      "aliases": ["hallucinations", "hallucination", "factual reliability", "confabulation in ai", "mitigating hallucinations"],
-      "keywords": ["hallucination", "factual reliability", "confabulation", "sycophancy", "grounding", "faithfulness", "fact checking"],
+      "aliases": [
+        "lora",
+        "qlora",
+        "peft",
+        "parameter efficient fine tuning",
+        "fine-tuning llms",
+        "kv cache"
+      ],
+      "keywords": [
+        "lora",
+        "qlora",
+        "peft",
+        "low rank adaptation",
+        "kv cache",
+        "quantization",
+        "speculative decoding",
+        "inference optimization"
+      ],
+      "definition": "Parameter-Efficient Fine-Tuning (PEFT, e.g. LoRA and QLoRA) adapts foundation models to specialized tasks by training low-rank adapter matrices while keeping base weights frozen, while KV-Caching optimizes generation inference speed.",
+      "explanation": "Fine-tuning all 70 billion parameters of a frontier LLM requires clusters of 80GB GPUs. Low-Rank Adaptation (LoRA, Hu et al. 2021) freezes the pre-trained weight matrix W_0 (d x k) and injects rank decomposition matrices B (d x r) and A (r x k) with rank r << d, updating W = W_0 + B*A. This reduces trainable parameters by 99% while matching full fine-tuning performance. QLoRA quantizes the base model to 4-bit NormalFloat (NF4), enabling fine-tuning a 65B model on a single consumer GPU. During inference, KV-Caching saves previously computed Key and Value attention tensors in GPU VRAM, preventing redundant O(N^2) computations per generated token.",
+      "example": "Fine-tuning a 7-billion parameter medical assistant on a single desktop RTX 3090 GPU using QLoRA with rank r=16 in under 4 hours.",
+      "formula": "W = W_0 + \\Delta W = W_0 + \\frac{\\alpha}{r} (B \\cdot A), \\quad \\text{where } B \\in \\mathbb{R}^{d \\times r}, A \\in \\mathbb{R}^{r \\times k}, r \\ll \\min(d, k)",
+      "algorithm_steps": [
+        "Load base foundation model in 4-bit NF4 precision with double quantization (QLoRA)",
+        "Inject low-rank adapter matrices A and B into self-attention query and value projection layers",
+        "Freeze all base model parameters; compute gradients solely with respect to adapters A and B",
+        "Train on domain task dataset using AdamW optimizer with cosine learning rate schedule",
+        "At inference: merge adapter weights into base model or dynamically hot-swap adapters per request"
+      ],
+      "advantages": [
+        "Reduces memory consumption and training time by orders of magnitude",
+        "Enables hosting dozens of domain-specific adapters on a single shared base model instance"
+      ],
+      "limitations": [
+        "Low-rank constraints can marginally underperform full fine-tuning on massive cross-domain task shifts"
+      ],
+      "applications": [
+        "Domain adaptation for legal, medical, coding, and customer support AI systems"
+      ],
+      "related_topics": [
+        "genai_llms",
+        "dl_transformers_attention",
+        "genai_prompt_engineering"
+      ],
+      "suggested_followups": [
+        "How does LoRA reduce trainable parameters?",
+        "What is 4-bit NormalFloat (NF4) in QLoRA?",
+        "What is the KV-Cache in transformer inference?"
+      ]
+    },
+    {
+      "id": "genai_hallucinations",
+      "name": "Hallucinations & Factual Reliability in Generative AI",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
+      "category_id": "module_h",
+      "aliases": [
+        "hallucinations",
+        "hallucination",
+        "factual reliability",
+        "confabulation in ai",
+        "mitigating hallucinations"
+      ],
+      "keywords": [
+        "hallucination",
+        "factual reliability",
+        "confabulation",
+        "sycophancy",
+        "grounding",
+        "faithfulness",
+        "fact checking"
+      ],
       "definition": "Hallucination in AI refers to the phenomenon where a generative model produces plausible-sounding, syntactically fluent statements that are factually false, unfaithful to source context, or completely fabricated.",
       "explanation": "Because autoregressive language models predict the next most probable statistical token rather than querying an internal truth database, they can confabulate convincing non-existent facts, fake legal citations, or false medical advice. Types include: (1) Intrinsic Hallucination: output directly contradicts given source context; (2) Extrinsic Hallucination: output asserts unverifiable claims not supported by any source. Mitigation strategies include: Grounded RAG, Chain-of-Verification (CoVe), Self-Consistency decoding, constrained decoding, and hybrid rule-based fact verification.",
       "example": "A lawyer submitting a legal brief written by ChatGPT containing six fabricated court decisions with fictitious judge names and citations that the model made up out of thin air.",
@@ -216,7 +1541,11 @@
       "applications": [
         "AI governance, legal tech compliance, clinical healthcare AI verification"
       ],
-      "related_topics": ["genai_rag", "kb_rule_based_pros_cons", "genai_responsible_ai"],
+      "related_topics": [
+        "genai_rag",
+        "kb_rule_based_pros_cons",
+        "genai_responsible_ai"
+      ],
       "suggested_followups": [
         "Why do LLMs hallucinate?",
         "How does Rule-Based AI eliminate hallucinations?",
@@ -225,11 +1554,28 @@
     },
     {
       "id": "genai_responsible_ai",
-      "name": "Responsible AI and Safety Alignment",
-      "category": "Module H — Generative AI",
+      "name": "Responsible AI, Safety Alignment & Guardrails",
+      "category": "Module H — Generative AI, GANs & Foundation Models",
       "category_id": "module_h",
-      "aliases": ["responsible ai", "ai safety", "alignment", "constitutional ai", "red teaming", "jailbreaking"],
-      "keywords": ["responsible ai", "safety", "alignment", "red teaming", "jailbreak", "constitutional ai", "watermarking", "guardrails"],
+      "aliases": [
+        "responsible ai",
+        "ai safety",
+        "alignment",
+        "constitutional ai",
+        "red teaming",
+        "jailbreaking",
+        "guardrails"
+      ],
+      "keywords": [
+        "responsible ai",
+        "safety",
+        "alignment",
+        "red teaming",
+        "jailbreak",
+        "constitutional ai",
+        "watermarking",
+        "guardrails"
+      ],
       "definition": "Responsible AI is the practice of designing, developing, and deploying artificial intelligence systems that are ethically grounded, fair, transparent, accountable, robust against malicious misuse, and aligned with human values.",
       "explanation": "Key pillars of Responsible AI: (1) Fairness: preventing demographic and socioeconomic bias; (2) Transparency & Explainability: enabling human understanding of automated decisions; (3) Privacy & Security: protecting personal data against extraction and model inversion; (4) Safety & Alignment: ensuring models refuse harmful requests (e.g. cyberweapons, CBRN synthesis, self-harm) via Constitutional AI and reinforcement learning from AI feedback (RLAIF); (5) Robustness: defending against jailbreaking and adversarial prompt attacks; (6) Accountability: establishing human-in-the-loop audit trails and watermarking synthetic media.",
       "example": "An LLM guardrail system (like Llama Guard or NeMo Guardrails) intercepting and blocking a user prompt attempting to jailbreak the system into generating malware instructions.",
@@ -251,7 +1597,11 @@
       "applications": [
         "Enterprise conversational AI guardrails, content moderation, automated red-teaming"
       ],
-      "related_topics": ["ai_ethics_limitations", "genai_hallucinations", "genai_llms"],
+      "related_topics": [
+        "ai_ethics_limitations",
+        "genai_hallucinations",
+        "genai_llms"
+      ],
       "suggested_followups": [
         "What is Constitutional AI?",
         "What is AI Red Teaming?",

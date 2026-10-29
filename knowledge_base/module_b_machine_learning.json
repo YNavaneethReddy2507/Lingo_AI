@@ -454,6 +454,216 @@
         "How do you prevent overfitting?",
         "What is the difference between L1 and L2 regularization?"
       ]
+    },
+    {
+      "id": "ml_random_forests",
+      "name": "Random Forests & Ensemble Bagging",
+      "category": "Module B — Machine Learning",
+      "category_id": "module_b",
+      "aliases": [
+        "random forests",
+        "random forest",
+        "bagging",
+        "bootstrap aggregating",
+        "ensemble learning"
+      ],
+      "keywords": [
+        "random forest",
+        "bagging",
+        "bootstrap",
+        "ensemble",
+        "out of bag",
+        "variance reduction",
+        "feature subsampling"
+      ],
+      "definition": "Random Forest (Breiman, 2001) is an ensemble learning method that constructs a multitude of decorrelated decision trees at training time by bootstrap aggregating (bagging) and random feature subsampling, outputting the majority vote (classification) or mean prediction (regression).",
+      "explanation": "Individual decision trees exhibit high variance and overfit easily. Random Forests reduce variance without increasing bias through two stochastic mechanisms: (1) Bootstrap Aggregating: each tree is trained on an independent random sample drawn with replacement from the training set; (2) Random Feature Subsampling: at each split, only a random subset of features (typically sqrt(p) for classification, p/3 for regression) is considered. Out-of-Bag (OOB) samples provide a free validation metric without requiring separate test splits.",
+      "example": "Predicting hospital patient readmission by ensembling 500 decorrelated decision trees, achieving superior generalization over any individual tree.",
+      "formula": "\\hat{f}(x) = \\frac{1}{B} \\sum_{b=1}^B T_b(x) \\quad (\\text{Regression}), \\quad \\hat{C}(x) = \\text{mode}\\{C_1(x), \\dots, C_B(x)\\} \\quad (\\text{Classification})",
+      "algorithm_steps": [
+        "For b = 1 to B trees:",
+        "  Draw a bootstrap sample of size N from training dataset",
+        "  Grow a deep, unpruned decision tree on the bootstrap data",
+        "  At each node split, randomly select m = sqrt(p) candidate features",
+        "  Select best split among candidate features using Gini or MSE",
+        "Aggregate predictions across all B trees via majority voting or averaging"
+      ],
+      "advantages": [
+        "Significantly reduces variance and resists overfitting compared to single trees",
+        "Provides built-in feature importance scores and OOB error estimates"
+      ],
+      "limitations": [
+        "Loss of direct visual interpretability compared to a single decision tree",
+        "Slower prediction inference time due to ensembling hundreds of trees"
+      ],
+      "applications": [
+        "Credit scoring, genomics gene expression analysis, tabular business analytics"
+      ],
+      "related_topics": ["ml_decision_trees", "ml_gradient_boosting_xgboost", "ml_supervised"],
+      "suggested_followups": [
+        "What is Bootstrap Aggregating (Bagging)?",
+        "How does feature subsampling decorrelate trees?",
+        "Compare Random Forests and Gradient Boosting."
+      ]
+    },
+    {
+      "id": "ml_gradient_boosting_xgboost",
+      "name": "Gradient Boosted Decision Trees & XGBoost",
+      "category": "Module B — Machine Learning",
+      "category_id": "module_b",
+      "aliases": [
+        "xgboost",
+        "gradient boosting",
+        "gbdt",
+        "lightgbm",
+        "catboost",
+        "boosting"
+      ],
+      "keywords": [
+        "xgboost",
+        "gradient boosting",
+        "gbdt",
+        "pseudo residuals",
+        "learning rate",
+        "lightgbm",
+        "second order taylor",
+        "tabular data"
+      ],
+      "definition": "Gradient Boosted Decision Trees (GBDT, Friedman 2001; XGBoost, Chen & Guestrin 2016) is an ensemble technique that builds trees sequentially, where each new tree fits the negative gradient (pseudo-residuals) of the loss function calculated from previous trees.",
+      "explanation": "Unlike Bagging where trees are built independently in parallel, Boosting builds trees sequentially. Each new shallow tree corrects the residual errors made by the existing ensemble. XGBoost (Extreme Gradient Boosting) introduced second-order Taylor expansion of the loss function (using both gradients and Hessians), L1/L2 tree complexity regularization, column subsampling, sparsity-aware split finding, and cache-aware hardware utilization, dominating competitive machine learning competitions on tabular data.",
+      "example": "Detecting fraudulent bank wire transfers from tabular transaction metadata with microsecond latency using an optimized XGBoost model.",
+      "formula": "\\mathcal{L}^{(t)} \\approx \\sum_{i=1}^n \\left[ g_i f_t(x_i) + \\frac{1}{2} h_i f_t^2(x_i) \\right] + \\Omega(f_t), \\quad g_i = \\partial_{\\hat{y}^{(t-1)}} \\ell(y_i, \\hat{y}^{(t-1)}), \\; h_i = \\partial_{\\hat{y}^{(t-1)}}^2 \\ell(y_i, \\hat{y}^{(t-1)})",
+      "algorithm_steps": [
+        "Initialize model with constant prediction minimizing base loss: f_0(x) = argmin_c sum L(y_i, c)",
+        "For t = 1 to M boosting rounds:",
+        "  Compute first-order gradients g_i and second-order Hessians h_i for each sample",
+        "  Fit a new regression tree f_t(x) to objective using greedy exact or histogram split finder",
+        "  Scale new tree by learning rate eta (shrinkage): f_t_ensemble = f_{t-1} + eta * f_t(x)",
+        "Output final ensemble prediction"
+      ],
+      "advantages": [
+        "State-of-the-art predictive performance on tabular/structured enterprise data",
+        "XGBoost, LightGBM, and CatBoost run extremely fast with optimized C++/CUDA backends"
+      ],
+      "limitations": [
+        "Sensitive to noisy labels and outliers if learning rate is too aggressive",
+        "Requires careful hyperparameter tuning (learning rate, max depth, subsample ratio)"
+      ],
+      "applications": [
+        "Financial credit default prediction, e-commerce click-through rate (CTR) prediction",
+        "Kaggle competitive tabular data science championships"
+      ],
+      "related_topics": ["ml_decision_trees", "ml_random_forests", "ml_supervised"],
+      "suggested_followups": [
+        "Why does XGBoost use second-order gradients (Hessians)?",
+        "Difference between Bagging and Boosting?",
+        "What is shrinkage / learning rate in gradient boosting?"
+      ]
+    },
+    {
+      "id": "ml_pca",
+      "name": "Principal Component Analysis (PCA) & Dimensionality Reduction",
+      "category": "Module B — Machine Learning",
+      "category_id": "module_b",
+      "aliases": [
+        "pca",
+        "principal component analysis",
+        "dimensionality reduction",
+        "eigenvalues and eigenvectors",
+        "svd"
+      ],
+      "keywords": [
+        "pca",
+        "dimensionality reduction",
+        "eigenvectors",
+        "eigenvalues",
+        "covariance matrix",
+        "singular value decomposition",
+        "variance explained",
+        "orthogonality"
+      ],
+      "definition": "Principal Component Analysis is an unsupervised linear dimensionality reduction technique that transforms a high-dimensional feature space into orthogonal, uncorrelated axes (principal components) ordered by variance explained.",
+      "explanation": "In machine learning, high-dimensional datasets suffer from the Curse of Dimensionality, multicollinearity, and computational bottlenecks. PCA computes the empirical covariance matrix of centered data X and finds its eigenvectors and eigenvalues (or applies Singular Value Decomposition SVD: X = U Sigma V^T). The first principal component aligns with the direction of maximal variance; subsequent orthogonal components capture decreasing variance. By projecting onto the top k eigenvectors, one preserves the maximum amount of information while drastically compressing feature dimensions.",
+      "example": "Compressing 1,000 spectral satellite bands down to 10 principal components that retain 98.5% of total scene variance.",
+      "formula": "\\Sigma = \\frac{1}{n} X^T X, \\quad \\Sigma v_i = \\lambda_i v_i, \\quad X_{\\text{projected}} = X V_k",
+      "algorithm_steps": [
+        "Standardize feature matrix: subtract mean mu and divide by standard deviation sigma",
+        "Compute covariance matrix Sigma = (1/n) * X^T * X (or perform SVD on X directly)",
+        "Compute eigenvalues lambda_i and corresponding orthogonal eigenvectors v_i",
+        "Sort eigenvectors in descending order of eigenvalue magnitudes",
+        "Select top k eigenvectors corresponding to desired cumulative variance threshold (e.g. 95%)",
+        "Project original data: Z = X * V_k"
+      ],
+      "advantages": [
+        "Eliminates multicollinearity and reduces memory and compute costs for downstream classifiers",
+        "Enables 2D and 3D visual exploration of high-dimensional datasets"
+      ],
+      "limitations": [
+        "Linear technique: cannot capture non-linear manifold structures (solved by t-SNE, UMAP, or Kernel PCA)",
+        "Transformed principal components lose direct physical interpretability"
+      ],
+      "applications": [
+        "Eigenfaces in facial recognition, genomic microarray analysis, image compression"
+      ],
+      "related_topics": ["ml_unsupervised", "ml_clustering", "math_linear_algebra"],
+      "suggested_followups": [
+        "How do eigenvalues determine variance explained in PCA?",
+        "Difference between PCA and t-SNE?",
+        "What is Singular Value Decomposition (SVD)?"
+      ]
+    },
+    {
+      "id": "ds_feature_engineering",
+      "name": "Data Science: Feature Engineering, Preprocessing & Imbalance Handling",
+      "category": "Module B — Machine Learning",
+      "category_id": "module_b",
+      "aliases": [
+        "feature engineering",
+        "data preprocessing",
+        "data science foundations",
+        "smote",
+        "imbalanced data",
+        "scaling and encoding"
+      ],
+      "keywords": [
+        "feature engineering",
+        "data science",
+        "standardscaler",
+        "minmaxscaler",
+        "one-hot encoding",
+        "smote",
+        "imbalance",
+        "missing values",
+        "outliers"
+      ],
+      "definition": "Feature engineering and preprocessing transforms raw, messy observational data into clean, informative numerical features optimized for machine learning algorithms.",
+      "explanation": "Garbage in, garbage out: ML models are only as good as their input representations. Core data science techniques include: (1) Scaling: StandardScaler (z-score normalization: (x-mu)/sigma) and MinMaxScaler (mapping to [0, 1]) prevent features with large numeric ranges from dominating distance-based algorithms (SVM, KNN, Neural Nets); (2) Categorical Encoding: One-Hot Encoding for nominal variables, Target/Ordinal Encoding for ordered categories; (3) Missing Value Imputation: median, mode, or KNN imputation; (4) Class Imbalance: when minority class is rare (e.g. 0.1% fraud), models predict majority class blindly. Remedies include SMOTE (Synthetic Minority Over-sampling Technique: interpolating synthetic minority vectors), Random Undersampling, and Class-Weighted loss functions.",
+      "example": "Applying One-Hot Encoding to categorical column 'Country', StandardScaler to 'Income', and SMOTE to balance a credit card fraud dataset with 99.9% non-fraud cases.",
+      "formula": "z = \\frac{x - \\mu}{\\sigma}, \\quad x_{\\text{norm}} = \\frac{x - x_{\\min}}{x_{\\max} - x_{\\min}}, \\quad x_{\\text{new}} = x_i + \\lambda (x_{zi} - x_i) \\quad (\\text{SMOTE})",
+      "algorithm_steps": [
+        "Inspect data types, missing value percentages, distributions, and cardinalities",
+        "Impute missing values using training set statistics only (preventing data leakage)",
+        "Encode categorical variables via One-Hot or Target Encoding",
+        "Apply feature scaling (StandardScaler or RobustScaler for outliers)",
+        "If class imbalance > 10:1, apply SMOTE oversampling or class weighting during training",
+        "Package preprocessing steps into reproducible pipelines (e.g. scikit-learn Pipeline)"
+      ],
+      "advantages": [
+        "Directly drives significant improvements in real-world machine learning predictive accuracy",
+        "Prevents devastating production failures caused by data leakage or skewed feature scales"
+      ],
+      "limitations": [
+        "Improper imputation or scaling before train/test splitting causes silent data leakage"
+      ],
+      "applications": [
+        "Foundational prerequisite for all production machine learning and Kaggle data science"
+      ],
+      "related_topics": ["ml_train_val_test", "ml_supervised", "ml_overfitting_evaluation"],
+      "suggested_followups": [
+        "What is Data Leakage in feature engineering?",
+        "How does SMOTE generate synthetic samples?",
+        "Difference between StandardScaler and MinMaxScaler?"
+      ]
     }
   ]
 }

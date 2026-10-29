@@ -12,12 +12,13 @@ def test_knowledge_base_loading():
     topics = kb.get_all_topics()
     modules = kb.get_all_modules()
 
-    # Must cover all 8 modules
-    assert len(modules) == 8
+    # Must cover at least 8 modules (now expanded to 10)
+    assert len(modules) >= 8
     module_ids = [m.id for m in modules]
     expected_modules = [
         "module_a", "module_b", "module_c", "module_d",
-        "module_e", "module_f", "module_g", "module_h"
+        "module_e", "module_f", "module_g", "module_h",
+        "module_i", "module_j"
     ]
     for exp in expected_modules:
         assert exp in module_ids

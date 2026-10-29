@@ -2,7 +2,7 @@
 
 ## 1. Overview
 
-The AI KnowledgeBot knowledge base is structured into modular JSON files stored in `knowledge_base/`. Each file corresponds to one of the 8 academic modules specified in the curriculum.
+The AI KnowledgeBot knowledge base is structured into modular JSON files stored in `knowledge_base/`. Each file corresponds to one of the 10 academic modules specified in the curriculum (117 total topics).
 
 At startup, the knowledge base is validated:
 - Schema completeness.
@@ -73,7 +73,7 @@ Every topic entry in a module JSON file must adhere to this schema:
 
 ---
 
-## 3. Curriculum Modules & Topics (80 Topics Total)
+## 3. Curriculum Modules & Topics (117 Topics Total across 10 Modules)
 
 ### Module A — AI Fundamentals (`module_a_fundamentals.json`)
 - `ai_definition`: Definition, Goals, and Branches of AI
@@ -162,14 +162,24 @@ Every topic entry in a module JSON file must adhere to this schema:
 - `search_planning`: Automated Planning (STRIPS & PDDL)
 - `search_robotics`: Robotics, SLAM, and Autonomous Physical Agents
 
-### Module H — Generative AI (`module_h_generative_ai.json`)
-- `genai_fundamentals`: Generative AI Foundations (GANs, VAEs, Diffusion)
-- `genai_llms`: Large Language Models & Pre-training / SFT / RLHF
-- `genai_prompt_engineering`: Prompt Engineering & Chain-of-Thought
-- `genai_rag`: Retrieval-Augmented Generation (RAG) Architecture
-- `genai_embeddings`: Dense Vector Embeddings & Vector Search (HNSW)
-- `genai_hallucinations`: Hallucinations & Factual Reliability Mitigation
-- `genai_responsible_ai`: Responsible AI, Safety Alignment, and Guardrails
+### Module H — Generative AI, LLMs & Advanced Architectures (`module_h_generative_ai.json` - 28 Topics)
+- **GAN Suite:** `genai_gan_foundations`, `gan_mode_collapse`, `gan_dcgan`, `gan_wgan`, `gan_wgan_gp`, `gan_cgan`, `gan_pix2pix`, `gan_cyclegan`, `gan_stylegan`, `gan_pytorch_workflow`, `gan_diffaugment`, `gan_evaluation_metrics`, `gan_ethics_deepfakes`.
+- **VAEs & Diffusion:** `genai_vae_foundations`, `genai_latent_spaces`, `genai_autoregressive`, `genai_diffusion_models`, `genai_latent_diffusion`.
+- **Multimodal & LLMs:** `genai_multimodal_clip`, `genai_multimodal_dalle`, `genai_llm_pretraining_finetuning`, `genai_lora_peft`, `genai_rag_architecture`, `genai_hallucination_mitigation`.
+
+### Module I — Mathematics & Data Foundations (`module_i_mathematics_data_foundations.json` - 4 Topics)
+- `math_linear_algebra`: Vectors, Matrices, Eigenvalues, SVD, Tensors.
+- `math_calculus_optimization`: Partial Derivatives, Gradients, Jacobians, Optimization.
+- `math_probability_statistics`: Probability Distributions, Bayes' Theorem, MLE.
+- `python_ai_foundations`: NumPy Vectorization, Pandas, PyTorch Tensors.
+
+### Module J — Autonomous Agents, Multimodal & MLOps (`module_j_agents_multimodal_mlops.json` - 6 Topics)
+- `agents_react_tool_calling`: ReAct Prompting & Tool Calling.
+- `agents_multi_agent`: Multi-Agent Systems & Coordination.
+- `multimodal_vision_language`: Vision-Language Foundation Models.
+- `mlops_foundations`: MLOps CI/CD, Experiment Tracking, Model Registries.
+- `mlops_optimization_serving`: ONNX, TensorRT, Quantization & Serving.
+- `safety_adversarial_jailbreaks`: Adversarial Robustness, Red-Teaming & Guardrails.
 
 ---
 
@@ -181,5 +191,5 @@ Every topic entry in a module JSON file must adhere to this schema:
 4. Optionally provide `formula`, `algorithm_steps`, `advantages`, `limitations`, `applications`, `related_topics`, and `suggested_followups`.
 5. Run the validation test suite:
    ```powershell
-   python -m pytest tests/test_knowledge_base.py
+   $env:PYTHONIOENCODING="utf-8"; python -m pytest tests/test_knowledge_base.py
    ```
