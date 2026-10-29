@@ -1,0 +1,202 @@
+{
+  "module_id": "module_a",
+  "module_name": "Module A — AI Fundamentals",
+  "description": "Foundational concepts, history, definitions, agent architectures, and ethical considerations of Artificial Intelligence.",
+  "topics": [
+    {
+      "id": "ai_definition",
+      "name": "Artificial Intelligence Definition & Goals",
+      "category": "Module A — AI Fundamentals",
+      "category_id": "module_a",
+      "aliases": ["ai", "artificial intelligence", "what is ai", "define ai", "artificial intelligence definition", "branches of ai", "ai branches"],
+      "keywords": ["artificial intelligence", "ai", "machine intelligence", "reasoning", "learning", "perception", "decision making", "branches"],
+      "definition": "Artificial Intelligence is the branch of computer science focused on building systems capable of performing tasks that typically require human intelligence, such as reasoning, learning, perception, problem solving, and decision-making.",
+      "explanation": "AI aims to create software and machines that perceive their environment, process information logically, learn from experience, and take rational actions to achieve specific goals. The major branches of AI include Machine Learning (ML), Deep Learning (DL), Natural Language Processing (NLP), Computer Vision (CV), Knowledge-Based / Expert Systems, Search and Planning, and Robotics.",
+      "example": "Autonomous driving systems (like Waymo or Tesla Autopilot) that perceive roadway obstacles using Computer Vision, plan paths using heuristic search, and execute steering decisions in real time.",
+      "formula": "",
+      "algorithm_steps": [],
+      "advantages": [
+        "Automates repetitive and high-precision tasks without fatigue",
+        "Processes vast amounts of unstructured and multidimensional data rapidly",
+        "Operates continuously (24/7) with consistent deterministic or probabilistic logic",
+        "Enables predictive insights and optimal decision support in complex domains"
+      ],
+      "limitations": [
+        "Lacks innate common sense and human emotional empathy",
+        "Susceptible to bias present in training data or incomplete rule sets",
+        "High computational costs for modern deep learning models",
+        "Black-box opacity in non-symbolic deep architectures"
+      ],
+      "applications": [
+        "Medical diagnosis and pathology image analysis",
+        "Financial fraud detection and algorithmic trading",
+        "Virtual assistants and conversational agents",
+        "Autonomous navigation and robotics automation"
+      ],
+      "related_topics": ["ml_definition", "ai_history", "ai_narrow_vs_general", "ai_agents_environments"],
+      "suggested_followups": [
+        "What are its branches?",
+        "Difference between AI and ML?",
+        "Explain Narrow AI and General AI.",
+        "What are the ethical concerns of AI?"
+      ]
+    },
+    {
+      "id": "ai_history",
+      "name": "History and Evolution of AI",
+      "category": "Module A — AI Fundamentals",
+      "category_id": "module_a",
+      "aliases": ["history of ai", "ai history", "evolution of ai", "turing test", "dartmouth conference", "ai winters"],
+      "keywords": ["history", "evolution", "alan turing", "turing test", "1956", "dartmouth", "john mccarthy", "ai winter", "expert systems era", "deep learning boom"],
+      "definition": "The history of AI traces the intellectual and technical evolution of artificial thinking machines from Alan Turing's 1950 imitation game and the 1956 Dartmouth Conference to symbolic expert systems, recurring AI winters, and modern data-driven deep learning.",
+      "explanation": "Key milestones include: 1950 (Alan Turing proposes 'Computing Machinery and Intelligence' and the Turing Test); 1956 (Dartmouth Summer Research Project where John McCarthy coins the term 'Artificial Intelligence'); 1960s-1970s (early symbolic reasoning, search algorithms, and the First AI Winter due to compute limits); 1980s (Rise of rule-based Expert Systems followed by the Second AI Winter); 1997 (IBM Deep Blue defeats world chess champion Garry Kasparov); 2012 (AlexNet wins ImageNet, igniting the Deep Learning revolution); 2017-present (Transformer architectures, LLMs, and widespread Generative AI adoption).",
+      "example": "Alan Turing's 1950 imitation game where a human interrogator attempts to distinguish between typed responses from a computer and another human.",
+      "formula": "",
+      "algorithm_steps": [],
+      "advantages": [
+        "Provides historical context to understand cyclical hype and technological plateaus",
+        "Highlights the complementary nature of symbolic AI (rules) and connectionist AI (neural networks)"
+      ],
+      "limitations": [
+        "Historical breakthroughs often prompted unrealistic expectations leading to funding freezes (AI winters)"
+      ],
+      "applications": [
+        "Foundational benchmarks (Turing Test, Winograd Schema)",
+        "Informing current AI governance and technical safety frameworks"
+      ],
+      "related_topics": ["ai_definition", "kb_expert_systems", "dl_ann"],
+      "suggested_followups": [
+        "What caused the AI winters?",
+        "What is the Dartmouth Conference?",
+        "What is the Turing Test?",
+        "Explain Expert Systems."
+      ]
+    },
+    {
+      "id": "ai_narrow_vs_general",
+      "name": "Narrow AI vs General AI (ANI vs AGI vs ASI)",
+      "category": "Module A — AI Fundamentals",
+      "category_id": "module_a",
+      "aliases": ["narrow ai", "general ai", "agi", "ani", "artificial narrow intelligence", "artificial general intelligence", "superintelligence", "asi", "narrow vs general ai"],
+      "keywords": ["narrow ai", "general ai", "agi", "ani", "asi", "superintelligence", "weak ai", "strong ai"],
+      "definition": "Narrow AI (Artificial Narrow Intelligence / Weak AI) is designed to excel at a single specific task, whereas General AI (Artificial General Intelligence / Strong AI) refers to hypothetical systems possessing human-level cognitive flexibility across all domains.",
+      "explanation": "Current AI is exclusively Narrow AI (ANI)—systems like AlphaGo, Siri, ChatGPT, and medical diagnostics perform well within their training bounds but cannot generalize or transfer learning across unrelated domains on their own. Artificial General Intelligence (AGI) would understand, reason, plan, and learn across diverse abstract tasks autonomously like a human. Artificial Superintelligence (ASI) describes a hypothetical intellect surpassing human genius in all creative, social, and scientific pursuits.",
+      "example": "AlphaZero can play chess and Go at superhuman levels but cannot recognize handwritten digits or converse about literature, demonstrating Narrow AI.",
+      "formula": "",
+      "algorithm_steps": [],
+      "advantages": [
+        "Narrow AI delivers extreme accuracy and speed in high-stakes bounded environments (radiology, trading)",
+        "Narrow AI is verifiable and safe within domain parameters"
+      ],
+      "limitations": [
+        "Narrow AI suffers from brittleness when faced with out-of-distribution edge cases",
+        "AGI remains unrealized and poses open scientific and alignment challenges"
+      ],
+      "applications": [
+        "Specialized search engines and recommendation engines (Narrow AI)",
+        "Pathological image scanning and speech-to-text systems"
+      ],
+      "related_topics": ["ai_definition", "ai_ethics_limitations", "genai_llms"],
+      "suggested_followups": [
+        "Is ChatGPT AGI or Narrow AI?",
+        "What is Superintelligence (ASI)?",
+        "What are the ethical concerns of AI?"
+      ]
+    },
+    {
+      "id": "ai_agents_environments",
+      "name": "Intelligent Agents and Environments",
+      "category": "Module A — AI Fundamentals",
+      "category_id": "module_a",
+      "aliases": ["intelligent agents", "agent and environment", "agent architecture", "agent environment", "peac", "peas"],
+      "keywords": ["agent", "environment", "sensors", "actuators", "percept", "percept sequence", "peas", "performance measure"],
+      "definition": "An intelligent agent is an autonomous entity that perceives its environment through sensors and acts upon that environment via actuators to achieve designated goals.",
+      "explanation": "Agents are characterized using the PEAS framework: Performance measure, Environment, Actuators, and Sensors. Environments can be: Fully Observable vs Partially Observable, Deterministic vs Stochastic, Episodic vs Sequential, Static vs Dynamic, Discrete vs Continuous, and Single-Agent vs Multi-Agent. Agents maintain an internal state, reason over percept sequences, and select actions through an agent function f: P* -> A.",
+      "example": "An automated vacuum cleaner (like Roomba) perceives dirt levels and bump sensors (sensors), cleans carpets and navigates rooms (environment), uses wheels and suction motors (actuators), and is evaluated by room cleanliness percentage (performance).",
+      "formula": "Agent Function: f: P* \\rightarrow A (maps percept sequences P* to actions A)",
+      "algorithm_steps": [
+        "Perceive current environment inputs via sensors",
+        "Update internal state using past memory and sensor readings",
+        "Evaluate possible actions against goal / utility metrics",
+        "Execute selected action via actuators"
+      ],
+      "advantages": [
+        "Provides a modular, universal framework for designing autonomous systems",
+        "Clarifies boundaries between sensing, reasoning, and physical actuation"
+      ],
+      "limitations": [
+        "Stochastic, partially observable environments introduce uncertainty requiring probabilistic reasoning"
+      ],
+      "applications": [
+        "Autonomous vehicles and warehouse logistics bots",
+        "Automated trading bots and game-playing agents"
+      ],
+      "related_topics": ["ai_rational_agents", "search_robotics", "ml_reinforcement"],
+      "suggested_followups": [
+        "What is a rational agent?",
+        "Explain PEAS framework.",
+        "What is Reinforcement Learning?"
+      ]
+    },
+    {
+      "id": "ai_rational_agents",
+      "name": "Rational Agents",
+      "category": "Module A — AI Fundamentals",
+      "category_id": "module_a",
+      "aliases": ["rational agent", "rationality in ai", "rationality vs omniscience", "rational agents"],
+      "keywords": ["rational agent", "rationality", "expected utility", "omniscience", "performance measure", "agent function"],
+      "definition": "A rational agent is one that for each possible percept sequence selects an action expected to maximize its performance measure, based on the evidence provided by the percept sequence and built-in knowledge.",
+      "explanation": "Rationality is not omniscience or perfection: omniscience implies knowing the actual outcome of actions in advance, whereas rationality depends on expected performance given limited information. A rational agent engages in exploration to gather information, adapts to new experiences through learning, and exhibits autonomy rather than relying strictly on static prior knowledge.",
+      "example": "A chess engine that analyzes moves to select the move maximizing winning probability based on minimax search with alpha-beta pruning.",
+      "formula": "\\text{Action}^* = \\arg\\max_{a \\in A} \\mathbb{E}[U(s') \\mid s, a]",
+      "algorithm_steps": [],
+      "advantages": [
+        "Establishes a rigorous mathematical foundation for decision theory in AI",
+        "Separates rationality from infallibility or unrealistic omniscience"
+      ],
+      "limitations": [
+        "Bounded rationality: real-world computational limits prevent evaluating all future possibilities"
+      ],
+      "applications": [
+        "Game AI (chess, poker, Go)",
+        "Automated resource allocation in cloud computing"
+      ],
+      "related_topics": ["ai_agents_environments", "search_state_space", "search_astar"],
+      "suggested_followups": [
+        "What is the difference between rationality and omniscience?",
+        "What is bounded rationality?",
+        "Explain A* search."
+      ]
+    },
+    {
+      "id": "ai_ethics_limitations",
+      "name": "Applications, Advantages, Limitations, and Ethical Concerns",
+      "category": "Module A — AI Fundamentals",
+      "category_id": "module_a",
+      "aliases": ["ai ethics", "ethical concerns of ai", "ai limitations", "ai advantages", "algorithmic bias", "responsible ai fundamentals"],
+      "keywords": ["ethics", "bias", "fairness", "privacy", "transparency", "accountability", "deepfakes", "job displacement", "limitations"],
+      "definition": "AI ethics examines the moral, legal, and societal implications of deploying autonomous systems, focusing on algorithmic bias, fairness, transparency, privacy, safety, and accountability.",
+      "explanation": "While AI delivers unprecedented productivity and diagnostic precision, it carries substantial risks: Algorithmic Bias (perpetuating societal prejudice from historical data), Lack of Explainability (opaque deep learning decisions), Privacy Invasions (mass surveillance and unconsented data scraping), Dual-Use Risks (autonomous weaponry, deepfakes, and automated disinformation), and Economic Disruption (labor market displacement). Responsible AI guidelines require fairness audits, human-in-the-loop oversight, and rigorous model validation.",
+      "example": "A resume screening model trained on historical corporate hiring data that penalizes female candidates because prior hires were predominantly male.",
+      "formula": "",
+      "algorithm_steps": [],
+      "advantages": [
+        "Proactive ethical frameworks prevent discriminatory deployment in hiring, lending, and justice",
+        "Builds public trust through transparent, auditable decision pipelines"
+      ],
+      "limitations": [
+        "Trade-offs often exist between model accuracy, computational speed, and mathematical fairness definitions"
+      ],
+      "applications": [
+        "Bias auditing tools and explainable AI (XAI) frameworks (SHAP, LIME)",
+        "Compliance with international regulations (EU AI Act, NIST AI RMF)"
+      ],
+      "related_topics": ["ai_definition", "genai_responsible_ai", "kb_rule_based_pros_cons"],
+      "suggested_followups": [
+        "What is algorithmic bias?",
+        "Explain Responsible AI.",
+        "What are the limitations of Deep Learning?"
+      ]
+    }
+  ]
+}

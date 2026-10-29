@@ -1,0 +1,262 @@
+{
+  "module_id": "module_h",
+  "module_name": "Module H — Generative AI",
+  "description": "Generative models, Large Language Models, prompt engineering, RAG, dense embeddings, hallucination mitigation, and responsible AI alignment.",
+  "topics": [
+    {
+      "id": "genai_fundamentals",
+      "name": "Generative AI Fundamentals",
+      "category": "Module H — Generative AI",
+      "category_id": "module_h",
+      "aliases": ["generative ai", "genai", "what is generative ai", "generative vs discriminative", "generative models"],
+      "keywords": ["generative ai", "genai", "generative vs discriminative", "diffusion", "gans", "vaes", "synthetic data", "creative ai"],
+      "definition": "Generative AI refers to deep learning models capable of synthesizing novel, realistic content (text, images, audio, code, video, and 3D assets) that mimics patterns learned from training data.",
+      "explanation": "Generative models model the joint probability distribution P(X, Y) or data distribution P(X), allowing them to sample and generate entirely new synthetic instances. In contrast, Discriminative models learn conditional probability P(Y|X) to classify or separate data points. Major generative paradigms include: (1) Generative Adversarial Networks (GANs: generator vs discriminator zero-sum game); (2) Variational Autoencoders (VAEs: latent probabilistic encoding and reconstruction); (3) Diffusion Models (iterative noise addition and learned reverse denoising, powers Midjourney, Stable Diffusion, DALL-E); (4) Autoregressive Transformers (next-token text/code generation).",
+      "example": "A diffusion model generating a photorealistic digital painting of an astronaut riding a horse on Mars given a natural language prompt.",
+      "formula": "\\text{GAN Minimax: } \\min_G \\max_D \\mathbb{E}_{x}[\\log D(x)] + \\mathbb{E}_{z}[\\log(1 - D(G(z)))]",
+      "algorithm_steps": [
+        "Curate massive multi-modal training dataset (billions of images or tokens)",
+        "Train model to predict missing noise, next tokens, or latent probability distributions",
+        "At inference: sample from latent random distribution z or seed with prompt prompt_0",
+        "Iteratively decode or denoise latent vectors into final high-resolution output media"
+      ],
+      "advantages": [
+        "Generates novel, high-fidelity synthetic creative assets, text, and computer code on demand",
+        "Accelerates human ideation, drafting, software development, and graphic design"
+      ],
+      "limitations": [
+        "Prone to fabricating incorrect claims (hallucinations) with persuasive fluency",
+        "Severe training carbon footprint and copyright infringement concerns"
+      ],
+      "applications": [
+        "Synthetic image generation (Midjourney, Stable Diffusion)",
+        "Automated software engineering copilots (GitHub Copilot, Cursor)",
+        "Personalized educational tutoring and creative writing assistance"
+      ],
+      "related_topics": ["genai_llms", "genai_rag", "genai_prompt_engineering", "dl_transformers_attention"],
+      "suggested_followups": [
+        "Difference between Generative and Discriminative models?",
+        "How do Diffusion Models work?",
+        "What are Large Language Models (LLMs)?"
+      ]
+    },
+    {
+      "id": "genai_llms",
+      "name": "Large Language Models (LLMs)",
+      "category": "Module H — Generative AI",
+      "category_id": "module_h",
+      "aliases": ["llms", "large language models", "llm", "foundation models", "chatgpt", "gpt", "autoregressive models"],
+      "keywords": ["llm", "large language models", "gpt", "pretraining", "fine-tuning", "rlhf", "emergent abilities", "scaling laws"],
+      "definition": "Large Language Models are massive deep neural network language models containing tens to hundreds of billions of parameters, pre-trained on vast internet-scale text corpora to understand and generate natural language.",
+      "explanation": "Modern LLMs are predominantly decoder-only autoregressive transformers. Training follows a three-stage pipeline: (1) Self-Supervised Pretraining: model learns next-token prediction P(w_t | w_{<t}) on trillions of tokens, internalizing grammar, world knowledge, and reasoning patterns; (2) Supervised Fine-Tuning (SFT): training on curated instruction-response pairs to learn helpful dialog behavior; (3) Alignment (RLHF / DPO): Reinforcement Learning from Human Feedback or Direct Preference Optimization to ensure outputs are helpful, harmless, and honest. LLMs exhibit 'emergent abilities' such as in-context few-shot learning and chain-of-thought reasoning as model scale exceeds critical thresholds.",
+      "example": "Models like GPT-4, Claude 3.5, Gemini 1.5, and LLaMA 3 generating software applications, solving Olympiad math problems, and answering complex scientific questions.",
+      "formula": "\\mathcal{L}_{\\text{LM}}(\\theta) = -\\sum_{t=1}^T \\log P(w_t \\mid w_1, \\dots, w_{t-1}; \\theta)",
+      "algorithm_steps": [
+        "Pre-training: optimize billions of parameters on trillions of tokens via causal language modeling loss",
+        "Supervised Fine-Tuning (SFT): train on curated high-quality conversational demonstrations",
+        "Reward Modeling: train a scoring model on human preference rankings of model responses",
+        "PPO / DPO Optimization: align policy to maximize reward while penalizing drift from base model",
+        "Inference: sample next tokens using temperature, top-p (nucleus), and repetition penalties"
+      ],
+      "advantages": [
+        "Remarkable conversational fluency, reasoning versatility, and cross-domain zero-shot generalization",
+        "Understands diverse computer programming languages and natural human tongues"
+      ],
+      "limitations": [
+        "Hallucinations: states false or fabricated claims with unwavering confidence",
+        "Knowledge cutoff: static weights cannot know events occurring after training completion without tools like RAG",
+        "Massive compute cost and lack of strict formal guarantees"
+      ],
+      "applications": [
+        "Conversational AI assistants, code generation, summarization, document analysis, automated agents"
+      ],
+      "related_topics": ["dl_transformers_attention", "genai_prompt_engineering", "genai_rag", "genai_hallucinations"],
+      "suggested_followups": [
+        "What are the three stages of training an LLM?",
+        "What is RLHF (Reinforcement Learning from Human Feedback)?",
+        "How do rule-based chatbots compare to LLMs?"
+      ]
+    },
+    {
+      "id": "genai_prompt_engineering",
+      "name": "Prompt Engineering",
+      "category": "Module H — Generative AI",
+      "category_id": "module_h",
+      "aliases": ["prompt engineering", "prompting", "in-context learning", "chain of thought", "cot", "few-shot prompting"],
+      "keywords": ["prompt engineering", "zero-shot", "few-shot", "chain of thought", "cot", "system prompt", "in-context learning", "delimiters"],
+      "definition": "Prompt engineering is the empirical discipline of structuring, optimizing, and crafting input text prompts to guide generative AI models toward producing accurate, consistent, and desired responses.",
+      "explanation": "Because LLMs are conditioned on prior context, prompt phrasing significantly alters output quality. Key techniques include: (1) Zero-Shot Prompting: giving direct instructions without examples; (2) Few-Shot / In-Context Learning: providing 2-5 input-output demonstration pairs in the prompt; (3) Chain-of-Thought (CoT): instructing the model to 'think step by step', breaking multi-stage reasoning down; (4) Role Prompting / System Prompts: specifying persona, constraints, and target audience; (5) Directional / Structured Output Prompts: specifying JSON schemas or Markdown formats and using XML/triple backtick delimiters to prevent prompt injection.",
+      "example": "Using Few-Shot Chain-of-Thought prompting to solve a math word problem by demonstrating: 'Q: Roger has 5 tennis balls... A: Let\\'s think step by step: He buys 2 cans of 3 balls (2*3=6). 5 + 6 = 11. Answer is 11.'",
+      "formula": "",
+      "algorithm_steps": [
+        "Define clear objective, role persona, and expected output format (e.g. JSON schema)",
+        "Provide explicit context, constraints, and negative constraints (what NOT to do)",
+        "Include high-quality few-shot examples demonstrating edge cases",
+        "Append chain-of-thought reasoning triggers ('think step-by-step before answering')",
+        "Iteratively test and refine prompts across diverse test inputs to measure output consistency"
+      ],
+      "advantages": [
+        "Requires zero model retraining or weight updates (operates entirely at inference time)",
+        "Immediate iteration and fast deployment of customized agent behaviors"
+      ],
+      "limitations": [
+        "Heuristic and fragile: minor prompt rewording or model version updates can break output formatting",
+        "Consumes input context window tokens, increasing API latency and billing cost"
+      ],
+      "applications": [
+        "System instructions for AI agents, customer support formatting, automated code generation"
+      ],
+      "related_topics": ["genai_llms", "genai_rag", "genai_hallucinations"],
+      "suggested_followups": [
+        "What is Chain-of-Thought (CoT) prompting?",
+        "Difference between Zero-Shot and Few-Shot prompting?",
+        "What is Prompt Injection?"
+      ]
+    },
+    {
+      "id": "genai_rag",
+      "name": "Retrieval-Augmented Generation (RAG)",
+      "category": "Module H — Generative AI",
+      "category_id": "module_h",
+      "aliases": ["rag", "retrieval-augmented generation", "retrieval augmented generation", "vector search rag"],
+      "keywords": ["rag", "retrieval augmented generation", "vector database", "dense retrieval", "chunking", "reranking", "grounding"],
+      "definition": "Retrieval-Augmented Generation (RAG) is an AI architecture that enhances language models by retrieving relevant authoritative documents from an external knowledge base and feeding them into the model prompt as grounding context.",
+      "explanation": "RAG bridges the gap between static LLM parametric memory and dynamic external facts. The RAG pipeline consists of: (1) Indexing: documents are chunked into 200-500 word passages and converted into dense embedding vectors stored in a Vector Database (Pinecone, Milvus, Chroma, Qdrant); (2) Retrieval: when a user asks a question, the query is embedded, and cosine similarity retrieves the top-k most semantically relevant chunks; (3) Generation: the retrieved chunks are injected into the prompt along with the user query, instructing the LLM to generate an answer grounded exclusively in the retrieved facts.",
+      "example": "An enterprise internal HR chatbot: An employee asks 'What is our 2026 paternity leave policy?'; the system retrieves Section 4.2 of the company handbook and generates an accurate, cited answer without hallucinating.",
+      "formula": "P(y \\mid x) = \\sum_{z \\in \\text{Top-}k} P(z \\mid x) \\cdot P(y \\mid x, z)",
+      "algorithm_steps": [
+        "Ingest, clean, and chunk enterprise documents into semantic passages",
+        "Generate dense vector embeddings for all chunks and index in a Vector DB",
+        "When user queries: convert user query to embedding vector",
+        "Perform approximate nearest neighbor (ANN) vector search using Cosine Similarity",
+        "Rerank top retrieved chunks using a cross-encoder model",
+        "Assemble prompt: System instructions + Retrieved passages + User query",
+        "Pass grounded prompt to LLM to synthesize cited response"
+      ],
+      "advantages": [
+        "Drastically mitigates hallucinations by grounding answers in verified source documents",
+        "Updates model knowledge in real-time simply by updating the database, avoiding costly model retraining",
+        "Provides direct source citations and traceable provenance for answers"
+      ],
+      "limitations": [
+        "Retrieval failures: if the retriever fails to find the right chunk, the generator produces poor answers",
+        "Chunking strategies and context length limits can truncate essential cross-document context"
+      ],
+      "applications": [
+        "Enterprise document search, legal research assistants, medical reference tools"
+      ],
+      "related_topics": ["genai_embeddings", "genai_llms", "nlp_cosine_similarity", "genai_hallucinations"],
+      "suggested_followups": [
+        "What are the steps of a RAG pipeline?",
+        "How does RAG reduce hallucinations?",
+        "Difference between Fine-Tuning and RAG?"
+      ]
+    },
+    {
+      "id": "genai_embeddings",
+      "name": "Dense Embeddings and Vector Search",
+      "category": "Module H — Generative AI",
+      "category_id": "module_h",
+      "aliases": ["embeddings", "dense embeddings", "vector embeddings", "vector search", "vector database"],
+      "keywords": ["embeddings", "vector search", "dense vectors", "approximate nearest neighbors", "ann", "hnsw", "cosine similarity"],
+      "definition": "Dense embeddings are fixed-length, low-dimensional continuous vector representations generated by neural models that capture high-level semantic meaning, enabling mathematical similarity comparisons across text, code, or images.",
+      "explanation": "Unlike sparse lexical encodings (TF-IDF, Bag-of-Words) where words must match exactly, dense embeddings map semantically similar sentences to proximal coordinates in vector space (e.g. 768 or 1536 dimensions). For instance, 'How do I reset my password?' and 'Forgot login credentials' have zero word overlap, but high cosine similarity in embedding space. Vector databases use Approximate Nearest Neighbor (ANN) index algorithms like Hierarchical Navigable Small World (HNSW) graphs to search millions of vectors in single-digit milliseconds.",
+      "example": "Generating 1536-dimensional embeddings for 1,000,000 legal contracts and finding all clauses semantically equivalent to 'indemnification upon breach of contract' in 4 milliseconds.",
+      "formula": "\\text{HNSW Search: } \\arg\\max_{v_i \\in \\mathcal{V}} \\frac{q \\cdot v_i}{\\|q\\| \\|v_i\\|}",
+      "algorithm_steps": [
+        "Pass text string through transformer encoder (e.g. text-embedding-3-small or BGE)",
+        "Extract mean-pooled token representations to form single vector representation",
+        "L2-normalize vector to unit length",
+        "Index vector in HNSW graph structure within a vector database",
+        "Query database using cosine inner-product to return top-k nearest neighbors"
+      ],
+      "advantages": [
+        "Captures semantic intent, synonyms, and conceptual relationships beyond literal keyword matches",
+        "Universal representation supporting multi-modal cross-media retrieval (text-to-image)"
+      ],
+      "limitations": [
+        "Can struggle with exact keyword lookups (e.g. part numbers, exact product SKUs) where sparse BM25 search excels",
+        "Compression loss: squeezing a long 500-word paragraph into a single vector inevitably loses fine details"
+      ],
+      "applications": [
+        "Semantic search engines, RAG knowledge retrieval, recommendation engines, facial verification"
+      ],
+      "related_topics": ["genai_rag", "nlp_cosine_similarity", "nlp_word2vec_glove"],
+      "suggested_followups": [
+        "What is HNSW (Hierarchical Navigable Small World)?",
+        "Why combine BM25 and Dense Embeddings (Hybrid Search)?",
+        "How is Cosine Similarity calculated for embeddings?"
+      ]
+    },
+    {
+      "id": "genai_hallucinations",
+      "name": "Hallucinations and Factual Reliability",
+      "category": "Module H — Generative AI",
+      "category_id": "module_h",
+      "aliases": ["hallucinations", "hallucination", "factual reliability", "confabulation in ai", "mitigating hallucinations"],
+      "keywords": ["hallucination", "factual reliability", "confabulation", "sycophancy", "grounding", "faithfulness", "fact checking"],
+      "definition": "Hallucination in AI refers to the phenomenon where a generative model produces plausible-sounding, syntactically fluent statements that are factually false, unfaithful to source context, or completely fabricated.",
+      "explanation": "Because autoregressive language models predict the next most probable statistical token rather than querying an internal truth database, they can confabulate convincing non-existent facts, fake legal citations, or false medical advice. Types include: (1) Intrinsic Hallucination: output directly contradicts given source context; (2) Extrinsic Hallucination: output asserts unverifiable claims not supported by any source. Mitigation strategies include: Grounded RAG, Chain-of-Verification (CoVe), Self-Consistency decoding, constrained decoding, and hybrid rule-based fact verification.",
+      "example": "A lawyer submitting a legal brief written by ChatGPT containing six fabricated court decisions with fictitious judge names and citations that the model made up out of thin air.",
+      "formula": "",
+      "algorithm_steps": [
+        "Inject authoritative grounding documents into context via RAG",
+        "Instruct model with strict negative constraints ('Answer only using provided text; if unsure, state I do not know')",
+        "Use low temperature decoding (0.0 to 0.2) to minimize stochastic drift",
+        "Apply automated factuality checking pipelines (e.g. TruLens, Ragas, ROUGE)",
+        "Cross-reference outputs against deterministic rule-based knowledge bases"
+      ],
+      "advantages": [
+        "Awareness of hallucinations is essential for deploying safe, production-grade AI systems",
+        "Combines well with rule-based systems to provide deterministic factual guardrails"
+      ],
+      "limitations": [
+        "Cannot be 100% eliminated in purely statistical foundation models due to the probabilistic nature of next-token prediction"
+      ],
+      "applications": [
+        "AI governance, legal tech compliance, clinical healthcare AI verification"
+      ],
+      "related_topics": ["genai_rag", "kb_rule_based_pros_cons", "genai_responsible_ai"],
+      "suggested_followups": [
+        "Why do LLMs hallucinate?",
+        "How does Rule-Based AI eliminate hallucinations?",
+        "What is Chain-of-Verification (CoVe)?"
+      ]
+    },
+    {
+      "id": "genai_responsible_ai",
+      "name": "Responsible AI and Safety Alignment",
+      "category": "Module H — Generative AI",
+      "category_id": "module_h",
+      "aliases": ["responsible ai", "ai safety", "alignment", "constitutional ai", "red teaming", "jailbreaking"],
+      "keywords": ["responsible ai", "safety", "alignment", "red teaming", "jailbreak", "constitutional ai", "watermarking", "guardrails"],
+      "definition": "Responsible AI is the practice of designing, developing, and deploying artificial intelligence systems that are ethically grounded, fair, transparent, accountable, robust against malicious misuse, and aligned with human values.",
+      "explanation": "Key pillars of Responsible AI: (1) Fairness: preventing demographic and socioeconomic bias; (2) Transparency & Explainability: enabling human understanding of automated decisions; (3) Privacy & Security: protecting personal data against extraction and model inversion; (4) Safety & Alignment: ensuring models refuse harmful requests (e.g. cyberweapons, CBRN synthesis, self-harm) via Constitutional AI and reinforcement learning from AI feedback (RLAIF); (5) Robustness: defending against jailbreaking and adversarial prompt attacks; (6) Accountability: establishing human-in-the-loop audit trails and watermarking synthetic media.",
+      "example": "An LLM guardrail system (like Llama Guard or NeMo Guardrails) intercepting and blocking a user prompt attempting to jailbreak the system into generating malware instructions.",
+      "formula": "",
+      "algorithm_steps": [
+        "Establish formal ethical principles and safety policy taxonomies",
+        "Red-team model to discover vulnerabilities, toxicity, and jailbreak vectors",
+        "Apply Constitutional AI: critique and revise outputs according to written ethical principles",
+        "Deploy input/output guardrails to filter sensitive keywords and toxic intents in real time",
+        "Continuously audit deployed models against emerging regulatory standards (EU AI Act)"
+      ],
+      "advantages": [
+        "Prevents severe societal harm, reputational damage, and legal liability",
+        "Builds sustainable user trust and adheres to international regulatory frameworks"
+      ],
+      "limitations": [
+        "Over-alignment / sycophancy: overly conservative guardrails can lead to false refusals of benign educational queries"
+      ],
+      "applications": [
+        "Enterprise conversational AI guardrails, content moderation, automated red-teaming"
+      ],
+      "related_topics": ["ai_ethics_limitations", "genai_hallucinations", "genai_llms"],
+      "suggested_followups": [
+        "What is Constitutional AI?",
+        "What is AI Red Teaming?",
+        "What are AI Guardrails?"
+      ]
+    }
+  ]
+}

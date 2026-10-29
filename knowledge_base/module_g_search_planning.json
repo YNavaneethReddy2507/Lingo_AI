@@ -1,0 +1,312 @@
+{
+  "module_id": "module_g",
+  "module_name": "Module G — Search, Planning, and Robotics",
+  "description": "Problem-solving agents, state-space search, uninformed search (BFS, DFS, UCS), informed heuristic search (A*, Greedy Best-First), automated planning, and autonomous robotics.",
+  "topics": [
+    {
+      "id": "search_state_space",
+      "name": "State-Space Search and Problem Formulation",
+      "category": "Module G — Search, Planning, and Robotics",
+      "category_id": "module_g",
+      "aliases": ["state-space search", "state space search", "problem formulation", "search in ai", "search space"],
+      "keywords": ["state space", "initial state", "goal state", "actions", "transition model", "path cost", "branching factor"],
+      "definition": "State-space search is an AI problem-solving methodology that formalizes a goal-directed task as navigating a graph of discrete states using transitions defined by valid actions.",
+      "explanation": "A search problem is formally defined by five elements: (1) Initial State: the starting state the agent begins in; (2) Actions: set of possible actions available in a given state Actions(s); (3) Transition Model: result(s, a) specifying the outcome of taking action a in state s; (4) Goal Test: determines whether a given state achieves the objective; (5) Path Cost: function c(s, a, s') assigning a numerical cost to each transition. The solution is an action sequence leading from the initial state to a goal state. Search performance is evaluated on: Completeness (is a solution guaranteed?), Optimality (does it find the lowest-cost path?), Time Complexity, and Space Complexity.",
+      "example": "The 8-Puzzle game: 9 squares with tiles 1 to 8 and one blank space; states are permutations of tiles, actions are sliding adjacent tiles into the blank space, and path cost is 1 per move.",
+      "formula": "\\text{Problem} = \\langle S_0, \\text{Actions}(s), \\text{Result}(s, a), \\text{GoalTest}(s), c(s, a, s') \\rangle",
+      "algorithm_steps": [
+        "Formulate problem: define state space representation, valid actions, goal criteria, and cost metric",
+        "Initialize frontier queue with root initial state node",
+        "Initialize explored set to record visited states and prevent infinite graph loops",
+        "While frontier is not empty: pop node, test against goal criteria, expand successor child nodes",
+        "If goal found, reconstruct solution path by tracing parent pointers backwards to root"
+      ],
+      "advantages": [
+        "Provides a universal mathematical formulation for game playing, route navigation, and puzzle solving"
+      ],
+      "limitations": [
+        "Combinatorial explosion: state spaces grow exponentially with branching factor b and depth d: O(b^d)"
+      ],
+      "applications": [
+        "GPS route mapping (Google Maps navigation)",
+        "Game engines (Chess, Rubik's cube, Go) and automated circuit board layout"
+      ],
+      "related_topics": ["search_bfs", "search_dfs", "search_astar", "search_planning"],
+      "suggested_followups": [
+        "What are Uninformed vs Informed Search algorithms?",
+        "What is Combinatorial Explosion in search?",
+        "Explain A* Search."
+      ]
+    },
+    {
+      "id": "search_bfs",
+      "name": "Breadth-First Search (BFS)",
+      "category": "Module G — Search, Planning, and Robotics",
+      "category_id": "module_g",
+      "aliases": ["bfs", "breadth-first search", "breadth first search", "fifo queue search"],
+      "keywords": ["bfs", "breadth-first", "fifo", "queue", "uninformed search", "completeness", "shallowest goal"],
+      "definition": "Breadth-First Search is an uninformed graph search algorithm that explores all nodes at the current depth level before moving on to nodes at the next depth level using a First-In-First-Out (FIFO) queue.",
+      "explanation": "BFS expands the shallowest unexpanded node first. Properties: (1) Completeness: Yes, guaranteed to find a solution if one exists (for finite branching factor b); (2) Optimality: Optimal if and only if all step costs are identical/constant (e.g. 1 per step); (3) Time Complexity: O(b^d), where b is branching factor and d is depth of the shallowest solution; (4) Space Complexity: O(b^d), because all generated nodes at depth d must reside in memory in the frontier queue. The exponential memory requirement is the primary limitation of BFS.",
+      "example": "Finding the shortest degree of separation between two users on LinkedIn where each connection counts as one uniform hop.",
+      "formula": "\\text{Time Complexity} = O(b^d), \\quad \\text{Space Complexity} = O(b^d)",
+      "algorithm_steps": [
+        "Initialize FIFO queue frontier with initial state node",
+        "Initialize explored set with initial state",
+        "While frontier is not empty:",
+        "  Dequeue node from front of queue",
+        "  If node satisfies goal test, return solution path",
+        "  For each valid action in Actions(node.state):",
+        "    Generate child state = Result(node.state, action)",
+        "    If child state is not in explored or frontier, enqueue child"
+      ],
+      "advantages": [
+        "Guaranteed to find the shallowest goal in terms of number of steps",
+        "Complete: will never get trapped in an infinite cycle"
+      ],
+      "limitations": [
+        "Catastrophic memory consumption: storing b^d nodes exhausts RAM rapidly on deep trees"
+      ],
+      "applications": [
+        "Shortest path in unweighted graphs and peer-to-peer network discovery",
+        "Social network connection degree analysis"
+      ],
+      "related_topics": ["search_dfs", "search_ucs", "search_state_space"],
+      "suggested_followups": [
+        "Compare BFS and DFS.",
+        "Why does BFS have high memory consumption?",
+        "What is Uniform-Cost Search?"
+      ]
+    },
+    {
+      "id": "search_dfs",
+      "name": "Depth-First Search (DFS)",
+      "category": "Module G — Search, Planning, and Robotics",
+      "category_id": "module_g",
+      "aliases": ["dfs", "depth-first search", "depth first search", "lifo stack search", "backtracking"],
+      "keywords": ["dfs", "depth-first", "lifo", "stack", "recursion", "backtracking", "uninformed search", "space complexity"],
+      "definition": "Depth-First Search is an uninformed search algorithm that explores as deep as possible along each branch before backtracking, using a Last-In-First-Out (LIFO) stack.",
+      "explanation": "DFS expands the deepest unexpanded node first. Properties: (1) Completeness: In graph search with cycle detection, Yes (for finite state spaces); in infinite state spaces or tree search without cycle detection, No (can get trapped in infinite depth loops); (2) Optimality: No, may return a deep, suboptimal solution when a shallower goal exists; (3) Time Complexity: O(b^m), where m is the maximum search depth; (4) Space Complexity: O(b*m), requiring only linear memory to store the active path and sibling nodes. Iterative Deepening Search (IDS) combines the linear memory of DFS with the completeness and shallowest optimality of BFS.",
+      "example": "Solving a maze by following a single path to the very end until hitting a dead end, then backtracking to the last junction.",
+      "formula": "\\text{Space Complexity} = O(b \\cdot m) \\quad (\\text{Linear in max depth } m)",
+      "algorithm_steps": [
+        "Initialize LIFO stack frontier with root node",
+        "While frontier is not empty:",
+        "  Pop node from top of stack",
+        "  If node satisfies goal test, return solution path",
+        "  Mark node state as visited",
+        "  For each valid child state not yet visited, push child node onto stack"
+      ],
+      "advantages": [
+        "Minimal memory consumption: linear O(b*m) space compared to exponential O(b^d) in BFS",
+        "Finds solutions quickly if solutions are dense and located deep in the tree"
+      ],
+      "limitations": [
+        "Not optimal: can return long, winding, expensive solution paths",
+        "Can get stuck in infinite depth branches without strict depth limits or cycle tracking"
+      ],
+      "applications": [
+        "Topological sorting and strongly connected component detection in compilers",
+        "Maze solving and game tree traversal with alpha-beta pruning"
+      ],
+      "related_topics": ["search_bfs", "search_ucs", "search_state_space"],
+      "suggested_followups": [
+        "Compare BFS and DFS.",
+        "What is Iterative Deepening Search (IDS)?",
+        "Explain A* search."
+      ]
+    },
+    {
+      "id": "search_ucs",
+      "name": "Uniform-Cost Search (UCS / Dijkstra's Algorithm)",
+      "category": "Module G — Search, Planning, and Robotics",
+      "category_id": "module_g",
+      "aliases": ["uniform-cost search", "ucs", "uniform cost search", "dijkstra's algorithm in ai", "cheapest first search"],
+      "keywords": ["ucs", "uniform cost search", "dijkstra", "priority queue", "path cost", "g(n)", "optimal"],
+      "definition": "Uniform-Cost Search is an uninformed search algorithm that expands the node with the lowest cumulative path cost g(n) from the initial state using a priority queue.",
+      "explanation": "While BFS guarantees the fewest number of steps, it fails to find the lowest-cost path when actions have variable costs (e.g. toll roads, uneven terrain). UCS expands nodes ordered by g(n), the actual cost to reach node n from the start. It is mathematically equivalent to Dijkstra's Algorithm on infinite or dynamically generated search spaces. UCS is Complete and Optimal provided every step cost is strictly positive (cost >= epsilon > 0).",
+      "example": "Finding the cheapest airline flight route where flights have variable dollar prices: a 3-layover route costing $250 is expanded before a 1-layover route costing $600.",
+      "formula": "f(n) = g(n), \\quad \\text{where } g(n) = \\sum_{i=1}^k c(s_{i-1}, a_i, s_i)",
+      "algorithm_steps": [
+        "Initialize Priority Queue frontier ordered by cumulative cost g(n) with root node (g=0)",
+        "While frontier is not empty:",
+        "  Pop node with lowest g(n) from priority queue",
+        "  If node satisfies goal test, return solution path (Goal test applied on POP, not push)",
+        "  Mark node state as explored",
+        "  For each successor child of node:",
+        "    Compute child.g = node.g + cost(node, action, child)",
+        "    If child not visited or has lower cost than existing entry, insert/update in Priority Queue"
+      ],
+      "advantages": [
+        "Guaranteed to find the globally optimal lowest-cost path for arbitrary non-negative step costs"
+      ],
+      "limitations": [
+        "Expands blindly in all cost contours without directional guidance toward the goal (can be slow)",
+        "Stores all frontier nodes in memory, leading to high space complexity"
+      ],
+      "applications": [
+        "Network packet routing (OSPF protocol)",
+        "Highway map navigation systems when fuel or toll cost is minimized"
+      ],
+      "related_topics": ["search_bfs", "search_astar", "search_greedy_best_first"],
+      "suggested_followups": [
+        "Why is the goal test applied on POP rather than push in UCS?",
+        "Difference between BFS and UCS?",
+        "Explain A* Search."
+      ]
+    },
+    {
+      "id": "search_greedy_best_first",
+      "name": "Greedy Best-First Search",
+      "category": "Module G — Search, Planning, and Robotics",
+      "category_id": "module_g",
+      "aliases": ["greedy best-first search", "greedy search", "best first search", "heuristic search"],
+      "keywords": ["greedy", "best-first", "heuristic", "h(n)", "straight line distance", "manhattan distance"],
+      "definition": "Greedy Best-First Search is an informed heuristic search algorithm that expands the node estimated to be closest to the goal according to a heuristic evaluation function h(n).",
+      "explanation": "Greedy search uses only heuristic knowledge: f(n) = h(n), where h(n) estimates the remaining cost to reach the nearest goal from node n. Common heuristics include Straight-Line Euclidean Distance for route maps and Manhattan Distance for grid navigation. Because it evaluates only forward distance and ignores accumulated past cost g(n), greedy search can be easily fooled into dead ends and produces suboptimal solution paths.",
+      "example": "Navigating from Arad to Bucharest using straight-line bird-flight distance: it rushes aggressively toward Bucharest, even if local road terrain detours make the actual travel longer.",
+      "formula": "f(n) = h(n)",
+      "algorithm_steps": [
+        "Define heuristic function h(n) estimating remaining distance to goal",
+        "Initialize Priority Queue frontier ordered solely by h(n) with start node",
+        "Pop node with smallest h(n)",
+        "If goal reached, terminate and return path",
+        "Expand child nodes, evaluate their h(child), and insert into Priority Queue"
+      ],
+      "advantages": [
+        "Often finds solutions much faster than uninformed search by aggressively pruning search directions"
+      ],
+      "limitations": [
+        "Not optimal: frequently returns suboptimal paths because it ignores path cost g(n)",
+        "Not complete in tree search: can get trapped in infinite loops on graph obstacles"
+      ],
+      "applications": [
+        "Rapid non-optimal pathfinding in video game AI where quick response matters more than perfect routes"
+      ],
+      "related_topics": ["search_astar", "search_ucs", "search_state_space"],
+      "suggested_followups": [
+        "Difference between Greedy Best-First Search and A*?",
+        "What is a heuristic function?",
+        "Explain A* Search."
+      ]
+    },
+    {
+      "id": "search_astar",
+      "name": "A* Search and Heuristics",
+      "category": "Module G — Search, Planning, and Robotics",
+      "category_id": "module_g",
+      "aliases": ["a*", "astar", "a star search", "a star", "admissible heuristic", "consistent heuristic"],
+      "keywords": ["a*", "astar", "a star", "f(n) = g(n) + h(n)", "admissible", "consistent", "heuristic", "pathfinding", "optimal"],
+      "definition": "A* Search is an informed, best-first graph search algorithm that finds the optimal lowest-cost path by evaluating nodes using f(n) = g(n) + h(n), combining actual past cost g(n) and estimated remaining cost h(n).",
+      "explanation": "A* balances UCS and Greedy Search: (1) g(n) is the exact cost to reach node n from the start (prevents meandering); (2) h(n) is the heuristic estimate of cost from n to the goal (directs search toward the target). A* is Complete and Optimal under two conditions: (A) Admissibility: h(n) never overestimates the true cost to reach the goal (h(n) <= h*(n)); (B) Consistency (Monotonicity): for every node n and successor n' generated by action a, h(n) <= c(n, a, n') + h(n') (satisfies triangle inequality, guaranteeing no explored node needs reopening in graph search).",
+      "example": "GPS navigation: A* calculates route by adding actual miles driven so far g(n) to the straight-line distance to destination h(n), finding the guaranteed fastest route while exploring minimum roads.",
+      "formula": "f(n) = g(n) + h(n), \\quad \\text{where } h(n) \\le h^*(n) \\; (\\text{Admissibility})",
+      "algorithm_steps": [
+        "Initialize open set (priority queue) with start node evaluated at f = 0 + h(start)",
+        "Initialize closed set (visited nodes)",
+        "While open set is not empty:",
+        "  Pop node with lowest f(n) from open set",
+        "  If node is goal, reconstruct path using parent pointers and return",
+        "  Add node to closed set",
+        "  For each successor child of node:",
+        "    If child in closed set, continue",
+        "    Compute tentative_g = node.g + cost(node, child)",
+        "    If child not in open set or tentative_g < child.g:",
+        "      Set child.g = tentative_g, child.h = heuristic(child), child.f = child.g + child.h",
+        "      Set child.parent = node, insert or update child in open set"
+      ],
+      "advantages": [
+        "Optimally efficient: no other optimal search algorithm expanding the same heuristic explores fewer nodes",
+        "Guaranteed optimal and complete with an admissible/consistent heuristic"
+      ],
+      "limitations": [
+        "Memory-bound: stores all explored nodes in memory (O(b^d)), leading to out-of-memory errors on massive graphs (solved by IDA* or SMA*)"
+      ],
+      "applications": [
+        "GPS turn-by-turn navigation (Google Maps, Apple Maps)",
+        "Video game character pathfinding (Unity, Unreal Engine)",
+        "Robotic arm trajectory kinematics and warehouse AGV routing"
+      ],
+      "related_topics": ["search_state_space", "search_ucs", "search_greedy_best_first", "search_planning"],
+      "suggested_followups": [
+        "Show me the formula for A* search.",
+        "What is an Admissible Heuristic?",
+        "What is a Consistent / Monotonic Heuristic?",
+        "What is IDA* (Iterative Deepening A*)?"
+      ]
+    },
+    {
+      "id": "search_planning",
+      "name": "Automated Planning and Decision-Making",
+      "category": "Module G — Search, Planning, and Robotics",
+      "category_id": "module_g",
+      "aliases": ["automated planning", "ai planning", "strips", "pddl", "classical planning", "hierarchical planning"],
+      "keywords": ["planning", "strips", "pddl", "preconditions", "effects", "action schema", "hierarchical task network", "htn"],
+      "definition": "Automated planning is the branch of AI concerned with the realization of action strategies or sequence of actions by an intelligent agent to transition an initial world state into a goal state.",
+      "explanation": "Classical planning operates in deterministic, fully observable, static environments using languages like STRIPS (Stanford Research Institute Problem Solver) and PDDL (Planning Domain Definition Language). Actions are formalized using Action Schemas with Preconditions (conditions that must hold in current state) and Effects (add and delete lists updating state variables). Advanced paradigms include Partial-Order Planning, Planning Graphs (GraphPlan), and Hierarchical Task Networks (HTN).",
+      "example": "NASA Mars Rover planning: Given goal 'Collect mineral sample at crater X by 14:00', the planner plans a sequence of actions: [Unstow_Arm, Navigate_Waypoints, Deploy_Drill, Sample_Soil, Store_Container, Retract_Arm].",
+      "formula": "\\text{Action}(a): \\quad \\text{Precond}(a) \\implies \\text{Effect}(a) = \\text{State} \\setminus \\text{Del}(a) \\cup \\text{Add}(a)",
+      "algorithm_steps": [
+        "Define planning domain predicates and action schemas (Preconditions, Add-List, Delete-List)",
+        "Specify initial state facts and goal conjunction",
+        "Generate planning graph or state-space heuristic (e.g. Fast-Forward FF heuristic)",
+        "Search forward from initial state (progression) or backward from goal (regression)",
+        "Extract validated, executable action plan"
+      ],
+      "advantages": [
+        "Generates multi-step, causally linked action strategies for complex real-world operations",
+        "Discovers long-horizon workflows that satisfy complex physical constraints"
+      ],
+      "limitations": [
+        "Classical planning assumes deterministic and fully observable worlds; fails under stochastic real-world uncertainty without replanning"
+      ],
+      "applications": [
+        "Space exploration missions (NASA Deep Space 1, Mars Rovers)",
+        "Automated supply chain logistics and manufacturing assembly scheduling"
+      ],
+      "related_topics": ["search_state_space", "search_astar", "search_robotics"],
+      "suggested_followups": [
+        "What is PDDL (Planning Domain Definition Language)?",
+        "What are STRIPS action schemas?",
+        "Explain Hierarchical Task Networks (HTN)."
+      ]
+    },
+    {
+      "id": "search_robotics",
+      "name": "Robotics and Intelligent Physical Agents",
+      "category": "Module G — Search, Planning, and Robotics",
+      "category_id": "module_g",
+      "aliases": ["robotics", "intelligent physical agents", "slam", "kinematics", "robot perception", "actuators and sensors in robotics"],
+      "keywords": ["robotics", "slam", "kinematics", "lidar", "sensors", "actuators", "localization", "path planning", "ros"],
+      "definition": "Robotics is the field of engineering and AI focused on designing, constructing, and programming physical machines (robots) capable of perceiving their physical environment, reasoning, and acting autonomously in the real world.",
+      "explanation": "Robotic architectures integrate: (1) Perception: sensors (LiDAR, ultrasonic, cameras, IMUs) measuring real-world parameters; (2) Localization and Mapping: SLAM (Simultaneous Localization and Mapping) enables a robot to build a map of an unknown environment while keeping track of its location within it; (3) Planning & Control: inverse kinematics (calculating joint angles to reach a coordinate) and motion trajectory planning; (4) Actuation: motors, hydraulics, and end-effectors interacting physically with objects.",
+      "example": "Autonomous warehouse robots (like Amazon Kiva) navigating crowded distribution floors via SLAM, picking product bins, and delivering them to human packers.",
+      "formula": "p(x_{1:t}, m \\mid z_{1:t}, u_{1:t}) \\quad (\\text{Probabilistic SLAM posterior over trajectory } x \\text{ and map } m)",
+      "algorithm_steps": [
+        "Acquire sensor data (LiDAR point clouds, wheel odometry, camera frames)",
+        "Filter sensor noise using Extended Kalman Filters (EKF) or Particle Filters",
+        "Update world map and robot pose coordinates (SLAM)",
+        "Compute collision-free path toward destination using A* or Rapidly-exploring Random Trees (RRT)",
+        "Send low-level PWM torque signals to motor actuators via closed-loop PID controllers"
+      ],
+      "advantages": [
+        "Performs dangerous, hazardous, or extreme precision work (deep sea mining, radioactive cleanup, surgery)",
+        "Dramatically increases industrial manufacturing throughput and reliability"
+      ],
+      "limitations": [
+        "The 'Reality Gap' (Sim-to-Real): robots trained in computer simulators frequently fail when deployed in physical reality due to friction and sensor noise",
+        "High mechanical hardware costs and physical safety liabilities"
+      ],
+      "applications": [
+        "Industrial robotic arms (welding, painting, electronics packaging)",
+        "Autonomous mobile robots (AMRs) in logistics and vacuum cleaning",
+        "Surgical robotics (da Vinci surgical system) and agricultural harvesting"
+      ],
+      "related_topics": ["ai_agents_environments", "search_astar", "search_planning", "cv_object_detection"],
+      "suggested_followups": [
+        "What is SLAM (Simultaneous Localization and Mapping)?",
+        "What is the Sim-to-Real gap?",
+        "How do PID controllers work in robotics?"
+      ]
+    }
+  ]
+}

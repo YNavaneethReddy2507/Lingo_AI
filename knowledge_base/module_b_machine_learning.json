@@ -1,0 +1,459 @@
+{
+  "module_id": "module_b",
+  "module_name": "Module B — Machine Learning",
+  "description": "Core paradigms, classical algorithms, statistical learning theory, model evaluation, and the foundational relationship between AI and ML.",
+  "topics": [
+    {
+      "id": "ml_definition",
+      "name": "Machine Learning Definition & Relationship to AI",
+      "category": "Module B — Machine Learning",
+      "category_id": "module_b",
+      "aliases": ["machine learning", "ml", "what is machine learning", "define ml", "ai vs ml", "difference between ai and ml", "difference between machine learning and artificial intelligence"],
+      "keywords": ["machine learning", "ml", "artificial intelligence", "ai vs ml", "subset", "learning from data", "patterns", "statistical learning"],
+      "definition": "Machine Learning is a subset of Artificial Intelligence focused on developing algorithms that learn patterns from data and improve their performance on tasks through experience, without being explicitly programmed with deterministic rules.",
+      "explanation": "While AI is the broad overarching goal of synthesizing intelligent behavior (via rules, search, logic, or statistics), Machine Learning specifically utilizes statistical techniques to identify patterns in empirical datasets. Instead of human engineers hand-coding every decision rule, ML algorithms optimize parameters from training examples. The three principal paradigms are Supervised Learning, Unsupervised Learning, and Reinforcement Learning.",
+      "example": "Spam filtering: Instead of writing thousands of keyword rules, an ML model trains on millions of labeled spam/ham emails to automatically recognize evolving spam signatures.",
+      "formula": "\\text{Experience } (E) + \\text{Task } (T) + \\text{Performance Measure } (P) \\implies P(T) \\text{ improves with } E",
+      "algorithm_steps": [],
+      "advantages": [
+        "Adapts dynamically to complex, high-dimensional patterns beyond human rule-crafting",
+        "Improves predictive accuracy as new training data becomes available",
+        "Handles non-linear relationships and noisy sensory observations"
+      ],
+      "limitations": [
+        "Requires large quantities of clean, representative training data",
+        "Vulnerable to distribution shift when test environments differ from training data",
+        "Often lacks explicit formal verification compared to symbolic logic"
+      ],
+      "applications": [
+        "Email spam detection and email prioritization",
+        "Credit risk scoring and algorithmic loan approval",
+        "Predictive maintenance in industrial manufacturing",
+        "E-commerce product recommendations"
+      ],
+      "related_topics": ["ai_definition", "ml_supervised", "ml_unsupervised", "ml_reinforcement", "dl_ann"],
+      "suggested_followups": [
+        "What is the difference between AI and ML?",
+        "Explain Supervised Learning.",
+        "What is Deep Learning?"
+      ]
+    },
+    {
+      "id": "ml_supervised",
+      "name": "Supervised Learning",
+      "category": "Module B — Machine Learning",
+      "category_id": "module_b",
+      "aliases": ["supervised learning", "supervised ml", "labeled data", "supervised"],
+      "keywords": ["supervised", "labeled data", "target variable", "ground truth", "features", "classification", "regression"],
+      "definition": "Supervised Learning is a machine learning paradigm where an algorithm learns a mapping function from input features to output targets using labeled training data.",
+      "explanation": "In supervised learning, every training instance consists of a feature vector X and an associated ground-truth label Y. The algorithm adjusts its internal parameters to minimize the difference (loss) between its predictions f(X) and the actual labels Y. The two main tasks in supervised learning are Classification (discrete category prediction) and Regression (continuous value prediction). Common algorithms include Linear Regression, Logistic Regression, Decision Trees, Support Vector Machines, and Neural Networks.",
+      "example": "Predicting house prices (Regression) from square footage, location, and bedroom count; or classifying patient tumor biopsies as benign vs malignant (Classification).",
+      "formula": "\\hat{y} = f(X; \\theta), \\quad \\min_\\theta \\sum_{i=1}^N \\mathcal{L}(y_i, \\hat{y}_i)",
+      "algorithm_steps": [
+        "Collect and preprocess labeled dataset with inputs X and ground truth Y",
+        "Split data into training, validation, and test subsets",
+        "Choose model hypothesis class and loss function",
+        "Optimize parameters theta iteratively via gradient descent or closed-form solver",
+        "Evaluate generalization error on unseen test data"
+      ],
+      "advantages": [
+        "Clear objective function driven directly by ground-truth labels",
+        "Well-defined metrics for evaluation (accuracy, precision, recall, RMSE)"
+      ],
+      "limitations": [
+        "Acquiring high-quality human-annotated labels is expensive and time-consuming",
+        "Prone to overfitting if model complexity exceeds training data diversity"
+      ],
+      "applications": [
+        "Medical diagnosis from biopsy images",
+        "Credit card transaction fraud scoring",
+        "Stock price trend forecasting"
+      ],
+      "related_topics": ["ml_definition", "ml_classification_regression", "ml_unsupervised", "ml_semi_supervised"],
+      "suggested_followups": [
+        "Difference between Classification and Regression?",
+        "Explain Support Vector Machines.",
+        "What is Unsupervised Learning?"
+      ]
+    },
+    {
+      "id": "ml_unsupervised",
+      "name": "Unsupervised Learning",
+      "category": "Module B — Machine Learning",
+      "category_id": "module_b",
+      "aliases": ["unsupervised learning", "unsupervised ml", "clustering and dimensionality reduction"],
+      "keywords": ["unsupervised", "unlabeled data", "clustering", "dimensionality reduction", "pca", "kmeans", "density estimation"],
+      "definition": "Unsupervised Learning is a machine learning paradigm that discovers latent patterns, groupings, or representations in unlabeled data without predefined output targets.",
+      "explanation": "Because no explicit target labels Y are provided, unsupervised algorithms optimize intrinsic mathematical criteria such as inter-cluster distance, variance preservation, or probability density. Primary tasks include Clustering (e.g., K-Means, DBSCAN, Hierarchical Clustering), Dimensionality Reduction (e.g., PCA, t-SNE, UMAP), and Anomaly Detection (e.g., Isolation Forests).",
+      "example": "Customer segmentation in marketing: grouping millions of shoppers into distinct behavioral personas based solely on purchase history without pre-assigned labels.",
+      "formula": "\\min_C \\sum_{k=1}^K \\sum_{x_i \\in C_k} ||x_i - \\mu_k||^2",
+      "algorithm_steps": [
+        "Collect and normalize unlabeled feature vectors X",
+        "Define similarity or distance metric (e.g., Euclidean, Cosine)",
+        "Optimize cluster centers or low-dimensional projection coordinates",
+        "Analyze discovered clusters or latent manifold structure"
+      ],
+      "advantages": [
+        "Does not require costly human labeling or manual annotations",
+        "Discovers unforeseen relationships, structures, and anomalies"
+      ],
+      "limitations": [
+        "Subjective evaluation criteria since no absolute ground truth exists",
+        "Sensitive to feature scaling, outliers, and initial seed points"
+      ],
+      "applications": [
+        "Customer segmentation and market basket analysis",
+        "Genomic sequence grouping and biological taxonomy",
+        "Network intrusion and anomaly detection"
+      ],
+      "related_topics": ["ml_clustering", "ml_kmeans", "ml_supervised", "nlp_word2vec_glove"],
+      "suggested_followups": [
+        "What is K-Means clustering?",
+        "Difference between Supervised and Unsupervised Learning?",
+        "Explain PCA (Principal Component Analysis)."
+      ]
+    },
+    {
+      "id": "ml_semi_supervised",
+      "name": "Semi-Supervised Learning",
+      "category": "Module B — Machine Learning",
+      "category_id": "module_b",
+      "aliases": ["semi supervised learning", "semi-supervised ml", "pseudo-labeling"],
+      "keywords": ["semi-supervised", "partially labeled", "pseudo labeling", "consistency regularization", "self-training"],
+      "definition": "Semi-Supervised Learning is a machine learning paradigm that combines a small amount of labeled data with a large amount of unlabeled data during training to improve learning accuracy.",
+      "explanation": "In many real-world domains, collecting unlabeled data is cheap (e.g., scraping text or images from the web), but obtaining authoritative labels requires expensive expert labor. Semi-supervised learning leverages geometric assumptions (e.g., smooth boundary assumptions, cluster assumptions, manifold assumptions) so that the unlabeled data guides the decision boundary away from high-density data regions.",
+      "example": "Medical imaging analysis where a hospital has 500 expert-annotated MRI scans and 50,000 unannotated MRI scans; semi-supervised methods utilize all 50,500 scans to boost classification performance.",
+      "formula": "\\min_\\theta \\left[ \\sum_{i=1}^{N_L} \\mathcal{L}_s(y_i, f(x_i; \\theta)) + \\lambda \\sum_{j=1}^{N_U} \\mathcal{L}_u(f(u_j; \\theta)) \\right]",
+      "algorithm_steps": [
+        "Train initial base model on small labeled dataset",
+        "Generate pseudo-labels for high-confidence predictions on unlabeled data",
+        "Retrain model on combined labeled and pseudo-labeled data",
+        "Iterate or enforce consistency regularization across perturbed inputs"
+      ],
+      "advantages": [
+        "Substantially reduces human labeling expenses and turnaround time",
+        "Produces better generalizability than training solely on small labeled sets"
+      ],
+      "limitations": [
+        "Confirmation bias: incorrect pseudo-labels can degrade model performance if unchecked"
+      ],
+      "applications": [
+        "Speech recognition and acoustic transcription",
+        "Web page classification and scientific literature tagging"
+      ],
+      "related_topics": ["ml_supervised", "ml_unsupervised", "genai_llms"],
+      "suggested_followups": [
+        "What is self-training?",
+        "Difference between Supervised and Semi-Supervised Learning?",
+        "Explain Transfer Learning."
+      ]
+    },
+    {
+      "id": "ml_reinforcement",
+      "name": "Reinforcement Learning",
+      "category": "Module B — Machine Learning",
+      "category_id": "module_b",
+      "aliases": ["reinforcement learning", "rl", "markov decision process", "q-learning", "policy gradient"],
+      "keywords": ["reinforcement learning", "rl", "agent", "environment", "reward", "action", "policy", "q-learning", "bellman equation", "mdp"],
+      "definition": "Reinforcement Learning is a goal-oriented machine learning paradigm where an autonomous agent learns to make sequential decisions by taking actions in an environment to maximize cumulative numerical reward.",
+      "explanation": "Unlike supervised learning with explicit labels, RL relies on trial-and-error interaction formulated as a Markov Decision Process (MDP: States, Actions, Transitions, Rewards, Discount Factor gamma). Key concepts include: Policy pi (action mapping strategy), Value Function V(s) (expected long-term return from state s), Q-Function Q(s, a) (expected return from taking action a in state s), and the Exploration vs Exploitation dilemma (discovering new strategies vs exploiting known high-reward actions).",
+      "example": "DeepMind's AlphaGo and AlphaZero learning superhuman Go and Chess play through millions of self-play games rewarded solely by match outcomes.",
+      "formula": "Q(s_t, a_t) \\leftarrow Q(s_t, a_t) + \\alpha \\left[ r_{t+1} + \\gamma \\max_{a} Q(s_{t+1}, a) - Q(s_t, a_t) \\right]",
+      "algorithm_steps": [
+        "Initialize agent policy or Q-table values",
+        "Agent observes current state s and selects action a using epsilon-greedy strategy",
+        "Environment transitions to state s' and returns immediate scalar reward r",
+        "Update Q-values or policy parameters using temporal difference error or Bellman equation",
+        "Repeat across thousands of simulated episodes until convergence"
+      ],
+      "advantages": [
+        "Solves complex sequential decision-making without requiring human demonstrations",
+        "Discovers novel, counter-intuitive strategies beyond human intuition"
+      ],
+      "limitations": [
+        "High sample inefficiency requiring millions of simulated interactions",
+        "Reward hacking: agents may exploit unintended loopholes in reward functions"
+      ],
+      "applications": [
+        "Robotic locomotion and autonomous drone flight",
+        "RLHF (Reinforcement Learning from Human Feedback) in LLMs",
+        "Industrial cooling and energy grid management"
+      ],
+      "related_topics": ["ai_agents_environments", "ai_rational_agents", "genai_llms"],
+      "suggested_followups": [
+        "What is Q-Learning?",
+        "Explain Exploration vs Exploitation.",
+        "What is RLHF in Large Language Models?"
+      ]
+    },
+    {
+      "id": "ml_classification_regression",
+      "name": "Classification and Regression",
+      "category": "Module B — Machine Learning",
+      "category_id": "module_b",
+      "aliases": ["classification and regression", "classification vs regression", "difference between classification and regression", "predictive modeling"],
+      "keywords": ["classification", "regression", "continuous target", "discrete target", "binary", "multiclass", "rmse", "accuracy"],
+      "definition": "Classification predicts discrete categorical class labels, whereas Regression predicts continuous quantitative numerical values.",
+      "explanation": "In classification, the output space consists of distinct classes (Binary: Spam/Ham; Multiclass: Cat/Dog/Horse; Multi-label: tagging multiple topics). Evaluation metrics include Accuracy, Precision, Recall, F1-Score, and ROC-AUC. In regression, the output is a continuous real number (e.g., price, temperature, blood pressure). Evaluation metrics include Mean Absolute Error (MAE), Mean Squared Error (MSE), Root Mean Squared Error (RMSE), and R-squared coefficient of determination.",
+      "example": "Classification: determining whether a credit transaction is fraudulent (0 or 1). Regression: predicting the estimated monetary loss of a loan default ($34,500.00).",
+      "formula": "\\text{MAE} = \\frac{1}{n}\\sum |y_i - \\hat{y}_i|, \\quad \\text{F1} = 2 \\cdot \\frac{\\text{Precision} \\cdot \\text{Recall}}{\\text{Precision} + \\text{Recall}}",
+      "algorithm_steps": [],
+      "advantages": [
+        "Provides clear mathematical framing for virtually all supervised business problems"
+      ],
+      "limitations": [
+        "Treating an ordinal or continuous problem as naive classification discards relative magnitude info"
+      ],
+      "applications": [
+        "Medical screening (Classification) and survival time estimation (Regression)",
+        "Weather category (Classification) and rainfall in mm (Regression)"
+      ],
+      "related_topics": ["ml_supervised", "ml_decision_trees", "ml_overfitting_evaluation"],
+      "suggested_followups": [
+        "What is the difference between Precision and Recall?",
+        "Explain Decision Trees.",
+        "What is Overfitting?"
+      ]
+    },
+    {
+      "id": "ml_clustering",
+      "name": "Clustering",
+      "category": "Module B — Machine Learning",
+      "category_id": "module_b",
+      "aliases": ["clustering", "cluster analysis", "clustering algorithms", "types of clustering"],
+      "keywords": ["clustering", "kmeans", "hierarchical clustering", "dbscan", "silhouette score", "centroids"],
+      "definition": "Clustering is the unsupervised task of grouping a set of data points such that objects in the same group (cluster) are more similar to each other than to those in other groups.",
+      "explanation": "Major clustering paradigms include: Partitioning methods (K-Means, K-Medoids), Hierarchical methods (Agglomerative, Divisive), Density-based methods (DBSCAN, HDBSCAN), and Distribution-based methods (Gaussian Mixture Models). Quality is evaluated using internal indices (Silhouette Score, Davies-Bouldin Index, Inertia/Elbow method) or external indices when pseudo-labels are available (Adjusted Rand Index).",
+      "example": "E-commerce customer grouping based on shopping frequency and basket size to tailor marketing promotions.",
+      "formula": "\\text{Silhouette } s(i) = \\frac{b(i) - a(i)}{\\max(a(i), b(i))}",
+      "algorithm_steps": [],
+      "advantages": [
+        "Reveals natural taxonomy and hidden customer or data groupings without human supervision"
+      ],
+      "limitations": [
+        "Determining the optimal number of clusters K often requires heuristic inspection (e.g. Elbow curve)",
+        "Sensitive to arbitrary distance metrics in high dimensions (curse of dimensionality)"
+      ],
+      "applications": [
+        "Market segmentation and recommendation engines",
+        "Document categorization and image compression"
+      ],
+      "related_topics": ["ml_kmeans", "ml_unsupervised", "nlp_text_clustering"],
+      "suggested_followups": [
+        "Explain K-Means clustering.",
+        "What is DBSCAN?",
+        "What is the Elbow Method?"
+      ]
+    },
+    {
+      "id": "ml_decision_trees",
+      "name": "Decision Trees",
+      "category": "Module B — Machine Learning",
+      "category_id": "module_b",
+      "aliases": ["decision trees", "decision tree", "cart", "id3", "c4.5", "gini impurity", "information gain"],
+      "keywords": ["decision tree", "entropy", "information gain", "gini", "leaf node", "split", "pruning", "random forest"],
+      "definition": "A Decision Tree is a non-parametric supervised learning algorithm that partitions data into subsets using hierarchical if-then decision rules inferred from data features.",
+      "explanation": "A tree consists of a root node, internal decision nodes, branches, and terminal leaf nodes representing predictions. At each split, the algorithm selects the feature and threshold that maximizes purity gain. For classification, purity is measured by Gini Impurity or Shannon Entropy / Information Gain. For regression, variance reduction is used. Unconstrained trees overfit rapidly; remedies include maximum depth limits, minimum samples per split, and cost-complexity post-pruning. Ensembles of trees yield Random Forests and Gradient Boosted Trees (XGBoost, LightGBM).",
+      "example": "A loan approval tree that first checks 'Credit Score > 700?'; if yes, checks 'Debt-to-Income < 35%'; if yes, outputs 'Approve'.",
+      "formula": "\\text{Gini}(S) = 1 - \\sum_{i=1}^C p_i^2, \\quad H(S) = -\\sum_{i=1}^C p_i \\log_2(p_i)",
+      "algorithm_steps": [
+        "Evaluate impurity metric (Gini or Entropy) for every candidate feature split",
+        "Select the feature and threshold yielding maximum purity gain",
+        "Split dataset into child subsets",
+        "Recursively repeat splitting until stopping criteria (max depth, min samples) are reached",
+        "Assign majority class (classification) or mean value (regression) to leaf nodes"
+      ],
+      "advantages": [
+        "Highly interpretable and directly visualizable as symbolic logic rules",
+        "Requires minimal data preprocessing (handles categorical and numerical values without scaling)"
+      ],
+      "limitations": [
+        "High variance: small changes in training data can produce drastically different tree structures",
+        "Prone to severe overfitting without regularization or pruning"
+      ],
+      "applications": [
+        "Credit risk scoring and clinical triage guidelines",
+        "Feature importance ranking in tabular pipelines"
+      ],
+      "related_topics": ["ml_supervised", "kb_rule_based_systems", "ml_overfitting_evaluation"],
+      "suggested_followups": [
+        "What is the difference between Gini Impurity and Entropy?",
+        "What is Random Forest?",
+        "How do Decision Trees compare to Rule-Based Systems?"
+      ]
+    },
+    {
+      "id": "ml_naive_bayes",
+      "name": "Naive Bayes",
+      "category": "Module B — Machine Learning",
+      "category_id": "module_b",
+      "aliases": ["naive bayes", "bayes classifier", "naive bayes classifier", "conditional independence"],
+      "keywords": ["naive bayes", "bayes theorem", "prior", "likelihood", "posterior", "conditional independence", "spam classifier"],
+      "definition": "Naive Bayes is a family of probabilistic classifiers based on Bayes' Theorem with the 'naive' assumption of conditional independence among all features given the class label.",
+      "explanation": "Bayes' Theorem states P(C|X) = P(X|C)P(C) / P(X). The 'naive' assumption posits that each feature x_i is independent of every other feature x_j given class C: P(X|C) = prod P(x_i|C). While rarely true in real life (words in a sentence correlate strongly), Naive Bayes performs surprisingly well in high-dimensional text classification. Variants include Multinomial Naive Bayes (word counts), Bernoulli Naive Bayes (binary presence/absence), and Gaussian Naive Bayes (continuous features).",
+      "example": "Spam filtering: Calculating the probability that an email is spam given the occurrence of words like 'free', 'wire', and 'prize'.",
+      "formula": "P(C \\mid X) \\propto P(C) \\prod_{i=1}^D P(x_i \\mid C)",
+      "algorithm_steps": [
+        "Calculate prior class probabilities P(C) from training label frequencies",
+        "Calculate conditional likelihoods P(x_i|C) with Laplace smoothing to prevent zero probabilities",
+        "For a new instance X, compute product of prior and conditional likelihoods for each candidate class",
+        "Select class with maximum posterior probability (argmax)"
+      ],
+      "advantages": [
+        "Extremely fast training and inference with low computational complexity O(N*D)",
+        "Performs robustly on high-dimensional sparse text data with small training sets"
+      ],
+      "limitations": [
+        "The conditional independence assumption is virtually never satisfied in real data",
+        "Zero-frequency problem if a feature value was never observed with a class during training (requires Laplace smoothing)"
+      ],
+      "applications": [
+        "Spam email filtering and document categorization",
+        "Real-time sentiment classification"
+      ],
+      "related_topics": ["nlp_text_classification", "nlp_sentiment_analysis", "ml_supervised"],
+      "suggested_followups": [
+        "Why is it called 'Naive'?",
+        "What is Laplace smoothing?",
+        "Explain Bayes Theorem."
+      ]
+    },
+    {
+      "id": "ml_svm",
+      "name": "Support Vector Machines (SVM)",
+      "category": "Module B — Machine Learning",
+      "category_id": "module_b",
+      "aliases": ["svm", "support vector machines", "support vector machine", "kernel trick", "maximum margin"],
+      "keywords": ["svm", "support vector", "hyperplane", "margin", "kernel trick", "rbf kernel", "slack variables"],
+      "definition": "Support Vector Machine is a supervised learning algorithm that finds the optimal separating hyperplane that maximizes the margin (distance) between different classes in feature space.",
+      "explanation": "The decision boundary is defined by a hyperplane w*x - b = 0. SVM maximizes the geometric margin 2/||w|| between the closest training instances of distinct classes, called Support Vectors. For non-linearly separable data, SVM employs the Kernel Trick (e.g., Polynomial, Radial Basis Function RBF, Sigmoid), implicitly mapping input features into a higher-dimensional space where linear separation becomes possible without computing explicit coordinates.",
+      "example": "Classifying protein folding structures or cancer types from gene expression profiles containing thousands of molecular features.",
+      "formula": "\\min_{w, b, \\xi} \\frac{1}{2} ||w||^2 + C \\sum_{i=1}^n \\xi_i \\quad \\text{s.t. } y_i(w^T \\phi(x_i) + b) \\ge 1 - \\xi_i",
+      "algorithm_steps": [
+        "Formulate convex quadratic programming optimization problem with slack penalties",
+        "Select kernel function (Linear, RBF, Polynomial) and regularization parameter C",
+        "Solve dual optimization problem to identify support vectors alpha_i > 0",
+        "Classify test points via sign of the kernel inner-product sum"
+      ],
+      "advantages": [
+        "Effective in high-dimensional spaces, even where feature count exceeds sample count",
+        "Guaranteed global optimum due to convex quadratic formulation (no local minima)"
+      ],
+      "limitations": [
+        "Computationally expensive for very large datasets: training scales between O(N^2) and O(N^3)",
+        "Does not output calibrated probabilities directly without expensive Platt scaling"
+      ],
+      "applications": [
+        "Bioinformatics and microarray gene expression classification",
+        "Handwritten digit recognition and facial detection"
+      ],
+      "related_topics": ["ml_supervised", "ml_classification_regression", "dl_ann"],
+      "suggested_followups": [
+        "What is the Kernel Trick in SVM?",
+        "What are Support Vectors?",
+        "Compare SVM and Neural Networks."
+      ]
+    },
+    {
+      "id": "ml_kmeans",
+      "name": "K-Means Clustering",
+      "category": "Module B — Machine Learning",
+      "category_id": "module_b",
+      "aliases": ["k-means", "kmeans", "k means clustering", "k means", "centroid clustering"],
+      "keywords": ["kmeans", "k-means", "centroids", "wcss", "inertia", "elbow method", "kmeans++"],
+      "definition": "K-Means is an iterative unsupervised partitioning algorithm that divides N observations into K distinct clusters, where each observation belongs to the cluster with the nearest mean (centroid).",
+      "explanation": "K-Means minimizes Within-Cluster Sum of Squares (WCSS), also known as inertia. Starting with K initial centroids, it alternates between two steps: (1) Assignment Step (assign each point to its closest centroid via Euclidean distance), and (2) Update Step (recalculate each centroid as the arithmetic mean of all points assigned to it). The process repeats until centroids stabilize. K-Means++ is a smart initialization strategy that spreads initial centroids to prevent poor local optima.",
+      "example": "Grouping online retail customers into K=4 clusters based on annual income and spending score to design tiered loyalty tiers.",
+      "formula": "J = \\sum_{k=1}^K \\sum_{x_i \\in S_k} ||x_i - \\mu_k||^2",
+      "algorithm_steps": [
+        "Choose K (number of clusters) using the Elbow Method or Silhouette analysis",
+        "Initialize K centroids randomly or using K-Means++",
+        "Assign each data point to its closest centroid based on Euclidean distance",
+        "Recompute centroids by averaging points belonging to each cluster",
+        "Repeat assignment and update steps until centroids converge or shift is below tolerance"
+      ],
+      "advantages": [
+        "Simple to implement with fast O(N*K*I*D) computational complexity",
+        "Scales well to large datasets in practice"
+      ],
+      "limitations": [
+        "Requires pre-specifying K in advance",
+        "Assumes spherical, equally-sized clusters; fails on complex non-convex geometries (rings, spirals)",
+        "Sensitive to outliers and initial centroid placement"
+      ],
+      "applications": [
+        "Color quantization in digital image compression",
+        "Market basket analysis and audience profiling"
+      ],
+      "related_topics": ["ml_clustering", "ml_unsupervised", "nlp_text_clustering"],
+      "suggested_followups": [
+        "How do you choose K in K-Means?",
+        "What is the Elbow Method?",
+        "Difference between K-Means and DBSCAN?"
+      ]
+    },
+    {
+      "id": "ml_train_val_test",
+      "name": "Training, Validation, and Testing",
+      "category": "Module B — Machine Learning",
+      "category_id": "module_b",
+      "aliases": ["train val test", "train test split", "cross-validation", "k-fold cross validation", "data splitting"],
+      "keywords": ["train", "validation", "test", "cross validation", "k-fold", "data leakage", "hyperparameter tuning"],
+      "definition": "Training, validation, and testing is the disciplined methodology of partitioning data into independent subsets to fit model parameters, tune hyperparameters, and obtain an unbiased estimate of generalization error.",
+      "explanation": "The standard split comprises: Training Set (60-80%): used by optimization algorithms to adjust model weights; Validation Set (10-20%): used during development to compare architectures, tune hyperparameters, and apply early stopping; Test Set (10-20%): kept completely untouched until the final model is selected, providing an honest benchmark on unseen data. In K-Fold Cross-Validation, the training data is divided into K folds, iteratively training on K-1 folds and validating on the remaining fold, mitigating split variance on small datasets.",
+      "example": "Splitting a 10,000-sample medical dataset into 7,000 training cases, 1,500 validation cases for tuning learning rates, and 1,500 held-out test cases for final FDA clinical accuracy reporting.",
+      "formula": "\\text{CV Error} = \\frac{1}{K} \\sum_{k=1}^K \\mathcal{L}_k(\\theta_{-k})",
+      "algorithm_steps": [
+        "Shuffle dataset while preserving class balance (Stratified Split)",
+        "Partition data into Train (70%), Validation (15%), and Test (15%) splits",
+        "Fit model weights solely on the Training split",
+        "Evaluate on Validation split to select optimal hyperparameters",
+        "Evaluate final selected model on Test split exactly once to measure real-world generalization"
+      ],
+      "advantages": [
+        "Prevents data leakage and overly optimistic performance estimates",
+        "Ensures models generalize to fresh real-world inputs"
+      ],
+      "limitations": [
+        "Requires sufficiently large datasets so that test splits are statistically representative"
+      ],
+      "applications": [
+        "All rigorous machine learning, deep learning, and statistical modeling workflows"
+      ],
+      "related_topics": ["ml_overfitting_evaluation", "ml_supervised", "dl_ann"],
+      "suggested_followups": [
+        "What is data leakage?",
+        "What is K-Fold Cross Validation?",
+        "Explain Overfitting and Underfitting."
+      ]
+    },
+    {
+      "id": "ml_overfitting_evaluation",
+      "name": "Overfitting, Underfitting, and Model Evaluation",
+      "category": "Module B — Machine Learning",
+      "category_id": "module_b",
+      "aliases": ["overfitting", "underfitting", "bias variance tradeoff", "model evaluation", "precision recall f1", "roc auc"],
+      "keywords": ["overfitting", "underfitting", "bias", "variance", "regularization", "l1 l2", "dropout", "precision", "recall", "f1", "confusion matrix", "roc auc"],
+      "definition": "Overfitting occurs when a model memorizes noise and idiosyncrasies of training data failing to generalize to new data; Underfitting occurs when a model is too simple to capture the underlying pattern.",
+      "explanation": "This tension is governed by the Bias-Variance Tradeoff: High Bias leads to underfitting (oversimplified assumptions), while High Variance leads to overfitting (excessive sensitivity to small fluctuations in training data). Techniques to combat overfitting include: L1/L2 Regularization (Lasso/Ridge), Dropout, Early Stopping, Pruning, and Data Augmentation. Model evaluation metrics include: Confusion Matrix (TP, FP, TN, FN), Precision = TP/(TP+FP), Recall = TP/(TP+FN), F1-Score, and ROC-AUC curve.",
+      "example": "A deep neural network achieving 99.9% accuracy on training images but only 61% accuracy on unseen test photos exemplifies overfitting.",
+      "formula": "\\text{Total Error} = \\text{Bias}^2 + \\text{Variance} + \\text{Irreducible Noise} (\\sigma^2)",
+      "algorithm_steps": [],
+      "advantages": [
+        "Provides diagnostic tools to systematically debug and tune machine learning architectures"
+      ],
+      "limitations": [
+        "Optimizing for one metric (e.g. Precision) often reduces another (Recall), requiring domain-specific trade-offs"
+      ],
+      "applications": [
+        "Model checkpoint selection, early stopping, and hyperparameter optimization"
+      ],
+      "related_topics": ["ml_train_val_test", "ml_classification_regression", "dl_gradient_descent"],
+      "suggested_followups": [
+        "What is the Bias-Variance Tradeoff?",
+        "How do you prevent overfitting?",
+        "What is the difference between L1 and L2 regularization?"
+      ]
+    }
+  ]
+}

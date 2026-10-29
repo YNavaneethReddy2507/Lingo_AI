@@ -1,0 +1,683 @@
+{
+  "module_id": "module_d",
+  "module_name": "Module D — Natural Language Processing",
+  "description": "Linguistic fundamentals, text preprocessing, tokenization, regex, POS tagging, NER, statistical language modeling, TF-IDF, embeddings, and text classification.",
+  "topics": [
+    {
+      "id": "nlp_fundamentals",
+      "name": "Natural Language Processing Fundamentals",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["nlp", "natural language processing", "what is nlp", "define nlp", "explain nlp", "nlp basics"],
+      "keywords": ["nlp", "natural language processing", "computational linguistics", "syntax", "semantics", "pragmatics", "morphology"],
+      "definition": "Natural Language Processing (NLP) is the interdisciplinary field of AI and computational linguistics concerned with enabling computers to understand, interpret, generate, and manipulate human language.",
+      "explanation": "Human language is intrinsically ambiguous, context-dependent, and evolving. NLP bridges human communication and computational representations across linguistic levels: (1) Phonology (sound patterns); (2) Morphology (word forms and stems); (3) Syntax (grammatical sentence structure); (4) Semantics (literal meaning of words and sentences); (5) Pragmatics (contextual and intentional meaning). Classic NLP relies on rule-based grammars and statistical models, while modern NLP leverages transformer-based language models.",
+      "example": "A customer service virtual assistant interpreting user inquiries like 'Can I change my flight without penalty?' to retrieve airline change-fee policies and execute booking updates.",
+      "formula": "",
+      "algorithm_steps": [],
+      "advantages": [
+        "Unlocks massive business value from unstructured textual data (emails, papers, reviews)",
+        "Enables multilingual global communication through machine translation"
+      ],
+      "limitations": [
+        "Struggles with sarcasm, idiomatic expressions, cultural nuances, and pragmatic subtext",
+        "Polysemy (words with multiple meanings, e.g. 'bank') causes ambiguity"
+      ],
+      "applications": [
+        "Machine translation (Google Translate)",
+        "Conversational chatbots and voice assistants",
+        "Clinical record summarization and legal discovery"
+      ],
+      "related_topics": ["nlp_tokenization", "nlp_ner", "nlp_pos", "nlp_tfidf", "genai_llms"],
+      "suggested_followups": [
+        "What are the major tasks in NLP?",
+        "Explain Tokenization.",
+        "What is Named Entity Recognition (NER)?"
+      ]
+    },
+    {
+      "id": "nlp_corpus",
+      "name": "Corpus Construction and Annotation",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["corpus", "corpus construction", "text corpus", "linguistic annotation", "corpora"],
+      "keywords": ["corpus", "corpora", "annotation", "inter-annotator agreement", "cohen kappa", "sampling", "text cleaning"],
+      "definition": "A text corpus is a large, curated, machine-readable collection of authentic written or spoken texts used for linguistic analysis, statistical modeling, and training NLP algorithms.",
+      "explanation": "Corpus construction involves text sourcing, representative sampling, deduplication, copyright clearance, cleaning, and linguistic annotation (tagging parts of speech, syntactic trees, or named entities). Quality is measured using Inter-Annotator Agreement (IAA) metrics such as Cohen's Kappa or Fleiss' Kappa to ensure labeling consistency across human annotators. Famous corpora include the Brown Corpus, Penn Treebank, Common Crawl, and SQuAD.",
+      "example": "Constructing a 100,000-sentence clinical corpus annotated by board-certified physicians for biomedical named entity recognition (diseases, drugs, dosages).",
+      "formula": "\\kappa = \\frac{p_o - p_e}{1 - p_e} \\quad (\\text{Cohen's Kappa for Inter-Annotator Agreement})",
+      "algorithm_steps": [
+        "Define corpus domain, target tasks, and sampling guidelines",
+        "Crawl or collect raw source documents and remove HTML/boilerplate artifacts",
+        "Deduplicate documents and filter out profanity or sensitive PII",
+        "Formulate explicit annotation guidelines with edge-case protocols",
+        "Annotate sample batches and measure Inter-Annotator Agreement (Kappa)",
+        "Finalize gold-standard dataset splits for train, validation, and test"
+      ],
+      "advantages": [
+        "Provides the foundational ground truth necessary to train and validate statistical and deep learning NLP models"
+      ],
+      "limitations": [
+        "Human annotation is exceptionally slow, expensive, and subject to subjective biases",
+        "Web-scraped corpora often reflect societal prejudices and toxicity"
+      ],
+      "applications": [
+        "Training benchmarks for POS taggers, parsers, translation systems, and LLMs"
+      ],
+      "related_topics": ["nlp_fundamentals", "nlp_normalization_segmentation", "nlp_tokenization"],
+      "suggested_followups": [
+        "What is Inter-Annotator Agreement?",
+        "What is the Penn Treebank?",
+        "Explain Text Normalization."
+      ]
+    },
+    {
+      "id": "nlp_normalization_segmentation",
+      "name": "Text Normalization and Sentence Segmentation",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["text normalization", "sentence segmentation", "stemming", "lemmatization", "sentence splitting"],
+      "keywords": ["normalization", "segmentation", "stemming", "lemmatization", "porter stemmer", "wordnet", "case folding", "sentence boundary"],
+      "definition": "Text normalization transforms raw, noisy text into a standardized canonical form; Sentence segmentation divides continuous text into individual sentence units.",
+      "explanation": "Normalization steps include: Case Folding (converting to lowercase), Accent Stripping, Expanding Contractions ('don't' -> 'do not'), and Stemming vs Lemmatization: Stemming is a crude heuristic process that chops off word affixes (e.g., Porter Stemmer converting 'running', 'runs' to 'run', but 'studies' to 'studi'); Lemmatization uses vocabulary and morphological analysis to return the true dictionary lemma (e.g., converting 'better' to 'good', 'was' to 'be'). Sentence segmentation detects sentence boundaries, disambiguating periods used in abbreviations (e.g., 'Dr. Smith', 'U.S.A.') from terminal punctuation.",
+      "example": "Transforming the string \"Dr. Watson isn't studying in the U.S.A.!\" into normalized sentences and lemmatized tokens: ['Dr.', 'Watson', 'is', 'not', 'study', 'in', 'the', 'USA'].",
+      "formula": "",
+      "algorithm_steps": [
+        "Strip extraneous formatting and non-printable control characters",
+        "Expand abbreviations and contractions",
+        "Segment paragraph into sentences using rule-based or statistical boundary detectors",
+        "Apply case folding where case distinction is non-critical",
+        "Perform lemmatization with Part-of-Speech context tags"
+      ],
+      "advantages": [
+        "Drastically reduces vocabulary size and sparsity in downstream models",
+        "Ensures consistent input format for regex matchers and tokenizers"
+      ],
+      "limitations": [
+        "Aggressive stemming causes over-stemming or under-stemming errors, losing distinct semantic meaning"
+      ],
+      "applications": [
+        "Search engine indexing and query normalization",
+        "Input preprocessing for rule-based chatbots and text classifiers"
+      ],
+      "related_topics": ["nlp_tokenization", "nlp_regex", "nlp_fundamentals"],
+      "suggested_followups": [
+        "What is the difference between Stemming and Lemmatization?",
+        "How do you handle sentence boundaries in abbreviations?",
+        "Explain Tokenization."
+      ]
+    },
+    {
+      "id": "nlp_tokenization",
+      "name": "Tokenization",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["tokenization", "tokenizer", "subword tokenization", "bpe", "byte pair encoding", "wordpiece"],
+      "keywords": ["tokenization", "tokens", "bpe", "byte pair encoding", "wordpiece", "subword", "whitespace tokenizer", "regex tokenizer"],
+      "definition": "Tokenization is the process of segmenting a continuous sequence of natural language text into discrete semantic units called tokens (words, punctuation, or subwords).",
+      "explanation": "Different tokenization strategies include: (1) Word Tokenization: splitting on whitespace and punctuation (struggles with contractions, hyphens, and non-spaced languages like Chinese); (2) Character Tokenization: splitting into individual characters (no out-of-vocabulary words, but produces very long sequences); (3) Subword Tokenization: the modern standard in LLMs (e.g. Byte Pair Encoding BPE, WordPiece, SentencePiece). Subword algorithms iteratively merge frequent character pairs, representing common words as single tokens while decomposing rare or unseen words into meaningful subword units.",
+      "example": "Subword tokenizing 'unbelievably' into subword tokens: ['un', '##believ', '##ably'].",
+      "formula": "\\text{Vocabulary Expansion: } \\arg\\max_{(t_i, t_j)} \\text{Freq}(t_i t_j)",
+      "algorithm_steps": [
+        "Initialize vocabulary with all individual base characters/bytes",
+        "Count adjacent token pairs across entire training corpus",
+        "Merge the most frequent pair (t_i, t_j) into a new single token",
+        "Repeat merge steps until predetermined vocabulary size (e.g. 32,000 or 50,000) is reached",
+        "Tokenize new text by applying learned merge rules greedily"
+      ],
+      "advantages": [
+        "Subword tokenization completely eliminates Out-Of-Vocabulary (OOV) errors",
+        "Balances vocabulary size with sequence length efficiently"
+      ],
+      "limitations": [
+        "Tokenizers can produce tokenization artifacts (e.g. arithmetic failures in LLMs due to digit grouping)"
+      ],
+      "applications": [
+        "Preprocessing in rule-based NLP, search engines, and foundation LLMs (GPT, LLaMA)"
+      ],
+      "related_topics": ["nlp_normalization_segmentation", "nlp_regex", "genai_llms"],
+      "suggested_followups": [
+        "How does Byte Pair Encoding (BPE) work?",
+        "Why is subword tokenization preferred over word tokenization?",
+        "Explain Regular Expressions in NLP."
+      ]
+    },
+    {
+      "id": "nlp_regex",
+      "name": "Regular Expressions in NLP",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["regex", "regular expressions", "pattern matching", "regex in nlp"],
+      "keywords": ["regex", "regular expressions", "pattern matching", "quantifiers", "character classes", "capture groups", "rule based"],
+      "definition": "Regular Expressions (regex) are formal algebraic patterns used for string searching, parsing, validation, and pattern-based text extraction.",
+      "explanation": "Regex provides a deterministic foundation for rule-based NLP. Key components include: Character Classes ([a-z], \\d for digits, \\w for word characters, \\s for whitespace), Quantifiers (* for 0+, + for 1+, ? for optional, {n,m} for ranges), Anchors (^ for string start, $ for end, \\b for word boundary), and Capture Groups ((...) to extract targeted substrings). Regex powers tokenizers, rule-based entity extractors, data cleansing scripts, and chatbot intent matching rules.",
+      "example": "A regex pattern to extract dates: r'\\b\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])\\b' matching '2026-10-29'.",
+      "formula": "",
+      "algorithm_steps": [
+        "Compile regex pattern into a deterministic or non-deterministic finite automaton (DFA/NFA)",
+        "Scan input string character-by-character against state transition table",
+        "Identify match spans and extract matched capture groups",
+        "Return matched substrings or substitute replacement patterns"
+      ],
+      "advantages": [
+        "100% deterministic, precise, and instantaneous execution without training data",
+        "Guaranteed predictable behavior for standardized formats (dates, emails, phone numbers, codes)"
+      ],
+      "limitations": [
+        "Brittle when language exhibits high morphological variation, typos, or syntactic paraphrasing",
+        "Complex nested patterns can suffer from catastrophic backtracking"
+      ],
+      "applications": [
+        "Rule-based chatbot intent and keyword matching",
+        "Entity extraction (dates, prices, URLs, emails, tax IDs) and text cleaning"
+      ],
+      "related_topics": ["nlp_tokenization", "nlp_rule_based_ner", "kb_rule_based_systems"],
+      "suggested_followups": [
+        "What is catastrophic backtracking in regex?",
+        "How is regex used in rule-based chatbots?",
+        "Explain Rule-based Named Entity Recognition."
+      ]
+    },
+    {
+      "id": "nlp_pos",
+      "name": "Part-of-Speech (POS) Tagging",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["pos tagging", "part of speech tagging", "pos tagger", "penn treebank tags"],
+      "keywords": ["pos", "part of speech", "noun", "verb", "adjective", "hmm", "penn treebank", "tagging"],
+      "definition": "Part-of-Speech (POS) tagging is the grammatical annotation process of assigning each token in a sentence its corresponding syntactic part of speech (noun, verb, adjective, preposition, etc.) based on both its definition and context.",
+      "explanation": "Because many words are ambiguous across different grammatical categories (e.g. 'book' can be a noun in 'read a book' or a verb in 'book a flight'), POS taggers resolve ambiguity using surrounding context. Standard tagsets include the Penn Treebank (45 tags: NN for singular noun, VB for base verb, JJ for adjective, etc.) and Universal POS (17 coarse tags: NOUN, VERB, ADJ, etc.). Classical POS taggers use rule-based systems (Brill tagger) or statistical Hidden Markov Models (HMMs), while modern taggers use BiLSTMs or Transformers.",
+      "example": "Tagging \"She booked a flight to London\" -> [She/PRP, booked/VBD, a/DT, flight/NN, to/TO, London/NNP].",
+      "formula": "\\hat{t}_{1:n} = \\arg\\max_{t_{1:n}} \\prod_{i=1}^n P(w_i \\mid t_i) P(t_i \\mid t_{i-1})",
+      "algorithm_steps": [
+        "Tokenize input sentence into token sequence",
+        "Look up candidate POS tags for each word from linguistic lexicon",
+        "Apply Viterbi dynamic programming over transition probabilities P(t_i|t_{i-1}) and emission probabilities P(w_i|t_i)",
+        "Select the most probable sequence of POS tags"
+      ],
+      "advantages": [
+        "Essential prerequisite for syntactic parsing, lemmatization, and named entity recognition",
+        "Disambiguates words that share identical spellings but different syntactic roles"
+      ],
+      "limitations": [
+        "Domain shift (e.g., medical or social media slang) severely degrades accuracy without retraining"
+      ],
+      "applications": [
+        "Syntactic dependency parsing and text-to-speech phonetic pronunciation selection",
+        "Lemmatization and information extraction"
+      ],
+      "related_topics": ["nlp_hmm", "nlp_ner", "nlp_normalization_segmentation"],
+      "suggested_followups": [
+        "How do HMMs perform POS tagging?",
+        "What is the Penn Treebank tagset?",
+        "Explain Named Entity Recognition."
+      ]
+    },
+    {
+      "id": "nlp_ner",
+      "name": "Named Entity Recognition (NER)",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["ner", "named entity recognition", "entity extraction", "entity recognition"],
+      "keywords": ["ner", "named entity recognition", "entity", "person", "organization", "location", "iob tagging", "bio"],
+      "definition": "Named Entity Recognition is an information extraction subtask that identifies and classifies key entity mentions in unstructured text into predefined categories such as Person, Organization, Location, Date, and Product.",
+      "explanation": "NER formulates entity detection as a sequence labeling problem, typically using BIO (Begin, Inside, Outside) or BILOU tagging schemes. For instance, in 'New York City', 'New' is B-LOC, 'York' is I-LOC, and 'City' is I-LOC. Approaches include Rule-Based NER (dictionaries, gazetteers, and regex), Feature-based ML (Conditional Random Fields CRFs), and Deep Learning (BiLSTM-CRF, BERT/RoBERTa).",
+      "example": "In \"Google opened an office in Hyderabad on Monday\", NER identifies [Google: ORGANIZATION], [Hyderabad: LOCATION], and [Monday: DATE].",
+      "formula": "\\hat{y} = \\arg\\max_y \\sum_{i=1}^n \\left( A_{y_{i-1}, y_i} + P_{i, y_i} \\right) \\quad (\\text{Linear-Chain CRF})",
+      "algorithm_steps": [
+        "Preprocess and tokenize input text",
+        "Extract linguistic features (word shape, capitalization, POS tags, surrounding tokens)",
+        "Predict entity boundary and class tag (BIO format) for every token using CRF or neural classifier",
+        "Assemble contiguous entity chunks and normalize to structured knowledge objects"
+      ],
+      "advantages": [
+        "Transforms raw unstructured narrative text into structured relational entities for databases and search"
+      ],
+      "limitations": [
+        "Entity ambiguity: 'Washington' can refer to a person (George Washington), a state, or a football team",
+        "Struggles with out-of-vocabulary emerging entities and acronyms"
+      ],
+      "applications": [
+        "Financial intelligence (tracking company mergers and acquisitions)",
+        "Biomedical literature mining (extracting gene-disease associations)"
+      ],
+      "related_topics": ["nlp_rule_based_ner", "nlp_information_extraction", "nlp_pos"],
+      "suggested_followups": [
+        "What is Rule-based NER?",
+        "Explain the BIO tagging scheme.",
+        "What is Information Extraction?"
+      ]
+    },
+    {
+      "id": "nlp_rule_based_ner",
+      "name": "Rule-Based Named Entity Recognition",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["rule-based ner", "rule based ner", "gazetteers", "pattern based entity extraction"],
+      "keywords": ["rule-based ner", "gazetteer", "lookup dictionary", "regular expressions", "context patterns", "heuristics"],
+      "definition": "Rule-Based NER is an approach to entity recognition that relies on curated gazetteers (dictionaries of known entities), pattern templates, and hand-crafted grammatical rules rather than statistical learning.",
+      "explanation": "Rule-based NER pairs large dictionary lookups (gazetteers of city names, company suffixes, medical terms) with context-triggered regex patterns. For example, a rule might state: 'If a capitalized word precedes \"Inc.\" or \"Corp.\", classify it as an Organization'. Or 'If a capitalized word follows \"Dr.\" or \"President\", classify it as a Person'. While labor-intensive to build, rule-based NER requires zero training data, is 100% auditable, and exhibits zero statistical hallucination.",
+      "example": "A rule: r'\\b(?:Mr\\.|Mrs\\.|Dr\\.)\\s+([A-Z][a-z]+(?:\\s+[A-Z][a-z]+)*)' reliably extracts person names like 'Dr. Alan Turing'.",
+      "formula": "",
+      "algorithm_steps": [
+        "Compile domain gazetteers (lists of countries, currencies, chemicals)",
+        "Define contextual regex rules with left/right contextual triggers",
+        "Scan tokenized text against gazetteer trie structures and regex engines",
+        "Apply priority rules to resolve overlapping entity spans (e.g. longest match wins)",
+        "Output structured entity annotations with rule-match provenance"
+      ],
+      "advantages": [
+        "Requires zero training data and zero GPU compute",
+        "Completely transparent, explainable, and easily debugged/updated by subject matter experts"
+      ],
+      "limitations": [
+        "High maintenance cost: cannot easily generalize to unseen lexical variations or misspellings",
+        "Struggles when entities do not follow formal linguistic trigger patterns"
+      ],
+      "applications": [
+        "High-compliance healthcare and legal document parsing",
+        "Extracting standard identifiers (ISBNs, flight numbers, vehicle VINs, currency values)"
+      ],
+      "related_topics": ["nlp_ner", "nlp_regex", "kb_rule_based_systems"],
+      "suggested_followups": [
+        "What is a Gazetteer?",
+        "Compare Rule-Based NER with Machine Learning NER.",
+        "Explain Expert Systems."
+      ]
+    },
+    {
+      "id": "nlp_hmm",
+      "name": "Hidden Markov Models (HMM) in NLP",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["hmm", "hidden markov models", "hidden markov model", "viterbi algorithm", "baum welch"],
+      "keywords": ["hmm", "hidden markov model", "viterbi", "transition probability", "emission probability", "hidden states", "observations"],
+      "definition": "A Hidden Markov Model is a statistical generative model in which the system being modeled is assumed to be a Markov process with unobserved (hidden) states that generate observed sequences.",
+      "explanation": "In NLP, HMMs are classical foundations for POS tagging and speech recognition. The words are the visible observations w_t, while the grammatical tags are the hidden states t_t. An HMM is defined by: (1) Initial state probabilities pi; (2) Transition probabilities A: P(t_i | t_{i-1}); (3) Emission probabilities B: P(w_i | t_i). The three classic problems of HMMs are: Evaluation (Forward-Backward algorithm), Decoding / Finding most likely state sequence (Viterbi algorithm), and Parameter Estimation from unaligned data (Baum-Welch algorithm).",
+      "example": "Given observed sentence 'Janet will back the bill', Viterbi decoding computes the most likely hidden POS tag sequence [NNP, MD, VB, DT, NN].",
+      "formula": "v_t(j) = \\max_{i=1}^N \\left( v_{t-1}(i) a_{ij} \\right) b_j(o_t) \\quad (\\text{Viterbi recurrence})",
+      "algorithm_steps": [
+        "Initialize Viterbi trellis matrix: v_1(j) = pi_j * b_j(o_1)",
+        "For each subsequent observation t = 2 to T: compute v_t(j) = max_i [v_{t-1}(i) * a_ij] * b_j(o_t)",
+        "Store backpointer argmax_i to remember optimal path",
+        "Backtrack from best final state across stored backpointers to yield optimal hidden sequence"
+      ],
+      "advantages": [
+        "Principled probabilistic model with fast exact dynamic programming decoding (Viterbi)",
+        "Interpretable transition and emission matrices"
+      ],
+      "limitations": [
+        "First-order Markov assumption assumes current state depends only on immediate predecessor, failing on long-distance syntax",
+        "Generative nature requires modeling P(X, Y), which can be harder than directly modeling P(Y|X)"
+      ],
+      "applications": [
+        "Classical POS tagging, speech phoneme decoding, and bioinformatic gene prediction"
+      ],
+      "related_topics": ["nlp_pos", "nlp_ngrams_smoothing", "search_state_space"],
+      "suggested_followups": [
+        "How does the Viterbi Algorithm work?",
+        "What are Transition and Emission probabilities?",
+        "Difference between HMM and CRF?"
+      ]
+    },
+    {
+      "id": "nlp_ngrams_smoothing",
+      "name": "N-gram Language Modelling and Smoothing",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["n-grams", "ngrams", "n-gram language model", "smoothing", "laplace smoothing", "kneser-ney"],
+      "keywords": ["n-gram", "bigram", "trigram", "perplexity", "smoothing", "laplace", "kneser-ney", "markov assumption"],
+      "definition": "An N-gram language model assigns probabilities to sequences of words by assuming that the probability of the next word depends only on the previous N-1 words (Markov assumption).",
+      "explanation": "Types of n-grams include Unigrams (N=1), Bigrams (N=2), and Trigrams (N=3). Maximum Likelihood Estimation calculates P(w_n | w_{n-1}) = Count(w_{n-1}, w_n) / Count(w_{n-1}). A critical flaw is the Zero-Probability Problem: if an unseen word combination appears at test time, MLE assigns it zero probability, resulting in infinite Perplexity. Smoothing algorithms redistribute probability mass to unseen events. Methods include Add-1 (Laplace) Smoothing, Good-Turing Estimation, and Kneser-Ney Smoothing (the gold standard in statistical NLP, which incorporates continuation probabilities).",
+      "example": "A bigram model predicting the next word after 'artificial': Count('artificial intelligence') = 500, Count('artificial') = 600 -> P('intelligence' | 'artificial') = 500/600 = 0.833.",
+      "formula": "P(w_1, \\dots, w_m) \\approx \\prod_{i=1}^m P(w_i \\mid w_{i-N+1}^{i-1}), \\quad \\text{Perplexity} = 2^{-\\frac{1}{M}\\sum \\log_2 P(w_i \\mid \\dots)}",
+      "algorithm_steps": [
+        "Tokenize training corpus and insert sentence boundary tokens <s> and </s>",
+        "Count frequency of all N-grams and (N-1)-gram prefixes",
+        "Apply smoothing (e.g. Kneser-Ney or Laplace) to adjust zero counts",
+        "Compute conditional transition probabilities",
+        "Evaluate model quality on held-out text using Perplexity"
+      ],
+      "advantages": [
+        "Conceptually simple, extremely fast to train, and requires no deep neural networks",
+        "Effective for predictive typing keyboards on resource-constrained mobile devices"
+      ],
+      "limitations": [
+        "Suffers from severe combinatorial explosion (exponential parameter growth with N)",
+        "Completely blind to context beyond the narrow N-1 window"
+      ],
+      "applications": [
+        "Mobile predictive text keyboards and spell-checking auto-correct",
+        "Speech recognition acoustic-language model scoring"
+      ],
+      "related_topics": ["nlp_hmm", "nlp_word2vec_glove", "genai_llms"],
+      "suggested_followups": [
+        "What is Perplexity in language models?",
+        "How does Kneser-Ney smoothing work?",
+        "Compare N-grams and Neural Language Models."
+      ]
+    },
+    {
+      "id": "nlp_word2vec_glove",
+      "name": "Word Embeddings: Word2Vec and GloVe",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["word2vec", "glove", "word embeddings", "distributed representations", "cbow", "skip-gram"],
+      "keywords": ["word2vec", "glove", "embeddings", "skip-gram", "cbow", "dense vectors", "cosine similarity", "distributional hypothesis"],
+      "definition": "Word embeddings are dense, real-valued vector representations of words where words with similar semantic meanings are mapped to geometrically proximal coordinates in a continuous vector space.",
+      "explanation": "Based on Firth's Distributional Hypothesis ('You shall know a word by the company it keeps'): (1) Word2Vec (Mikolov et al., 2013) uses a shallow 2-layer neural network trained on local context windows via CBOW (Continuous Bag of Words: predicts target word from context) or Skip-gram (predicts context words given target word, using Negative Sampling); (2) GloVe (Pennington et al., 2014) combines global matrix factorization of the whole-corpus word co-occurrence matrix with local context windows. Embeddings capture linear semantic arithmetic, famously: Vector('King') - Vector('Man') + Vector('Woman') ~ Vector('Queen').",
+      "example": "Demonstrating semantic analogy arithmetic: vector('Paris') - vector('France') + vector('Italy') aligns closely with vector('Rome').",
+      "formula": "J_{\\text{GloVe}} = \\sum_{i,j=1}^V f(X_{ij}) \\left( w_i^T \\tilde{w}_j + b_i + \\tilde{b}_j - \\log X_{ij} \\right)^2",
+      "algorithm_steps": [
+        "Slide fixed context window (e.g. size 5) across raw text corpus",
+        "For Skip-gram: train target word vector to maximize dot product with true context words while minimizing dot product with K sampled negative words",
+        "Update embedding lookup matrix via gradient descent",
+        "Normalize resulting vectors for cosine similarity computation"
+      ],
+      "advantages": [
+        "Replaces high-dimensional, sparse one-hot encodings with compact dense vectors (100-300 dimensions)",
+        "Captures nuanced semantic and syntactic analogies geometrically"
+      ],
+      "limitations": [
+        "Static word embeddings assign one single vector per word token, failing on polysemous words (e.g. 'apple' fruit vs company)",
+        "Superseded by contextual embeddings (BERT, ELMo) in modern pipelines"
+      ],
+      "applications": [
+        "Semantic search, recommendation engines, and input features for downstream text classifiers"
+      ],
+      "related_topics": ["nlp_vector_space_model", "nlp_cosine_similarity", "genai_embeddings"],
+      "suggested_followups": [
+        "Difference between CBOW and Skip-gram?",
+        "Difference between Word2Vec and GloVe?",
+        "What is the Distributional Hypothesis?"
+      ]
+    },
+    {
+      "id": "nlp_vector_space_model",
+      "name": "Vector Space Model in Information Retrieval",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["vector space model", "vsm", "bag of words", "bow", "document vectors"],
+      "keywords": ["vector space model", "vsm", "bag of words", "salton", "document representation", "sparse matrix"],
+      "definition": "The Vector Space Model is an algebraic representation model where text documents and queries are represented as multi-dimensional vectors in a Euclidean space spanned by vocabulary terms.",
+      "explanation": "Pioneered by Gerard Salton, VSM represents a collection of documents as a Document-Term Matrix (DTM) where rows represent documents and columns represent vocabulary terms. In its simplest form, Bag-of-Words (BoW), entries represent raw word occurrence counts or binary presence indicators. In advanced forms, entries are weighted using TF-IDF. Relevance between a user query vector q and document vector d is measured by vector similarity, most commonly Cosine Similarity.",
+      "example": "Representing a query 'AI robotics' and three research abstracts as 5,000-dimensional term vectors to rank which paper has the highest cosine similarity.",
+      "formula": "\\vec{d}_j = (w_{1, j}, w_{2, j}, \\dots, w_{t, j})^T",
+      "algorithm_steps": [
+        "Extract unique vocabulary terms across entire document collection",
+        "Construct Document-Term Matrix of dimensions |Documents| x |Vocabulary|",
+        "Compute term weights (frequency, binary, or TF-IDF)",
+        "Normalize document vectors to unit length",
+        "Rank documents against a query vector using inner product or cosine metric"
+      ],
+      "advantages": [
+        "Simple, mathematically elegant, and foundational for modern information retrieval systems",
+        "Enables partial matching and ranked search results"
+      ],
+      "limitations": [
+        "Bag-of-words assumption completely ignores word order and syntactic grammar",
+        "Sparse vectors consume significant memory without specialized sparse matrix structures"
+      ],
+      "applications": [
+        "Search engines, library retrieval systems, and document duplicate detection"
+      ],
+      "related_topics": ["nlp_tfidf", "nlp_cosine_similarity", "nlp_text_classification"],
+      "suggested_followups": [
+        "What is the Bag of Words model?",
+        "Explain TF-IDF.",
+        "What is Cosine Similarity?"
+      ]
+    },
+    {
+      "id": "nlp_tfidf",
+      "name": "TF-IDF (Term Frequency — Inverse Document Frequency)",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["tf-idf", "tfidf", "term frequency inverse document frequency", "term weighting"],
+      "keywords": ["tfidf", "tf-idf", "term frequency", "inverse document frequency", "document frequency", "term weighting", "stop words"],
+      "definition": "TF-IDF is a numerical statistic reflecting how important a word is to a document in a collection or corpus, balancing local word frequency against corpus-wide rarity.",
+      "explanation": "TF-IDF combines two metrics: (1) Term Frequency (TF): measures how frequently term t appears in document d, assuming important words appear often locally; (2) Inverse Document Frequency (IDF): measures how rare or informative term t is across the entire collection of N documents. Common stopwords like 'the', 'is', 'and' appear in almost every document, so their IDF approaches zero, naturally suppressing noise words without relying solely on manual stopword lists.",
+      "example": "In a 10,000-document database, the word 'the' appears in all 10,000 docs (IDF = log(10,000/10,000) = 0); the technical word 'backpropagation' appears in only 20 docs (IDF = log(10,000/20) = 6.21), giving it high discriminative weight.",
+      "formula": "\\text{TF-IDF}(t, d, D) = \\text{TF}(t, d) \\times \\text{IDF}(t, D), \\quad \\text{IDF}(t, D) = \\ln\\left(\\frac{1 + |D|}{1 + |\\{d \\in D : t \\in d\\}|}\\right) + 1",
+      "algorithm_steps": [
+        "Calculate Term Frequency TF(t, d) = count(t in d) / total_words(d)",
+        "Calculate Document Frequency DF(t) = number of documents containing term t",
+        "Compute Inverse Document Frequency: IDF(t) = log((N + 1) / (DF(t) + 1)) + 1",
+        "Multiply TF * IDF for each word in each document",
+        "L2-normalize resulting document vectors for cosine similarity comparisons"
+      ],
+      "advantages": [
+        "Statistically penalizes ubiquitous uninformative stopwords while magnifying domain keywords",
+        "Computationally lightweight and fast for high-throughput search and keyword extraction"
+      ],
+      "limitations": [
+        "Does not capture synonyms or semantic paraphrasing (e.g. 'car' and 'automobile' are treated as completely independent terms)"
+      ],
+      "applications": [
+        "Search engine relevance ranking (Lucene, Elasticsearch)",
+        "Document keyword extraction and text classification feature weighting"
+      ],
+      "related_topics": ["nlp_vector_space_model", "nlp_cosine_similarity", "nlp_text_classification"],
+      "suggested_followups": [
+        "Show me the formula for TF-IDF.",
+        "Why is the logarithm used in IDF?",
+        "Difference between TF-IDF and Word2Vec?"
+      ]
+    },
+    {
+      "id": "nlp_cosine_similarity",
+      "name": "Cosine Similarity",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["cosine similarity", "cosine distance", "vector similarity", "dot product similarity"],
+      "keywords": ["cosine similarity", "dot product", "vector angle", "normalization", "semantic similarity", "inner product"],
+      "definition": "Cosine similarity is a metric that measures the cosine of the angle between two non-zero vectors in an inner product space, evaluating directional orientation rather than vector magnitude.",
+      "explanation": "In NLP, document length varies widely: a 10,000-word essay and a 100-word abstract about the same topic have drastically different Euclidean lengths, but their word frequency vectors point in approximately the same angular direction. Cosine similarity ranges from -1 to 1 (or 0 to 1 for non-negative word count or TF-IDF spaces), where 1 signifies identical direction (maximal similarity) and 0 signifies orthogonality (no shared terms).",
+      "example": "Comparing a query vector Q and article vector A: If both contain high proportions of terms ['machine', 'learning', 'python'], their angle theta is near 0 degrees, yielding cos(theta) close to 1.0.",
+      "formula": "\\text{Cosine Similarity}(\\vec{u}, \\vec{v}) = \\frac{\\vec{u} \\cdot \\vec{v}}{\\|\\vec{u}\\| \\|\\vec{v}\\|} = \\frac{\\sum_{i=1}^n u_i v_i}{\\sqrt{\\sum_{i=1}^n u_i^2} \\sqrt{\\sum_{i=1}^n v_i^2}}",
+      "algorithm_steps": [
+        "Compute the dot product (scalar sum of element-wise products) of vectors u and v",
+        "Compute the L2 Euclidean norm of vector u: ||u|| = sqrt(sum u_i^2)",
+        "Compute the L2 Euclidean norm of vector v: ||v|| = sqrt(sum v_i^2)",
+        "Divide dot product by the product of both norms",
+        "If vectors are already L2-normalized to length 1, cosine similarity simplifies to the raw dot product"
+      ],
+      "advantages": [
+        "Completely invariant to document length and scale differences",
+        "Computationally fast when operating on normalized vectors (simplifies to matrix multiplication)"
+      ],
+      "limitations": [
+        "Ignores term co-occurrence correlations unless combined with dense semantic embeddings"
+      ],
+      "applications": [
+        "Vector search in Retrieval-Augmented Generation (RAG) and dense embedding retrieval",
+        "Plagiarism detection and duplicate question matching"
+      ],
+      "related_topics": ["nlp_tfidf", "nlp_vector_space_model", "genai_embeddings"],
+      "suggested_followups": [
+        "Show me the formula for Cosine Similarity.",
+        "Why is Cosine Similarity preferred over Euclidean distance for text?",
+        "How is Cosine Similarity used in RAG?"
+      ]
+    },
+    {
+      "id": "nlp_text_classification",
+      "name": "Text Classification",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["text classification", "document classification", "text categorization"],
+      "keywords": ["text classification", "spam filtering", "sentiment analysis", "intent classification", "topic classification", "multinomial nb"],
+      "definition": "Text classification is the supervised learning task of assigning predefined categorical labels to raw text documents based on their linguistic and semantic content.",
+      "explanation": "The text classification pipeline encompasses text normalization, tokenization, feature extraction (Bag-of-Words, TF-IDF, or dense embeddings), and model training using algorithms such as Naive Bayes, Support Vector Machines, Logistic Regression, CNNs, or fine-tuned Transformer encoders (BERT). Primary tasks include Spam Detection, Intent Detection in chatbots, Topic Categorization (e.g. Sports vs Politics), and Sentiment Analysis.",
+      "example": "Routing customer support tickets automatically into 'Billing', 'Technical Support', or 'Account Cancellation' categories based on ticket text.",
+      "formula": "\\hat{c} = \\arg\\max_{c \\in C} P(c \\mid d) = \\arg\\max_{c \\in C} P(c) \\prod_{t \\in d} P(t \\mid c)",
+      "algorithm_steps": [
+        "Collect and split labeled text corpus into train, validation, and test sets",
+        "Normalize and tokenize text instances",
+        "Extract numerical feature representations (TF-IDF vectors or transformer embeddings)",
+        "Train classification model (e.g. Logistic Regression, Naive Bayes, or BERT)",
+        "Evaluate using Precision, Recall, Macro-F1, and Confusion Matrix"
+      ],
+      "advantages": [
+        "Automates high-volume document organization and triage across enterprises",
+        "Robust statistical foundations with high classification accuracy"
+      ],
+      "limitations": [
+        "Performance degrades on noisy text, typos, or domain shifts without representative training data"
+      ],
+      "applications": [
+        "Email spam filtering and toxic comment detection",
+        "Chatbot intent classification and news article tagging"
+      ],
+      "related_topics": ["ml_naive_bayes", "nlp_sentiment_analysis", "nlp_tfidf"],
+      "suggested_followups": [
+        "How does Naive Bayes classify text?",
+        "What is Intent Detection in chatbots?",
+        "Explain Sentiment Analysis."
+      ]
+    },
+    {
+      "id": "nlp_text_clustering",
+      "name": "Text Clustering and Topic Discovery",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["text clustering", "topic modeling", "lda", "latent dirichlet allocation", "document clustering"],
+      "keywords": ["text clustering", "topic modeling", "lda", "latent dirichlet allocation", "bertopic", "document grouping"],
+      "definition": "Text clustering is the unsupervised grouping of text documents into clusters based on shared vocabulary, syntactic patterns, or semantic similarity.",
+      "explanation": "Unlike supervised classification where categories are known beforehand, text clustering discovers latent thematic groupings in unannotated corpora. Common techniques include: (1) Vector-space clustering (K-Means or Agglomerative Clustering on TF-IDF or embedding vectors); (2) Probabilistic Topic Modeling (Latent Dirichlet Allocation LDA, where documents are mixtures of topics, and topics are distributions over words); (3) Modern embedding-based clustering (BERTopic, using sentence embeddings + UMAP + HDBSCAN + c-TF-IDF).",
+      "example": "Clustering 50,000 unlabelled scientific preprints into emerging research subfields (e.g. Quantum Computing, CRISPR, Large Language Models).",
+      "formula": "P(w \\mid d) = \\sum_{t=1}^T P(w \\mid t) P(t \\mid d) \\quad (\\text{Latent Dirichlet Allocation})",
+      "algorithm_steps": [
+        "Preprocess documents: remove stopwords, low-frequency tokens, and punctuation",
+        "Generate document representations (TF-IDF or dense embeddings)",
+        "Perform dimensionality reduction (PCA or UMAP) to mitigate sparsity",
+        "Apply clustering algorithm (K-Means, DBSCAN, or Gibbs sampling for LDA)",
+        "Extract top representative keywords per cluster to interpret discovered themes"
+      ],
+      "advantages": [
+        "Explores and maps unorganized document archives without expensive manual tagging"
+      ],
+      "limitations": [
+        "Topic boundaries can be subjective and difficult to evaluate quantitatively"
+      ],
+      "applications": [
+        "Customer feedback issue discovery and scientific trend analysis"
+      ],
+      "related_topics": ["ml_clustering", "ml_kmeans", "nlp_vector_space_model"],
+      "suggested_followups": [
+        "What is Latent Dirichlet Allocation (LDA)?",
+        "What is BERTopic?",
+        "Difference between Text Classification and Text Clustering?"
+      ]
+    },
+    {
+      "id": "nlp_text_summarization",
+      "name": "Text Summarization",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["text summarization", "summarization", "extractive summarization", "abstractive summarization", "textrank", "rouge"],
+      "keywords": ["summarization", "extractive", "abstractive", "textrank", "rouge score", "lead-3", "compression"],
+      "definition": "Text summarization is the process of generating a concise, coherent, and fluent representation of a longer text document while retaining its essential semantic information.",
+      "explanation": "Summarization approaches fall into two distinct paradigms: (1) Extractive Summarization: selects and stitches together the most informative sentences directly from the original document using sentence scoring algorithms (e.g., LexRank, TextRank graph-based centrality, or TF-IDF weights); (2) Abstractive Summarization: paraphrases and generates novel sentences that express the core concepts in new words, typically powered by sequence-to-sequence transformers (e.g. BART, T5, GPT). Summarization quality is evaluated using ROUGE (Recall-Oriented Understudy for Gisting Evaluation) metrics comparing generated summaries with human reference summaries.",
+      "example": "Distilling a 20-page legal court decision into an executive summary highlighting the legal holding, precedent, and key damages awarded.",
+      "formula": "\\text{ROUGE-N} = \\frac{\\sum_{S \\in \\text{Ref}} \\sum_{\\text{gram}_n \\in S} \\text{Count}_{\\text{match}}(\\text{gram}_n)}{\\sum_{S \\in \\text{Ref}} \\sum_{\\text{gram}_n \\in S} \\text{Count}(\\text{gram}_n)}",
+      "algorithm_steps": [
+        "For extractive: segment document into sentences and construct sentence similarity graph",
+        "Run PageRank algorithm over graph to score sentence centrality (TextRank)",
+        "Extract top-k highest scoring sentences and order them chronologically",
+        "For abstractive: pass document through encoder-decoder transformer to generate novel summary text",
+        "Measure overlap against reference summaries using ROUGE-1, ROUGE-2, and ROUGE-L scores"
+      ],
+      "advantages": [
+        "Extractive summarization is factually safe (cannot hallucinate nonexistent facts)",
+        "Abstractive summarization produces highly fluent, natural human-like condensations"
+      ],
+      "limitations": [
+        "Abstractive summarization is vulnerable to hallucinations (fabricating details not in source text)",
+        "Extractive summaries can feel disjointed and lack narrative cohesion"
+      ],
+      "applications": [
+        "Executive briefings, news digest apps, and medical patient encounter summaries"
+      ],
+      "related_topics": ["nlp_information_extraction", "genai_llms", "genai_hallucinations"],
+      "suggested_followups": [
+        "Difference between Extractive and Abstractive summarization?",
+        "What is the ROUGE score?",
+        "How does TextRank work?"
+      ]
+    },
+    {
+      "id": "nlp_information_extraction",
+      "name": "Information Extraction and Relation Extraction",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["information extraction", "ie", "relation extraction", "open ie", "knowledge graph extraction"],
+      "keywords": ["information extraction", "relation extraction", "triplets", "subject predicate object", "knowledge graph", "open ie"],
+      "definition": "Information Extraction (IE) is the task of automatically transforming unstructured narrative text into structured, relational data (such as entity attributes, events, and knowledge graph triplets).",
+      "explanation": "Core subtasks of IE include: (1) Named Entity Recognition (finding entities); (2) Relation Extraction: predicting relationships between identified entity pairs, often expressed as (Subject, Predicate, Object) triplets—e.g. (Albert Einstein, BornIn, Germany); (3) Event Extraction: detecting event triggers and their associated arguments (who, when, where, what); (4) Coreference Resolution: linking different mentions that refer to the same entity (e.g. linking 'she', 'the doctor', and 'Dr. Lisa' to a single entity ID). Extracted facts populate enterprise Knowledge Graphs.",
+      "example": "Extracting the triplet (Sundar Pichai, CEO_OF, Alphabet Inc.) from the sentence \"Alphabet Inc. announced that Sundar Pichai serves as its chief executive officer.\"",
+      "formula": "\\text{Triplet: } \\langle e_1, r, e_2 \\rangle \\in \\mathcal{E} \\times \\mathcal{R} \\times \\mathcal{E}",
+      "algorithm_steps": [
+        "Tokenize and perform Named Entity Recognition on source text",
+        "Identify candidate pairs of detected entities within a sentence or document window",
+        "Classify relation r between entity pair (e_1, e_2) using dependency parse trees or neural classifiers",
+        "Link entities to canonical IDs in a knowledge base (Entity Linking)",
+        "Insert validated triplets into a knowledge graph database"
+      ],
+      "advantages": [
+        "Transforms messy unstructured text into querying-ready structured relational databases and graphs",
+        "Powers semantic question answering and automated knowledge base population"
+      ],
+      "limitations": [
+        "Error propagation: errors in upstream NER or POS tagging cascade into relation extraction failures"
+      ],
+      "applications": [
+        "Automated knowledge graph population (Google Knowledge Graph, Wikidata)",
+        "Financial intelligence and medical pharmacovigilance adverse event monitoring"
+      ],
+      "related_topics": ["nlp_ner", "kb_knowledge_representation", "nlp_pos"],
+      "suggested_followups": [
+        "What is Relation Extraction?",
+        "What is a Knowledge Graph?",
+        "Explain Coreference Resolution."
+      ]
+    },
+    {
+      "id": "nlp_sentiment_analysis",
+      "name": "Sentiment Analysis and Opinion Mining",
+      "category": "Module D — Natural Language Processing",
+      "category_id": "module_d",
+      "aliases": ["sentiment analysis", "opinion mining", "sentiment classification", "aspect based sentiment analysis", "absa"],
+      "keywords": ["sentiment analysis", "polarity", "subjectivity", "vader", "aspect based sentiment", "positive negative neutral"],
+      "definition": "Sentiment analysis (opinion mining) is the computational study of people's opinions, sentiments, emotions, appraisals, and attitudes towards entities, products, services, or topics expressed in text.",
+      "explanation": "Sentiment is analyzed at multiple granularities: Document-level, Sentence-level, and Aspect-based (ABSA: determining sentiment towards specific attributes, e.g. 'Food was delicious (+), but service was terrible (-)'). Approaches include: (1) Lexicon-based / Rule-based: uses sentiment lexicons (SentiWordNet, VADER) where words carry valence scores, paired with grammatical rules for negation ('not good' flips valence) and intensifiers ('very good' boosts valence); (2) Supervised Machine Learning: training classifiers on labeled review datasets; (3) Pre-trained Deep Models: fine-tuning transformers.",
+      "example": "Analyzing hotel reviews: \"The room was spacious and clean, but the Wi-Fi was painfully slow!\" yields Positive sentiment for 'room' and Negative sentiment for 'Wi-Fi'.",
+      "formula": "\\text{Compound Score} = \\frac{x}{\\sqrt{x^2 + \\alpha}} \\quad (\\text{VADER normalized metric})",
+      "algorithm_steps": [
+        "Normalize and tokenize user review text",
+        "Detect negation words (e.g. 'not', 'never') and set a valence-reversal window",
+        "Score sentiment words against sentiment lexicon dictionaries",
+        "Apply multiplier weights for capitalization, punctuation (!!!), and intensifiers ('extremely')",
+        "Aggregate token scores into an overall compound polarity score between -1.0 (very negative) and +1.0 (very positive)"
+      ],
+      "advantages": [
+        "Rule-based methods (like VADER) require no training, operate in real time, and handle slang/emojis directly",
+        "Provides actionable market intelligence from massive streams of customer reviews"
+      ],
+      "limitations": [
+        "Sarcasm and irony are notoriously difficult for both rule-based and statistical models",
+        "Context-dependent polarity: 'cold' is negative for soup, but positive for beer"
+      ],
+      "applications": [
+        "Brand reputation tracking on social media",
+        "Customer satisfaction scoring and financial sentiment trading"
+      ],
+      "related_topics": ["nlp_text_classification", "nlp_regex", "kb_rule_based_systems"],
+      "suggested_followups": [
+        "How does rule-based sentiment analysis handle negation?",
+        "What is Aspect-Based Sentiment Analysis (ABSA)?",
+        "Explain VADER sentiment analysis."
+      ]
+    }
+  ]
+}

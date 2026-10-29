@@ -1,0 +1,329 @@
+{
+  "module_id": "module_f",
+  "module_name": "Module F — Knowledge-Based AI",
+  "description": "Symbolic artificial intelligence, knowledge representation, expert systems, inference engines, forward/backward chaining, logic, and rule-based architectures.",
+  "topics": [
+    {
+      "id": "kb_knowledge_representation",
+      "name": "Knowledge Representation",
+      "category": "Module F — Knowledge-Based AI",
+      "category_id": "module_f",
+      "aliases": ["knowledge representation", "kr", "kr&r", "knowledge representation and reasoning", "symbolic ai representation"],
+      "keywords": ["knowledge representation", "symbolic ai", "ontologies", "semantic networks", "frames", "conceptual graphs", "first order logic"],
+      "definition": "Knowledge Representation is the field of Artificial Intelligence dedicated to formalizing real-world knowledge into explicit computational structures so that an automated reasoning system can make inferences.",
+      "explanation": "Unlike statistical weights in neural networks that store distributed implicit correlations, symbolic AI requires explicit knowledge structures. Major knowledge representation formalisms include: (1) Logic-based (Propositional and First-Order Predicate Logic); (2) Production Rules (IF condition THEN action/conclusion); (3) Semantic Networks (graphs where nodes are concepts and directed edges represent relations like 'is-a' or 'part-of'); (4) Frames and Schemas (record-like structures with attribute slots and default values); (5) Modern Ontologies and Knowledge Graphs (e.g. OWL, RDF, Wikidata).",
+      "example": "A medical knowledge representation stating: Concept(Diabetes) is-a(Endocrine_Disorder); has_symptom(Polyuria, Polydipsia); risk_factor(Obesity).",
+      "formula": "\\forall x \\; (\\text{Human}(x) \\implies \\text{Mortal}(x)), \\quad \\text{Human}(\\text{Socrates}) \\vdash \\text{Mortal}(\\text{Socrates})",
+      "algorithm_steps": [
+        "Elicit domain facts and relational structures from human domain experts",
+        "Define formal ontology schema (concepts, properties, hierarchies)",
+        "Encode assertions and rules into unambiguous symbolic representations",
+        "Validate logical consistency to avoid contradictions or circular reasoning",
+        "Deploy knowledge base to an inference engine for query answering"
+      ],
+      "advantages": [
+        "100% auditable, interpretable, verifiable, and logically consistent",
+        "Enables rigorous deduction, proof-generation, and explicit causal explanation"
+      ],
+      "limitations": [
+        "Knowledge acquisition bottleneck: manually encoding expert knowledge is labor-intensive",
+        "Brittleness: symbolic systems struggle with uncertainty, ambiguity, and fuzzy concepts"
+      ],
+      "applications": [
+        "Clinical diagnostic decision support systems",
+        "Enterprise legal and regulatory compliance checkers",
+        "Semantic search knowledge graphs (Google Knowledge Graph)"
+      ],
+      "related_topics": ["kb_rule_based_systems", "kb_expert_systems", "kb_logic", "nlp_information_extraction"],
+      "suggested_followups": [
+        "What is the Knowledge Acquisition Bottleneck?",
+        "Explain Semantic Networks.",
+        "What is the difference between Symbolic AI and Connectionist AI?"
+      ]
+    },
+    {
+      "id": "kb_rule_based_systems",
+      "name": "Rule-Based Systems",
+      "category": "Module F — Knowledge-Based AI",
+      "category_id": "module_f",
+      "aliases": ["rule-based systems", "rule based systems", "rule based ai", "production systems", "production rules"],
+      "keywords": ["rule-based", "production rules", "if-then", "facts", "rules", "rule engine", "working memory", "symbolic ai"],
+      "definition": "A Rule-Based System is an artificial intelligence program that represents domain knowledge as a collection of explicit IF-THEN production rules operating over a working memory of facts.",
+      "explanation": "A rule-based architecture consists of three core components: (1) Working Memory / Fact Base: the dynamic state containing known assertions and data; (2) Rule Base: static set of domain rules of the form IF (antecedent / condition) THEN (consequent / action); (3) Inference Engine: the reasoning mechanism that matches working memory against rule conditions, resolves conflicts, and fires rules to derive new conclusions. This very chatbot (AI KnowledgeBot) is an educational example of a deterministic rule-based system!",
+      "example": "A financial fraud rule: IF (transaction_amount > $5,000) AND (country != user_home_country) AND (card_present == FALSE) THEN flag_as_suspicious_fraud(HIGH).",
+      "formula": "\\text{Rule: } \\bigwedge_{i=1}^k C_i \\implies \\text{Action / Conclusion}",
+      "algorithm_steps": [
+        "Input query is normalized and matched to extract initial known facts",
+        "Match Phase: Inference engine compares known facts against rule antecedents",
+        "Conflict Resolution: If multiple rules match, select the best rule using priority criteria (specificity, salience, recency)",
+        "Act Phase: Fire the selected rule, updating working memory or generating output",
+        "Repeat cycle until no more rules can fire or goal is achieved"
+      ],
+      "advantages": [
+        "Completely deterministic: exact same inputs produce identical predictable outputs",
+        "Zero hallucination risk: never invents facts outside its programmed knowledge base",
+        "Requires zero expensive GPU compute and runs locally without network access"
+      ],
+      "limitations": [
+        "Rule explosion: managing thousands of interacting rules becomes increasingly difficult",
+        "Lacks spontaneous learning: cannot discover new rules without human intervention"
+      ],
+      "applications": [
+        "Medical diagnosis systems (MYCIN) and tax calculation software",
+        "Rule-based educational chatbots, conversational routing, and syntax linters"
+      ],
+      "related_topics": ["kb_expert_systems", "kb_inference_engines", "kb_forward_chaining", "kb_backward_chaining"],
+      "suggested_followups": [
+        "How does an inference engine resolve conflicting rules?",
+        "Explain Forward Chaining vs Backward Chaining.",
+        "What are the advantages of Rule-Based AI over LLMs?"
+      ]
+    },
+    {
+      "id": "kb_expert_systems",
+      "name": "Expert Systems",
+      "category": "Module F — Knowledge-Based AI",
+      "category_id": "module_f",
+      "aliases": ["expert systems", "expert system", "mycin", "dendral", "knowledge-based systems"],
+      "keywords": ["expert system", "mycin", "dendral", "knowledge engineer", "domain expert", "explanation facility", "user interface"],
+      "definition": "An Expert System is a specialized AI software application that emulates the decision-making ability of a human expert in a narrow, well-defined domain using rules and heuristics.",
+      "explanation": "Popularized during the Second AI Boom of the 1970s and 1980s, expert systems represent one of the first truly successful commercial applications of AI. Classic systems include DENDRAL (chemical molecular analysis), MYCIN (blood infection antibiotic prescription), and XCON/R1 (configuring VAX computer systems at DEC). An expert system comprises: Knowledge Base, Inference Engine, Explanation Facility (explaining WHY a question is asked or HOW a conclusion was derived), and User Interface.",
+      "example": "MYCIN (1976): An expert system that diagnosed blood infections and recommended antibiotics with a 65% success rate, outperforming non-specialist human physicians of its era.",
+      "formula": "",
+      "algorithm_steps": [
+        "Knowledge Acquisition: Knowledge engineers interview domain experts to capture heuristics",
+        "Knowledge Representation: Encode expert heuristics into formal IF-THEN production rules with certainty factors",
+        "Execution: User enters symptoms or parameters into the system",
+        "Inference: Engine applies forward or backward chaining to deduce diagnosis",
+        "Explanation: System provides step-by-step reasoning trace explaining the conclusion"
+      ],
+      "advantages": [
+        "Preserves perishable human institutional knowledge permanently",
+        "Explanation facility provides full auditability and transparent justifications"
+      ],
+      "limitations": [
+        "Fragile at domain boundaries: cannot degrade gracefully when presented with problems outside its expertise",
+        "Subject to the 'Knowledge Acquisition Bottleneck' (extracting tacit expert knowledge is difficult)"
+      ],
+      "applications": [
+        "Clinical triage, aircraft maintenance fault diagnostics, and financial underwriting"
+      ],
+      "related_topics": ["kb_rule_based_systems", "kb_inference_engines", "ai_history"],
+      "suggested_followups": [
+        "What was MYCIN?",
+        "What is the Explanation Facility in an expert system?",
+        "Why did the Expert Systems boom decline in the late 1980s?"
+      ]
+    },
+    {
+      "id": "kb_facts_and_rules",
+      "name": "Facts and Rules in Knowledge Bases",
+      "category": "Module F — Knowledge-Based AI",
+      "category_id": "module_f",
+      "aliases": ["facts and rules", "facts in ai", "rules in ai", "working memory", "rule syntax"],
+      "keywords": ["facts", "rules", "working memory", "antecedent", "consequent", "assertions", "predicates"],
+      "definition": "Facts are declarative ground assertions representing known truths about the current world state, while Rules are conditional logic statements that specify new assertions or actions to execute when particular conditions hold.",
+      "explanation": "In a knowledge-based system: Facts represent atomic state observations stored in Working Memory—e.g. `is_fever(patient_12, True)` or `temperature(engine_1, 105C)`. Rules represent general domain logic consisting of an Antecedent (IF condition) and a Consequent (THEN action or conclusion). When an antecedent matches active facts in working memory, the rule is 'instantiated' into the conflict set and can 'fire' to produce new derived facts or trigger external side effects.",
+      "example": "Fact: `has_wheels(vehicle_1, 2)`. Fact: `has_motor(vehicle_1, True)`. Rule: `IF has_wheels(V, 2) AND has_motor(V, True) THEN assert(is_motorcycle(V))`.",
+      "formula": "\\text{Antecedent } (P_1 \\land P_2 \\land \\dots \\land P_k) \\implies \\text{Consequent } (Q)",
+      "algorithm_steps": [],
+      "advantages": [
+        "Clean separation between static domain logic (Rules) and dynamic operational data (Facts)"
+      ],
+      "limitations": [
+        "Incomplete fact bases prevent applicable rules from triggering"
+      ],
+      "applications": [
+        "Business rules management systems (Drools, Jess, CLIPS)",
+        "Chatbot knowledge base facts and question-matching rules"
+      ],
+      "related_topics": ["kb_rule_based_systems", "kb_inference_engines", "kb_logic"],
+      "suggested_followups": [
+        "What is the difference between an antecedent and a consequent?",
+        "Explain Working Memory in production systems.",
+        "What is an Inference Engine?"
+      ]
+    },
+    {
+      "id": "kb_inference_engines",
+      "name": "Inference Engines and Pattern Matching",
+      "category": "Module F — Knowledge-Based AI",
+      "category_id": "module_f",
+      "aliases": ["inference engine", "inference engines", "rete algorithm", "conflict resolution", "pattern matching"],
+      "keywords": ["inference engine", "rete", "conflict resolution", "pattern matching", "agenda", "salience", "forward chaining", "backward chaining"],
+      "definition": "An Inference Engine is the brain of a knowledge-based system that applies logical deduction rules to the knowledge base and working memory to infer new facts or answer queries.",
+      "explanation": "The inference engine runs the Match-Resolve-Act cycle: (1) Match: matches current facts against rule antecedents. For large rule bases, the Rete Algorithm (Forgy, 1979) compiles rules into a directed acyclic pattern network, preventing redundant evaluations across cycles; (2) Conflict Resolution: when multiple rules match, the engine chooses which to fire using heuristics (Salience/Priority, Specificity/Longest condition match, Recency/Newest facts first); (3) Act: executes the selected rule's consequent. The two foundational reasoning strategies are Forward Chaining and Backward Chaining.",
+      "example": "The Rete algorithm sharing condition nodes in memory so matching 10,000 rules across 100,000 facts executes in milliseconds without nested loops.",
+      "formula": "\\text{Cycle: } \\text{Match} \\longrightarrow \\text{Conflict Resolution} \\longrightarrow \\text{Act / Fire}",
+      "algorithm_steps": [
+        "Load static rules into compiled pattern matching network (e.g. Rete network)",
+        "Assert new sensory inputs or user query tokens as facts in working memory",
+        "Propagate facts through condition nodes to find all activated rules (the Agenda)",
+        "Apply conflict resolution strategy to choose the highest-priority activated rule",
+        "Fire rule: assert new deduced facts or return conversational response",
+        "Repeat until agenda is empty or termination condition is met"
+      ],
+      "advantages": [
+        "Decouples domain knowledge from execution logic, allowing non-programmers to add rules",
+        "Rete algorithm achieves incredible pattern-matching efficiency"
+      ],
+      "limitations": [
+        "Rete network memory consumption can grow exponentially with complex multi-variable joins"
+      ],
+      "applications": [
+        "CLIPS and Jess expert system shells",
+        "Rule-based conversational engines and regulatory compliance engines"
+      ],
+      "related_topics": ["kb_forward_chaining", "kb_backward_chaining", "kb_rule_based_systems"],
+      "suggested_followups": [
+        "How does the Rete algorithm work?",
+        "What is Conflict Resolution?",
+        "Difference between Forward and Backward Chaining?"
+      ]
+    },
+    {
+      "id": "kb_forward_chaining",
+      "name": "Forward Chaining (Data-Driven Reasoning)",
+      "category": "Module F — Knowledge-Based AI",
+      "category_id": "module_f",
+      "aliases": ["forward chaining", "data-driven reasoning", "forward deduction", "modus ponens chaining"],
+      "keywords": ["forward chaining", "data driven", "bottom up", "modus ponens", "inferred facts", "production systems"],
+      "definition": "Forward Chaining is a data-driven reasoning strategy that begins with known facts and iteratively applies IF-THEN rules to infer new facts until a goal state is reached or no more rules can fire.",
+      "explanation": "Forward chaining is a bottom-up approach: 'Given what we know, what can we deduce next?' It relies on the Modus Ponens inference rule: If A is true, and A -> B, then B is true. The inference engine continuously checks whether any rule's condition is satisfied by known facts. When satisfied, the rule fires and adds its conclusion to working memory. This newly added fact may trigger further rules in a domino effect. It is ideal for monitoring, planning, synthesis, and reactive control systems.",
+      "example": "Given facts: `SoreThroat`, `Fever`. Rule 1: `IF SoreThroat AND Fever THEN BacterialInfection`. Rule 2: `IF BacterialInfection THEN PrescribeAntibiotics`. Forward chaining derives that antibiotics should be prescribed.",
+      "formula": "\\frac{P, \\quad P \\implies Q}{Q} \\quad (\\text{Modus Ponens})",
+      "algorithm_steps": [
+        "Initialize Working Memory with all known ground facts",
+        "Find all rules whose antecedents are completely satisfied by active facts",
+        "Select and fire a rule using conflict resolution criteria",
+        "Add the rule's conclusion to Working Memory as a newly established fact",
+        "Repeat matching with expanded fact set until target goal is reached or no new rules match"
+      ],
+      "advantages": [
+        "Excellent for problems where vast initial data is available and all possible consequences need to be discovered",
+        "Naturally suits event-driven and real-time monitoring environments"
+      ],
+      "limitations": [
+        "Can fire numerous irrelevant rules that do not contribute toward the specific goal (unfocused search)"
+      ],
+      "applications": [
+        "Industrial factory process monitoring and automated alarm suppression",
+        "Chatbot intent and keyword deduction from incoming query tokens"
+      ],
+      "related_topics": ["kb_backward_chaining", "kb_inference_engines", "kb_rule_based_systems"],
+      "suggested_followups": [
+        "Compare Forward Chaining and Backward Chaining.",
+        "What is Modus Ponens?",
+        "When should you choose Forward Chaining over Backward Chaining?"
+      ]
+    },
+    {
+      "id": "kb_backward_chaining",
+      "name": "Backward Chaining (Goal-Driven Reasoning)",
+      "category": "Module F — Knowledge-Based AI",
+      "category_id": "module_f",
+      "aliases": ["backward chaining", "goal-driven reasoning", "goal directed reasoning", "prolog reasoning"],
+      "keywords": ["backward chaining", "goal driven", "top down", "prolog", "subgoals", "hypothesis verification"],
+      "definition": "Backward Chaining is a goal-driven reasoning strategy that begins with a hypothesis or goal state and works backward to find supporting facts in the knowledge base that prove the hypothesis.",
+      "explanation": "Backward chaining is a top-down approach: 'To prove Goal G, what premises P must be true?' The engine finds rules whose conclusions conclude G. It then takes the premises of those rules as new subgoals and recursively attempts to prove them. If a subgoal is already in working memory, it succeeds; if not, the system may query the user for input. Backward chaining is the foundational execution algorithm of Prolog (Programming in Logic) and is ideal for diagnostic, verification, and debugging tasks.",
+      "example": "In medical diagnosis: System starts with hypothesis 'Patient has Strep Throat'. It works backward: 'To prove Strep Throat, need positive throat culture AND fever'. It checks records for fever, and prompts the nurse for throat culture.",
+      "formula": "\\text{Goal } Q \\; ? \\implies \\text{Find rule } P \\implies Q \\implies \\text{Set new subgoal } P \\; ?",
+      "algorithm_steps": [
+        "State hypothesis or goal query G to prove",
+        "Search rule base for rules whose consequent matches G",
+        "For each candidate rule, formulate its antecedents as required subgoals",
+        "Recursively verify each subgoal against working memory or chain into deeper rules",
+        "If a subgoal cannot be deduced, query user or external API for validation",
+        "If all subgoals of any candidate rule succeed, goal G is verified as TRUE"
+      ],
+      "advantages": [
+        "Highly focused: only evaluates rules strictly relevant to verifying the specific hypothesis",
+        "Asks users only relevant questions needed to confirm or refute the target goal"
+      ],
+      "limitations": [
+        "Struggles in exploratory domains where the specific goal is unknown in advance"
+      ],
+      "applications": [
+        "Prolog logic programming language runtime execution",
+        "Medical diagnosis systems and IT technical support troubleshooting trees"
+      ],
+      "related_topics": ["kb_forward_chaining", "kb_inference_engines", "kb_logic"],
+      "suggested_followups": [
+        "Compare Forward Chaining and Backward Chaining.",
+        "How does Prolog use Backward Chaining?",
+        "What happens if a subgoal cannot be proven in Backward Chaining?"
+      ]
+    },
+    {
+      "id": "kb_logic",
+      "name": "Propositional and Predicate Logic in AI",
+      "category": "Module F — Knowledge-Based AI",
+      "category_id": "module_f",
+      "aliases": ["propositional logic", "predicate logic", "first order logic", "fol", "symbolic logic in ai"],
+      "keywords": ["propositional logic", "predicate logic", "fol", "first order logic", "quantifiers", "truth tables", "resolution refutation", "unification"],
+      "definition": "Propositional logic deals with declarative statements that are either True or False, while First-Order Predicate Logic (FOL) extends this by introducing objects, relations, predicates, and quantifiers (Universal and Existential).",
+      "explanation": "Propositional Logic uses connectives: AND, OR, NOT, IMPLIES, EQUIVALENT over atomic propositions (e.g. P = 'It is raining'). While decidable, it cannot express general claims about groups of objects. First-Order Logic (FOL) solves this by introducing: Terms (constants, variables, functions), Predicates (relations like FatherOf(x, y)), and Quantifiers: Universal forall (for all) and Existential exists (there exists). Inference in FOL is performed via Unification (finding variable substitutions that make different expressions identical) and Resolution Refutation (a sound and complete proof system).",
+      "example": "\"All intelligent agents perceive their environment\" formalized in FOL: \\forall x \\; (\\text{Agent}(x) \\land \\text{Intelligent}(x) \\implies \\text{Perceives}(x, \\text{Environment})).",
+      "formula": "\\forall x \\; (P(x) \\implies Q(x)) \\land P(a) \\vdash Q(a) \\quad (\\text{Universal Modus Ponens})",
+      "algorithm_steps": [
+        "Convert logic sentences into Conjunctive Normal Form (CNF)",
+        "Skolemize existential quantifiers and standardize variable names",
+        "Unify atomic predicates with complimentary literals using Most General Unifier (MGU)",
+        "Apply resolution rule to generate resolvents",
+        "If an empty clause (contradiction) is derived, the theorem is proven by refutation"
+      ],
+      "advantages": [
+        "Provides unambiguous, formally verifiable mathematical semantics for reasoning",
+        "First-order logic resolution is sound (never proves false statements) and complete"
+      ],
+      "limitations": [
+        "First-order logic is semi-decidable (an algorithm may run forever trying to prove a false statement)",
+        "Classical logic cannot easily represent continuous probability or fuzzy degrees of truth"
+      ],
+      "applications": [
+        "Automated theorem provers (Z3, Coq, Isabelle)",
+        "Formal software and cryptographic protocol verification"
+      ],
+      "related_topics": ["kb_knowledge_representation", "kb_forward_chaining", "kb_rule_based_systems"],
+      "suggested_followups": [
+        "What is Unification in First-Order Logic?",
+        "What is Resolution Refutation?",
+        "Difference between Propositional and First-Order Logic?"
+      ]
+    },
+    {
+      "id": "kb_rule_based_pros_cons",
+      "name": "Advantages and Limitations of Rule-Based AI",
+      "category": "Module F — Knowledge-Based AI",
+      "category_id": "module_f",
+      "aliases": ["advantages of rule based ai", "limitations of rule based ai", "rule based ai pros and cons", "rules vs deep learning"],
+      "keywords": ["rule-based ai", "symbolic ai", "explainability", "zero hallucination", "brittleness", "maintainability", "auditability"],
+      "definition": "Rule-Based AI offers unmatched explainability, deterministic predictability, and zero hallucination, but suffers from brittleness, high maintenance overhead, and an inability to generalize to unseen edge cases.",
+      "explanation": "Comparing Rule-Based AI to Modern Machine Learning / LLMs highlights key trade-offs: Rule-based systems provide 100% auditable traces, guarantee strict compliance with regulations, require zero GPU hardware, and never invent non-existent facts (zero hallucinations). However, they are brittle: if an input phrasing deviates slightly from expected keywords or syntax, the rule fails. They cannot learn automatically from raw data, and scaling rule bases beyond several thousand rules creates combinatorial conflicts and high human maintenance costs.",
+      "example": "A high-stakes tax calculation engine: A rule-based system guarantees exact tax law compliance without hallucinating deductions, whereas an LLM could probabilistically invent IRS rules.",
+      "formula": "",
+      "algorithm_steps": [],
+      "advantages": [
+        "100% explainable reasoning traces: every decision maps to an exact triggered rule",
+        "Zero hallucination risk: strictly grounded in curated knowledge",
+        "Runs with extreme speed on lightweight local hardware without GPU or cloud APIs",
+        "Deterministic: identical inputs guarantee identical outputs every time"
+      ],
+      "limitations": [
+        "High brittleness when user language deviates from anticipated keywords or syntax",
+        "High human authoring labor: cannot autonomously learn from uncurated web data",
+        "Does not handle fuzzy or probabilistic nuances gracefully"
+      ],
+      "applications": [
+        "High-compliance tax calculation and regulatory audits",
+        "Educational chatbots, medical clinical practice guidelines, safety interlocks"
+      ],
+      "related_topics": ["kb_rule_based_systems", "genai_hallucinations", "ai_ethics_limitations"],
+      "suggested_followups": [
+        "How does Rule-Based AI avoid hallucinations?",
+        "What is brittleness in Rule-Based systems?",
+        "Can Rule-Based AI and Deep Learning be combined (Neurosymbolic AI)?"
+      ]
+    }
+  ]
+}

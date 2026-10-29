@@ -1,0 +1,252 @@
+{
+  "module_id": "module_e",
+  "module_name": "Module E — Computer Vision",
+  "description": "Visual perception, image classification, object detection, semantic & instance segmentation, CNNs, YOLO, and computer vision pipelines.",
+  "topics": [
+    {
+      "id": "cv_image_classification",
+      "name": "Image Classification",
+      "category": "Module E — Computer Vision",
+      "category_id": "module_e",
+      "aliases": ["image classification", "cv classification", "image recognition", "visual classification"],
+      "keywords": ["image classification", "cv", "computer vision", "imagenet", "top-1 accuracy", "top-5 accuracy", "resnet", "vgg"],
+      "definition": "Image classification is the computer vision task of assigning a single categorical label from a predefined set to an entire digital input image.",
+      "explanation": "Image classification takes a 2D or 3D pixel array (Height x Width x Channels) and maps it to a discrete class probability distribution. Classical computer vision relied on handcrafted feature descriptors (SIFT, HOG, SURF) combined with SVMs. Modern image classification relies on deep Convolutional Neural Networks (ResNet, EfficientNet, ConvNeXt) and Vision Transformers (ViT). Benchmark milestones include the ImageNet Large Scale Visual Recognition Challenge (ILSVRC), where deep learning first surpassed human-level top-5 classification error.",
+      "example": "A medical imaging model taking a chest X-ray and classifying it as 'Pneumonia', 'Normal', or 'COVID-19'.",
+      "formula": "\\hat{y} = \\arg\\max_{c \\in C} \\text{Softmax}(z_c)",
+      "algorithm_steps": [
+        "Resize and normalize raw RGB pixel values (scale to [0, 1] or standardize with ImageNet mean/std)",
+        "Pass image through convolutional backbone or Vision Transformer patches",
+        "Extract global feature representation via Global Average Pooling",
+        "Compute class logits through dense linear classification head",
+        "Output predicted class using Softmax argmax"
+      ],
+      "advantages": [
+        "End-to-end feature learning eliminates the need for manual filter engineering",
+        "Enables ultra-fast batch inference on GPU/edge hardware"
+      ],
+      "limitations": [
+        "Does not locate or count objects within the scene (only answers 'what', not 'where')",
+        "Vulnerable to background shortcut learning (e.g. classifying a dog as a wolf because there is snow in the background)"
+      ],
+      "applications": [
+        "Automated medical radiology and pathology screening",
+        "Automated industrial defect detection on factory assembly lines",
+        "Content moderation and photo organization in cloud galleries"
+      ],
+      "related_topics": ["dl_cnn", "cv_object_detection", "cv_preprocessing"],
+      "suggested_followups": [
+        "Difference between Image Classification and Object Detection?",
+        "What is Vision Transformer (ViT)?",
+        "Explain Image Preprocessing."
+      ]
+    },
+    {
+      "id": "cv_object_detection",
+      "name": "Object Detection",
+      "category": "Module E — Computer Vision",
+      "category_id": "module_e",
+      "aliases": ["object detection", "bounding boxes", "two stage detectors", "single stage detectors", "rcnn", "faster rcnn"],
+      "keywords": ["object detection", "bounding box", "iou", "intersection over union", "faster rcnn", "yolo", "map", "mean average precision"],
+      "definition": "Object detection is the computer vision task of both identifying what objects are present in an image and localizing their exact positions using rectangular bounding boxes.",
+      "explanation": "Object detection combines classification (what is it?) and regression (where is it: x, y, width, height). Detection paradigms include: (1) Two-Stage Detectors (e.g. R-CNN, Fast R-CNN, Faster R-CNN): first propose candidate Regions of Interest (RoI) using a Region Proposal Network (RPN), then classify and refine each box (higher accuracy, slower); (2) Single-Stage Detectors (e.g. YOLO, SSD, RetinaNet): predict bounding boxes and class probabilities directly in a single forward pass across a dense grid (real-time speed). Accuracy is measured by Mean Average Precision (mAP) at various Intersection over Union (IoU) thresholds.",
+      "example": "An autonomous vehicle camera detecting 3 pedestrians, 2 bicycles, and 4 oncoming cars with precise coordinates [x, y, w, h] at 60 frames per second.",
+      "formula": "\\text{IoU} = \\frac{\\text{Area}(\\text{Box}_A \\cap \\text{Box}_B)}{\\text{Area}(\\text{Box}_A \\cup \\text{Box}_B)}, \\quad \\text{mAP} = \\frac{1}{|C|} \\sum_{c \\in C} \\text{AP}_c",
+      "algorithm_steps": [
+        "Input image is processed through backbone feature extractor (e.g. CSPDarknet or ResNet)",
+        "Generate multi-scale feature pyramids (FPN) to detect objects of varying sizes",
+        "Predict bounding box offsets (dx, dy, dw, dh), objectness confidence scores, and class probabilities",
+        "Filter out low-confidence boxes",
+        "Apply Non-Maximum Suppression (NMS) to eliminate redundant, overlapping bounding boxes"
+      ],
+      "advantages": [
+        "Provides rich spatial context and count information for multiple co-occurring objects",
+        "Modern single-stage detectors achieve real-time latency on edge computing devices"
+      ],
+      "limitations": [
+        "Heavily overlapping or small, distant objects remain challenging to resolve",
+        "Rectangular boxes include background pixels rather than exact object silhouettes"
+      ],
+      "applications": [
+        "Autonomous driving pedestrian and vehicle tracking",
+        "Automated retail checkout (Amazon Go-style camera tracking)",
+        "Drone surveillance and wildlife monitoring"
+      ],
+      "related_topics": ["cv_yolo", "cv_image_classification", "cv_image_segmentation"],
+      "suggested_followups": [
+        "What is Intersection over Union (IoU)?",
+        "How does Non-Maximum Suppression (NMS) work?",
+        "Explain YOLO."
+      ]
+    },
+    {
+      "id": "cv_image_segmentation",
+      "name": "Image Segmentation (Semantic vs Instance vs Panoptic)",
+      "category": "Module E — Computer Vision",
+      "category_id": "module_e",
+      "aliases": ["image segmentation", "semantic segmentation", "instance segmentation", "panoptic segmentation", "mask rcnn", "unet"],
+      "keywords": ["segmentation", "semantic segmentation", "instance segmentation", "panoptic", "pixel level", "mask rcnn", "unet", "dice coefficient"],
+      "definition": "Image segmentation is the pixel-level computer vision task of partitioning a digital image into multiple segments by assigning every individual pixel to a semantic category or distinct object instance.",
+      "explanation": "Segmentation types include: (1) Semantic Segmentation: labels every pixel with a class (e.g., all car pixels are red, all road pixels are grey), without distinguishing between distinct object individuals; (2) Instance Segmentation: detects distinct objects and generates a fine-grained pixel mask for each unique individual (e.g. Car 1 vs Car 2); (3) Panoptic Segmentation: unifies semantic and instance segmentation by segmenting both countable 'things' (pedestrians, cars) and uncountable background 'stuff' (sky, road, grass). Architectures include U-Net (encoder-decoder with skip connections for biomedical imaging) and Mask R-CNN.",
+      "example": "A surgical robot segmenting tumor margins from healthy liver tissue pixel-by-pixel with sub-millimeter precision.",
+      "formula": "\\text{Dice}(A, B) = \\frac{2 |A \\cap B|}{|A| + |B|}, \\quad \\text{Jaccard} = \\frac{|A \\cap B|}{|A \\cup B|}",
+      "algorithm_steps": [
+        "Extract spatial features through encoder contracting path",
+        "Maintain high-resolution spatial details via skip connections",
+        "Upsample through decoder expanding path using transposed convolutions or bilinear interpolation",
+        "Predict pixel-wise class distribution at original resolution",
+        "Evaluate using Mean Intersection-over-Union (mIoU) and Dice coefficient"
+      ],
+      "advantages": [
+        "Provides the most precise spatial and boundary understanding possible in computer vision",
+        "U-Net enables sub-pixel boundary demarcation vital for biomedical safety"
+      ],
+      "limitations": [
+        "Creating ground-truth pixel-level polygon masks is extremely expensive and labor-intensive",
+        "High computational and memory overhead during inference"
+      ],
+      "applications": [
+        "Radiation therapy oncology planning and organ segmentation",
+        "Autonomous driving drivable-surface lane segmentation",
+        "Satellite land-use and deforestation mapping"
+      ],
+      "related_topics": ["cv_object_detection", "cv_image_classification", "dl_cnn"],
+      "suggested_followups": [
+        "Difference between Semantic and Instance Segmentation?",
+        "What is the U-Net architecture?",
+        "What is the Dice Coefficient?"
+      ]
+    },
+    {
+      "id": "cv_cnn",
+      "name": "Convolutional Neural Networks in Computer Vision",
+      "category": "Module E — Computer Vision",
+      "category_id": "module_e",
+      "aliases": ["cnn in computer vision", "convnets in cv", "feature extraction in cv", "receptive field"],
+      "keywords": ["cnn", "receptive field", "feature pyramid", "spatial invariance", "kernels", "convolution in cv"],
+      "definition": "CNNs in Computer Vision serve as visual feature extractors that scan multi-channel pixel matrices with learnable spatial filters to extract invariant geometric, textural, and semantic hierarchies.",
+      "explanation": "In computer vision, raw images contain millions of correlated pixels. Standard MLPs would require millions of weights per layer and would fail when objects shift slightly in position. CNNs solve this via: (1) Receptive Fields: each neuron only processes a local patch; (2) Weight Sharing: the same filter convolves across the whole image, learning universal edge or texture detectors; (3) Pooling: progressively reduces resolution, expanding the effective receptive field so deeper layers 'see' broader contextual structures (from edges to eyes, then to full faces).",
+      "example": "A shallow 3x3 Sobel-like learned filter detecting horizontal edges in the first layer, while a 7x7 filter in layer 50 detects dog ears and car wheels.",
+      "formula": "O = \\left\\lfloor \\frac{W - K + 2P}{S} \\right\\rfloor + 1 \\quad (\\text{Output spatial dimension formula})",
+      "algorithm_steps": [],
+      "advantages": [
+        "Massive parameter reduction and translation equivariance",
+        "Transfer learning: pre-trained weights on ImageNet transfer well to specialized tasks"
+      ],
+      "limitations": [
+        "Receptive field grows linearly with depth, struggling to capture global relationships compared to self-attention"
+      ],
+      "applications": [
+        "Backbones for image classification, detection, segmentation, and video analysis"
+      ],
+      "related_topics": ["dl_cnn", "cv_image_classification", "cv_object_detection"],
+      "suggested_followups": [
+        "What is a Receptive Field?",
+        "How does Transfer Learning work in Computer Vision?",
+        "Compare CNNs and Vision Transformers."
+      ]
+    },
+    {
+      "id": "cv_yolo",
+      "name": "YOLO (You Only Look Once)",
+      "category": "Module E — Computer Vision",
+      "category_id": "module_e",
+      "aliases": ["yolo", "you only look once", "yolo detector", "real time object detection", "yolov8", "yolov5"],
+      "keywords": ["yolo", "you only look once", "single stage", "anchor boxes", "real time", "bounding box regression", "nms"],
+      "definition": "YOLO (You Only Look Once) is an ultra-fast, single-stage object detection algorithm that frames object detection as a single end-to-end regression problem directly from image pixels to bounding boxes and class probabilities.",
+      "explanation": "Introduced by Joseph Redmon et al. in 2016, YOLO revolutionized object detection by eliminating the slow region proposal stage. The image is divided into an S x S grid. If an object's center falls into a grid cell, that cell is responsible for detecting it. Each cell predicts B bounding boxes with confidence scores (Pr(Object) * IoU) and conditional class probabilities. In a single forward pass, YOLO processes the full image, reasoning globally about the scene. Successive iterations (YOLOv2 through YOLOv8, YOLOv11) added Anchor Boxes, Feature Pyramid Networks (FPN), Path Aggregation Networks (PANet), anchor-free heads, and decoupled heads.",
+      "example": "Running YOLOv8 on an edge drone camera detecting crop pests in agricultural fields at over 120 FPS in real time.",
+      "formula": "\\text{Confidence} = \\Pr(\\text{Object}) \\times \\text{IoU}_{\\text{pred}}^{\\text{truth}}, \\quad \\text{Loss} = \\mathcal{L}_{\\text{box}} + \\mathcal{L}_{\\text{obj}} + \\mathcal{L}_{\\text{cls}}",
+      "algorithm_steps": [
+        "Resize input image to fixed square resolution (e.g. 640x640)",
+        "Pass through Darknet/CSPDarknet backbone to extract multi-scale feature maps",
+        "Neck network (PANet/FPN) aggregates features across multiple resolutions",
+        "Detection head predicts box offsets, objectness scores, and class logits per anchor/grid cell",
+        "Filter predictions below confidence threshold and execute Non-Maximum Suppression (NMS)"
+      ],
+      "advantages": [
+        "Blazing fast inference speeds (30 to 150+ FPS) suitable for real-time video streams",
+        "Low false positive rate in background regions because it processes the full global image context"
+      ],
+      "limitations": [
+        "Historical YOLO versions struggled with groups of very small or densely clustered objects",
+        "Bounding box localization can be slightly less tight than multi-stage two-step detectors"
+      ],
+      "applications": [
+        "Traffic surveillance and license plate tracking",
+        "Sports analytics player and ball trajectory tracking",
+        "Robotics warehouse pick-and-place automation"
+      ],
+      "related_topics": ["cv_object_detection", "cv_image_classification", "dl_cnn"],
+      "suggested_followups": [
+        "Why is YOLO faster than Faster R-CNN?",
+        "What are Anchor Boxes in YOLO?",
+        "How does Non-Maximum Suppression work in YOLO?"
+      ]
+    },
+    {
+      "id": "cv_preprocessing",
+      "name": "Image Preprocessing and Data Augmentation",
+      "category": "Module E — Computer Vision",
+      "category_id": "module_e",
+      "aliases": ["image preprocessing", "computer vision preprocessing", "data augmentation in cv", "image transforms"],
+      "keywords": ["preprocessing", "augmentation", "resizing", "normalization", "color jitter", "random crop", "mixup", "cutmix"],
+      "definition": "Image preprocessing prepares raw digital image matrices into standardized numerical tensors, while Data Augmentation synthetically expands training diversity to prevent overfitting.",
+      "explanation": "Standard preprocessing steps include: Resizing (bilinear or bicubic interpolation to uniform dimensions like 224x224), Channel Normalization (scaling pixel values from [0, 255] to [0.0, 1.0] and subtracting dataset channel means), and Color Space Conversion (RGB, BGR, Grayscale, HSV). Data Augmentation techniques include: Geometric Transforms (random horizontal flips, rotations, crops, affine shifts), Photometric Transforms (color jitter, brightness, contrast, gaussian blur), and Advanced Synthesis (CutOut, MixUp: blending two images and their labels, CutMix: pasting an image patch onto another).",
+      "example": "Applying RandomHorizontalFlip(p=0.5) and ColorJitter(brightness=0.2) to multiply an aerial photography dataset by 10x before training.",
+      "formula": "x_{\\text{norm}} = \\frac{x - \\mu}{\\sigma}, \\quad \\tilde{x} = \\lambda x_A + (1 - \\lambda) x_B \\quad (\\text{MixUp})",
+      "algorithm_steps": [
+        "Decode raw image bytes (JPEG/PNG) into multidimensional NumPy / Tensor arrays",
+        "Resize to model input dimensions while optionally preserving aspect ratio via letterboxing",
+        "Normalize channels using target dataset mean and standard deviation",
+        "During training: apply stochastic data augmentations (flips, crops, CutMix)",
+        "Batch images into 4D tensor (Batch x Channels x Height x Width)"
+      ],
+      "advantages": [
+        "Crucial for model convergence, training stability, and combating overfitting",
+        "Data augmentation artificially introduces invariance to lighting, orientation, and occlusion"
+      ],
+      "limitations": [
+        "Excessive or inappropriate augmentations (e.g. vertical flip on digits turning 6 into 9) can corrupt ground-truth labels"
+      ],
+      "applications": [
+        "Standard data loader pipeline in all computer vision training and inference workflows"
+      ],
+      "related_topics": ["cv_image_classification", "ml_overfitting_evaluation", "dl_cnn"],
+      "suggested_followups": [
+        "What is MixUp and CutMix augmentation?",
+        "Why do we normalize images with ImageNet mean and std?",
+        "What is Letterboxing in image resizing?"
+      ]
+    },
+    {
+      "id": "cv_applications_limitations",
+      "name": "Computer Vision Applications and Limitations",
+      "category": "Module E — Computer Vision",
+      "category_id": "module_e",
+      "aliases": ["computer vision applications", "cv limitations", "challenges in computer vision", "cv ethics and bias"],
+      "keywords": ["applications", "limitations", "occlusion", "lighting variation", "viewpoint variation", "adversarial patches", "privacy"],
+      "definition": "Computer Vision enables machines to derive high-level understanding from visual media, but faces severe real-world challenges including occlusion, lighting shifts, adversarial patches, and privacy hazards.",
+      "explanation": "Core visual challenges include: (1) Viewpoint Variation (objects look radically different from alternative angles); (2) Scale and Occlusion (objects partially hidden behind obstacles); (3) Illumination Variation (glare, shadows, night conditions); (4) Adversarial Vulnerability (physical adversarial patches on stop signs or clothing fooling classifiers); (5) Privacy and Ethics (unregulated public facial recognition and mass biometric surveillance).",
+      "example": "A facial recognition model exhibiting significantly higher false positive error rates on darker-skinned individuals due to non-diverse training data.",
+      "formula": "",
+      "algorithm_steps": [],
+      "advantages": [
+        "Automates critical real-world sensory tasks with superhuman reaction speed (e.g. emergency braking in self-driving cars)"
+      ],
+      "limitations": [
+        "Lacks genuine 3D physical and commonsense reasoning about unseen object backsides or physics",
+        "High susceptibility to sensory noise (fog, heavy rain, sensor glare)"
+      ],
+      "applications": [
+        "Medical diagnosis, autonomous vehicles, retail automation, agricultural robotics, satellite telemetry"
+      ],
+      "related_topics": ["cv_image_classification", "cv_object_detection", "ai_ethics_limitations"],
+      "suggested_followups": [
+        "What is Viewpoint Variation?",
+        "What are physical adversarial attacks in Computer Vision?",
+        "How does lighting affect computer vision accuracy?"
+      ]
+    }
+  ]
+}
